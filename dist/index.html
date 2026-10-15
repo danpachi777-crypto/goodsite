@@ -6,9 +6,9 @@
   <meta name="theme-color" content="#101a23">
   <meta name="description" content="自動車整備工場サイトのデザイン・オープニング演出デモ。">
   <title>自動車整備工場 | ホームページデモ</title>
-  <link rel="preload" as="image" href="images/shutter-metal-v2.png">
-  <link rel="preload" as="image" href="images/garage-hero-v3.png">
-  <link rel="preload" as="image" href="images/engine-inspection-v4.png">
+  <link rel="preload" as="image" href="images/shutter-metal-v3.jpg">
+  <link rel="preload" as="image" href="images/garage-hero-v4.jpg">
+  <link rel="preload" as="image" href="images/engine-inspection-v5.jpg">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap');
     :root { --navy:#101a23; --navy2:#172633; --ink:#17232c; --pale:#f0f1ee; --accent:#9ab9c9; --white:#f7f8f5; font-family:"Noto Sans JP",sans-serif; color:var(--white); background:var(--navy); }
@@ -39,8 +39,8 @@
     .hero { position:relative; min-height:720px; height:100svh; max-height:1040px; overflow:hidden; isolation:isolate; display:flex; align-items:center; background:#101820; }
     .hero-slide { position:absolute; inset:0; z-index:-3; opacity:0; background-size:cover; background-position:center 45%; transform:scale(1.035); transition:opacity 1.5s ease,transform 7s linear; }
     .hero-slide.active { opacity:1; transform:scale(1); }
-    .hero-slide.one { background-image:url('images/garage-hero-v3.png'); }
-    .hero-slide.two { background-image:url('images/engine-inspection-v4.png'); background-position:center 47%; }
+    .hero-slide.one { background-image:url('images/garage-hero-v4.jpg'); }
+    .hero-slide.two { background-image:url('images/engine-inspection-v5.jpg'); background-position:center 47%; }
     .hero::before { content:""; position:absolute; inset:0; z-index:-2; background:linear-gradient(90deg,#071018df 0%,#071018aa 37%,#07101835 75%,#07101826 100%),linear-gradient(0deg,#0710189c,transparent 36%); }
     .hero::after { content:""; position:absolute; z-index:-1; inset:0; opacity:.17; pointer-events:none; background:linear-gradient(90deg,transparent calc(50% - 1px),#e2e9e9 50%,transparent calc(50% + 1px)); }
     .hero-content { padding-top:108px; padding-bottom:100px; }
@@ -76,7 +76,7 @@
     .text-link { display:inline-flex; align-items:center; gap:23px; border-bottom:1px solid #233843; padding:0 0 11px; color:#223843; font-size:13px; font-weight:600; text-decoration:none; transition:gap .25s,color .25s; }
     .text-link:hover { gap:31px; color:#6b8d9d; }
     .feature-photo { position:relative; background:#121f29; padding:95px 0; min-height:680px; overflow:hidden; }
-    .feature-photo::before { content:""; position:absolute; inset:0; background:linear-gradient(90deg,#07131ce8 0%,#07131c98 44%,#07131c1e 100%),url('images/engine-inspection-v4.png') center/cover no-repeat; }
+    .feature-photo::before { content:""; position:absolute; inset:0; background:linear-gradient(90deg,#07131ce8 0%,#07131c98 44%,#07131c1e 100%),url('images/engine-inspection-v5.jpg') center/cover no-repeat; }
     .feature-photo .container { position:relative; display:flex; min-height:490px; align-items:end; }
     .feature-photo h2 { font-size:clamp(38px,5.5vw,77px); line-height:1.39; letter-spacing:-.065em; font-weight:600; margin:25px 0 25px; }
     .feature-photo p { max-width:470px; font-size:14px; line-height:2.05; color:#dce5e6; }
@@ -130,7 +130,7 @@
     .replay:hover { background:#345464; }
     .intro { position:fixed; z-index:100; inset:0; visibility:hidden; pointer-events:none; overflow:hidden; }
     .intro.active { visibility:visible; pointer-events:auto; }
-    .door { position:absolute; inset:0 14px 0; z-index:2; transform:translateY(0); will-change:transform; background-color:#747a7b; background-image:linear-gradient(90deg,#0005 0%,#fff1 13%,transparent 33%,#0002 63%,#0006 100%),url('images/shutter-metal-v2.png'); background-size:100% 100%,cover; background-position:center; box-shadow:inset 8px 0 18px #0006,inset -8px 0 18px #0007,0 24px 34px #000b; }
+    .door { position:absolute; inset:0 14px 0; z-index:2; transform:translateY(0); will-change:transform; background-color:#747a7b; background-image:linear-gradient(90deg,#0005 0%,#fff1 13%,transparent 33%,#0002 63%,#0006 100%),url('images/shutter-metal-v3.jpg'); background-size:100% 100%,cover; background-position:center; box-shadow:inset 8px 0 18px #0006,inset -8px 0 18px #0007,0 24px 34px #000b; }
     .door::before { content:""; position:absolute; inset:0; opacity:.23; mix-blend-mode:multiply; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8 .12' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E"); }
     .door::after { content:""; position:absolute; bottom:0; left:0; right:0; height:21px; background:linear-gradient(#919898 0 2px,#343e40 3px 7px,#151d20 8px 17px,#080c0e 18px); box-shadow:0 8px 15px #0009; }
     .rail { position:absolute; z-index:4; top:0; bottom:0; width:16px; background:linear-gradient(90deg,#060a0c,#51595a 24%,#9ea5a3 37%,#283133 65%,#0c1215); box-shadow:0 0 14px #000b; }
@@ -174,7 +174,7 @@
       .intro-text { padding-top:0; margin-top:30px; }
       .intro-text p { font-size:13px; }
       .feature-photo { min-height:590px; padding:70px 0; }
-      .feature-photo::before { background:linear-gradient(90deg,#07131ce2,#07131c62),url('images/engine-inspection-v4.png') 63% center/cover no-repeat; }
+      .feature-photo::before { background:linear-gradient(90deg,#07131ce2,#07131c62),url('images/engine-inspection-v5.jpg') 63% center/cover no-repeat; }
       .feature-photo .container { min-height:450px; }
       .feature-photo p { font-size:13px; }
       .section-heading { display:block; margin-bottom:38px; }
@@ -239,7 +239,7 @@
           <a class="service-row reveal" href="#contact"><small>02</small><h3>修理・メンテナンス<span>REPAIR & MAINTENANCE</span></h3><span class="arrow">↗</span></a>
           <a class="service-row reveal" href="#contact"><small>03</small><h3>タイヤ・オイル交換<span>TIRE & OIL SERVICE</span></h3><span class="arrow">↗</span></a>
         </div>
-        <div class="service-image reveal"><img src="images/brake-service-v4.png" alt="ブレーキ周辺を点検する整備士のイメージ" loading="lazy"><span>※ 生成したイメージ写真です</span></div>
+        <div class="service-image reveal"><img src="images/brake-service-v5.jpg" alt="ブレーキ周辺を点検する整備士のイメージ" loading="lazy"><span>※ 生成したイメージ写真です</span></div>
       </div>
     </section>
     <section class="process" id="process">
