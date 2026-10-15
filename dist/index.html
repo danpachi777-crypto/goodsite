@@ -3,132 +3,147 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101a23">
-  <meta name="description" content="自動車整備工場サイトのデザイン・オープニング演出デモ。">
+  <meta name="theme-color" content="#f8f9f5">
+  <meta name="description" content="自動車整備工場ホームページのデザインデモ。明るい工場写真と整備事例の見せ方をご覧いただけます。">
   <title>自動車整備工場 | ホームページデモ</title>
   <link rel="preload" as="image" href="images/shutter-metal-v3.jpg">
-  <link rel="preload" as="image" href="images/garage-hero-v4.jpg">
-  <link rel="preload" as="image" href="images/engine-inspection-v5.jpg">
+  <link rel="preload" as="image" href="images/garage-daylight-v7.jpg">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap');
-    :root { --navy:#19383e; --navy2:#244950; --ink:#244044; --pale:#f1f5f0; --accent:#b7d9cf; --white:#f8faf6; font-family:"Noto Sans JP",sans-serif; color:var(--white); background:var(--navy); }
+    :root { --ink:#233a38; --soft:#5c7370; --green:#356f63; --green-deep:#24574e; --blue:#7395a3; --line:#dbe5df; --wash:#f4f7f3; --white:#fff; font-family:"Noto Sans JP",sans-serif; color:var(--ink); background:var(--white); }
     * { box-sizing:border-box; }
     html { scroll-behavior:smooth; }
     body { margin:0; min-width:320px; }
+    body.dialog-open { overflow:hidden; }
     a { color:inherit; }
-    button,input { font:inherit; }
-    button { cursor:pointer; }
+    button { font:inherit; cursor:pointer; }
     img { display:block; max-width:100%; }
-    .container { width:min(1240px,calc(100% - 72px)); margin-inline:auto; }
+    .container { width:min(1240px,calc(100% - 80px)); margin-inline:auto; }
     .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
-    .eyebrow { font:600 13px "Barlow Condensed",sans-serif; letter-spacing:.28em; color:var(--accent); }
-    .section-index { display:flex; align-items:center; gap:13px; font:600 12px "Barlow Condensed",sans-serif; letter-spacing:.23em; color:var(--accent); }
-    .section-index::before { content:""; display:block; height:1px; width:29px; background:currentColor; }
-    .header { position:fixed; top:0; left:0; right:0; z-index:30; border-bottom:1px solid #e2f1e92b; transition:background .45s,border-color .45s,box-shadow .45s; }
-    .header.scrolled { background:#19383ef2; border-color:#d9efe51f; box-shadow:0 12px 30px #06282c2e; backdrop-filter:blur(18px); }
-    .header-inner { display:flex; align-items:center; justify-content:space-between; gap:30px; min-height:83px; }
-    .site-name { color:#fff; text-decoration:none; white-space:nowrap; font:600 22px "Barlow Condensed",sans-serif; letter-spacing:.12em; }
-    .site-name small { display:block; margin-top:4px; color:#d3e5dd; font:500 9px "Noto Sans JP",sans-serif; letter-spacing:.14em; }
-    .nav { display:flex; align-items:center; gap:32px; }
-    .nav a { position:relative; font-size:11px; font-weight:600; letter-spacing:.05em; text-decoration:none; white-space:nowrap; }
-    .nav a:not(.nav-contact)::after { content:""; position:absolute; left:0; right:100%; height:1px; bottom:-7px; background:var(--accent); transition:right .3s; }
-    .nav a:not(.nav-contact):hover::after { right:0; }
-    .nav-contact { display:inline-flex; align-items:center; gap:20px; padding:14px 18px; border:1px solid #d8eee37a; border-radius:12px; background:#c8e7d51e; box-shadow:inset 0 1px #ffffff24; }
-    .nav-contact:hover { background:#b5d7c856; }
-    .menu-toggle { display:none; border:0; color:#fff; background:none; font-size:12px; letter-spacing:.16em; }
-    .hero { position:relative; min-height:720px; height:100svh; max-height:1040px; overflow:hidden; isolation:isolate; display:flex; align-items:center; background:#19373c; }
-    .hero-slide { position:absolute; inset:0; z-index:-3; opacity:0; background-size:cover; background-position:center 45%; transform:scale(1.035); transition:opacity 1.5s ease,transform 7s linear; }
-    .hero-slide.active { opacity:1; transform:scale(1); }
-    .hero-slide.one { background-image:url('images/garage-hero-v4.jpg'); }
-    .hero-slide.two { background-image:url('images/engine-inspection-v5.jpg'); background-position:center 47%; }
-    .hero::before { content:""; position:absolute; inset:0; z-index:-2; background:linear-gradient(90deg,#0f3037db 0%,#12383ca3 38%,#102f3329 76%,#102e3320 100%),linear-gradient(0deg,#10353a87,transparent 39%); }
-    .hero::after { content:""; position:absolute; z-index:-1; inset:0; opacity:.11; pointer-events:none; background:linear-gradient(90deg,transparent calc(50% - 1px),#e7f4ec 50%,transparent calc(50% + 1px)); }
-    .hero-content { padding-top:108px; padding-bottom:100px; }
-    .hero h1 { margin:0; font-size:clamp(52px,7vw,112px); line-height:1.3; font-weight:500; letter-spacing:-.075em; text-shadow:0 6px 30px #092b2a8c; }
-    .hero-sub { margin:27px 0 0; padding-left:2px; color:#eef5ed; font-size:15px; font-weight:400; line-height:2.05; text-shadow:0 3px 14px #092826a8; }
-    .hero-actions { display:flex; gap:13px; flex-wrap:wrap; margin-top:39px; }
-    .button { display:inline-flex; align-items:center; justify-content:space-between; gap:25px; min-width:217px; min-height:60px; padding:0 23px; border:1px solid transparent; border-radius:13px; text-decoration:none; font-size:13px; font-weight:600; letter-spacing:.03em; box-shadow:0 16px 38px #09262347,inset 0 1px #ffffff37; transition:background .28s,color .28s,transform .28s,box-shadow .28s; }
-    .button:hover { transform:translateY(-2px); box-shadow:0 20px 38px #09262355,inset 0 1px #ffffff50; }
-    .button span { font:400 24px "Barlow Condensed",sans-serif; line-height:1; }
-    .button.light { background:linear-gradient(135deg,#e2f0e5,#b8d8cf); color:#1d4143; }
-    .button.light:hover { background:linear-gradient(135deg,#f3faf2,#cde6de); }
-    .button.outline { border-color:#dbefe17d; background:#cdece526; color:#f8faf6; backdrop-filter:blur(15px); }
-    .button.outline:hover { background:#d8eae0; color:#1c3e43; }
-    .hero-bottom { position:absolute; bottom:0; left:0; right:0; border-top:1px solid #e1f0e446; }
-    .hero-bottom-inner { display:flex; align-items:center; justify-content:space-between; gap:20px; min-height:76px; }
-    .hero-bottom span { font:500 11px "Barlow Condensed",sans-serif; letter-spacing:.21em; color:#e3e9e9; }
-    .slide-controls { display:flex; align-items:center; gap:18px; }
-    .slide-count { min-width:38px; }
-    .slide-progress { width:115px; height:1px; background:#ffffff75; overflow:hidden; }
-    .slide-progress i { display:block; width:50%; height:100%; background:#e8f0f1; transition:transform 1s; }
-    .slide-progress i.second { transform:translateX(100%); }
-    .photo-credit { position:absolute; right:36px; bottom:92px; color:#ffffffa8; font-size:10px; writing-mode:vertical-rl; letter-spacing:.08em; }
-    .hero-ready .header-inner,.hero-ready .hero-content,.hero-ready .hero-bottom { opacity:1; transform:translateY(0); }
-    .header-inner,.hero-content,.hero-bottom { opacity:0; transform:translateY(15px); transition:opacity .8s ease,transform 1s cubic-bezier(.2,.7,.2,1); }
-    .hero-ready .hero-content { transition-delay:.12s; }
-    .hero-ready .hero-bottom { transition-delay:.24s; }
-    .intro-copy { background:linear-gradient(135deg,#f7f9f4,#e9f1eb); color:var(--ink); padding:122px 0 130px; }
-    .intro-copy .section-index { color:#5c8b85; }
-    .intro-grid { display:grid; grid-template-columns:.85fr 1.15fr; align-items:center; gap:8%; }
-    .intro-copy h2 { font-size:clamp(37px,4.6vw,68px); font-weight:600; letter-spacing:-.07em; line-height:1.45; margin:29px 0 0; }
-    .intro-copy h2 b { color:#5f908d; font-weight:600; }
-    .intro-text { padding-top:33px; }
-    .intro-text p { margin:0 0 28px; max-width:580px; color:#526b68; font-size:15px; line-height:2.15; }
-    .text-link { display:inline-flex; align-items:center; gap:23px; border-bottom:1px solid #4c7a76; padding:0 0 11px; color:#315f5e; font-size:13px; font-weight:600; text-decoration:none; transition:gap .25s,color .25s; }
-    .text-link:hover { gap:31px; color:#6b9c95; }
-    .feature-photo { position:relative; background:#1b3d42; padding:95px 0; min-height:680px; overflow:hidden; }
-    .feature-photo::before { content:""; position:absolute; inset:0; background:linear-gradient(90deg,#10343dda 0%,#173e4390 44%,#14383d12 100%),url('images/engine-inspection-v5.jpg') center/cover no-repeat; }
-    .feature-photo .container { position:relative; display:flex; min-height:490px; align-items:end; }
-    .feature-photo h2 { font-size:clamp(38px,5.5vw,77px); line-height:1.39; letter-spacing:-.065em; font-weight:600; margin:25px 0 25px; }
-    .feature-photo p { max-width:470px; font-size:14px; line-height:2.05; color:#e0efe9; }
-    .services { background:linear-gradient(160deg,#1e4349,#17373f 70%); padding:118px 0 130px; }
-    .section-heading { display:flex; align-items:end; justify-content:space-between; gap:32px; margin-bottom:50px; }
-    .section-heading h2 { font-size:clamp(42px,5.4vw,78px); line-height:1.1; font-family:"Barlow Condensed","Noto Sans JP",sans-serif; font-weight:500; letter-spacing:.035em; margin:19px 0 0; }
-    .section-heading p { max-width:410px; margin:0 0 3px; color:#c1d9d3; font-size:13px; line-height:2; }
-    .service-list { border-top:1px solid #d0e8db46; }
-    .service-row { position:relative; display:grid; grid-template-columns:75px 1fr 48px; align-items:center; gap:26px; min-height:154px; border-bottom:1px solid #d0e8db46; text-decoration:none; overflow:hidden; }
-    .service-row::before { content:""; position:absolute; inset:0; background:linear-gradient(90deg,#c7e9cf2b,#9dc7cb0b); opacity:0; transition:opacity .35s ease; }
-    .service-row:hover::before,.service-row:focus-visible::before { opacity:1; }
+    .kicker { display:flex; align-items:center; gap:12px; color:var(--green); font:600 12px "Barlow Condensed",sans-serif; letter-spacing:.23em; }
+    .kicker::before { content:""; width:26px; height:1px; background:currentColor; }
+    .header { position:fixed; z-index:30; inset:0 0 auto; background:#ffffffed; border-bottom:1px solid #dce7e2a6; backdrop-filter:blur(16px); transition:box-shadow .3s; }
+    .header.scrolled { box-shadow:0 10px 26px #284e4310; }
+    .header-inner { display:flex; align-items:center; justify-content:space-between; min-height:78px; gap:25px; }
+    .site-name { text-decoration:none; color:var(--ink); font:600 22px "Barlow Condensed",sans-serif; letter-spacing:.13em; white-space:nowrap; }
+    .site-name small { display:block; margin-top:2px; color:#78908a; font:500 9px "Noto Sans JP",sans-serif; letter-spacing:.12em; }
+    .nav { display:flex; align-items:center; gap:31px; }
+    .nav a { position:relative; padding:9px 0; font-size:11px; font-weight:600; text-decoration:none; white-space:nowrap; transition:color .25s; }
+    .nav a::after { content:""; position:absolute; left:0; right:100%; bottom:2px; height:1px; background:var(--green); transition:right .32s; }
+    .nav a:hover { color:var(--green); }
+    .nav a:hover::after { right:0; }
+    .nav-contact { color:var(--green); }
+    .nav-contact span { display:inline-block; margin-left:8px; transition:transform .25s; }
+    .nav-contact:hover span { transform:translate(3px,-3px); }
+    .menu-toggle { display:none; border:0; padding:10px 0; background:none; color:var(--ink); font-size:12px; letter-spacing:.12em; }
+    .hero { position:relative; isolation:isolate; height:min(840px,100svh); min-height:660px; overflow:hidden; background:#edf1ed; }
+    .hero-image { position:absolute; inset:78px 0 0; z-index:-2; background:url('images/garage-daylight-v7.jpg') center 52%/cover no-repeat; transform:scale(1.025); transition:transform 8s ease-out; }
+    .hero-ready .hero-image { transform:scale(1); }
+    .hero::before { content:""; position:absolute; z-index:-1; inset:78px 0 0; background:linear-gradient(90deg,#f8faf7ee 0%,#f8faf7cd 25%,#f7faf789 46%,#f7faf700 72%),linear-gradient(0deg,#eff4ee76,transparent 33%); }
+    .hero-content { position:relative; padding-top:clamp(220px,29vh,320px); }
+    .hero h1 { margin:0; color:#263f3d; font-size:clamp(51px,6.9vw,96px); line-height:1.38; font-weight:500; letter-spacing:-.08em; }
+    .hero-sub { margin:23px 0 0; color:#415a55; font-size:14px; line-height:2.1; font-weight:500; }
+    .hero-actions { display:flex; gap:34px; flex-wrap:wrap; margin-top:42px; }
+    .action-link { display:inline-flex; align-items:center; gap:18px; position:relative; padding:10px 1px 14px; color:var(--green-deep); font-size:14px; font-weight:600; text-decoration:none; transition:color .25s; }
+    .action-link::after { content:""; position:absolute; bottom:4px; left:0; right:0; height:1px; background:var(--green); transition:height .25s,background .25s; }
+    .action-link:hover { color:#163c35; }
+    .action-link:hover::after { height:3px; background:#2d806d; }
+    .action-link .arrow { display:inline-grid; place-items:center; width:32px; height:32px; border-radius:50%; background:#e5f0e8; font:400 19px "Barlow Condensed",sans-serif; transition:transform .25s,background .25s,color .25s; }
+    .action-link:hover .arrow { transform:translate(3px,-3px); background:var(--green); color:white; }
+    .hero-foot { position:absolute; inset:auto 0 0; }
+    .hero-foot .container { display:flex; justify-content:space-between; align-items:center; padding-bottom:22px; color:#627975; font:600 11px "Barlow Condensed",sans-serif; letter-spacing:.2em; }
+    .hero-foot .concept { font:500 10px "Noto Sans JP",sans-serif; letter-spacing:.08em; }
+    .intro-copy { padding:132px 0 140px; background:#fff; }
+    .intro-grid { display:grid; grid-template-columns:1fr .9fr; gap:12%; }
+    .intro-copy h2 { margin:34px 0 0; font-size:clamp(36px,4.7vw,67px); line-height:1.52; font-weight:500; letter-spacing:-.07em; }
+    .intro-copy h2 em { color:var(--green); font-style:normal; }
+    .intro-text { padding-top:76px; }
+    .intro-text p { margin:0; color:var(--soft); font-size:15px; line-height:2.25; }
+    .text-link { display:inline-flex; align-items:center; gap:38px; margin-top:27px; padding:8px 0 12px; border-bottom:1px solid #94b3a5; color:var(--green-deep); font-size:13px; font-weight:600; text-decoration:none; transition:gap .3s,color .3s; }
+    .text-link:hover { gap:49px; color:#173d35; }
+    .text-link span { font-size:21px; line-height:1; }
+    .work { padding:105px 0 122px; background:var(--wash); }
+    .section-heading { display:flex; align-items:end; justify-content:space-between; gap:30px; margin-bottom:45px; }
+    .section-heading h2 { margin:22px 0 0; font-size:clamp(39px,4.8vw,68px); line-height:1.3; font-weight:500; letter-spacing:-.065em; }
+    .section-heading p { max-width:390px; margin:0 0 8px; color:var(--soft); font-size:13px; line-height:2; }
+    .work-filters { display:flex; gap:26px; margin-bottom:24px; border-bottom:1px solid #d5e0d8; }
+    .work-filter { position:relative; border:0; background:none; padding:0 1px 17px; color:#718782; font-size:12px; font-weight:600; }
+    .work-filter::after { content:""; position:absolute; left:0; right:100%; bottom:-1px; height:2px; background:var(--green); transition:right .3s; }
+    .work-filter:hover,.work-filter.active { color:var(--green-deep); }
+    .work-filter:hover::after,.work-filter.active::after { right:0; }
+    .work-grid { display:grid; grid-template-columns:1.35fr 1fr 1fr; gap:20px; align-items:start; }
+    .work-card { display:block; padding:0; border:0; background:none; color:inherit; text-align:left; }
+    .work-card[hidden] { display:none; }
+    .work-photo { position:relative; display:block; overflow:hidden; aspect-ratio:4/4.35; background:#dde6e0; }
+    .work-card:first-child .work-photo { aspect-ratio:4/4.35; }
+    .work-photo img { width:100%; height:100%; object-fit:cover; transition:transform .6s cubic-bezier(.2,.65,.2,1),filter .4s; }
+    .work-card:nth-child(1) img { object-position:64% center; }
+    .work-card:nth-child(2) img { object-position:44% center; }
+    .work-card:nth-child(3) img { object-position:45% center; }
+    .work-card:hover img,.work-card:focus-visible img { transform:scale(1.055); filter:saturate(1.08); }
+    .work-photo::after { content:""; position:absolute; inset:0; background:#294b3b00; transition:background .35s; }
+    .work-card:hover .work-photo::after,.work-card:focus-visible .work-photo::after { background:#294b3b16; }
+    .work-open { position:absolute; z-index:1; bottom:18px; right:18px; display:grid; place-items:center; width:48px; height:48px; border-radius:50%; background:#fffffff0; color:var(--green); font-size:23px; transition:transform .3s,background .3s,color .3s; }
+    .work-card:hover .work-open,.work-card:focus-visible .work-open { transform:rotate(45deg); background:var(--green); color:#fff; }
+    .work-meta { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:21px; color:#739088; font:600 11px "Barlow Condensed",sans-serif; letter-spacing:.16em; }
+    .work-meta small { font:500 11px "Noto Sans JP",sans-serif; letter-spacing:.05em; }
+    .work-card strong { display:block; margin-top:10px; font-size:clamp(17px,1.7vw,23px); line-height:1.5; font-weight:500; }
+    .work-note { margin:35px 0 0; color:#789087; font-size:11px; }
+    .feature { position:relative; min-height:610px; display:flex; align-items:center; overflow:hidden; background:#e8ede8; }
+    .feature::before { content:""; position:absolute; inset:0; background:url('images/engine-daylight-v7.jpg') center 48%/cover no-repeat; }
+    .feature::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,#173730c2 0%,#244b3a8d 34%,#234d3a0a 74%); }
+    .feature .container { position:relative; z-index:1; }
+    .feature .kicker { color:#c5e1d6; }
+    .feature h2 { margin:28px 0 20px; color:#fff; font-size:clamp(41px,5.3vw,75px); line-height:1.45; font-weight:500; letter-spacing:-.065em; }
+    .feature p { max-width:480px; margin:0; color:#eef7f0; font-size:14px; line-height:2.15; }
+    .services { padding:125px 0 135px; background:#fff; }
+    .service-list { border-top:1px solid var(--line); }
+    .service-row { position:relative; display:grid; grid-template-columns:100px 1fr 50px; align-items:center; gap:20px; min-height:139px; padding:0 27px 0 5px; border-bottom:1px solid var(--line); color:var(--ink); text-decoration:none; overflow:hidden; transition:padding .35s,color .35s; }
+    .service-row::before { content:""; position:absolute; inset:0; background:#eff6f1; transform:translateX(-101%); transition:transform .45s cubic-bezier(.2,.7,.2,1); }
+    .service-row:hover::before,.service-row:focus-visible::before { transform:translateX(0); }
+    .service-row:hover,.service-row:focus-visible { padding-left:25px; color:var(--green-deep); }
     .service-row > * { position:relative; }
-    .service-row small { color:#a9d3c3; font:600 17px "Barlow Condensed",sans-serif; letter-spacing:.12em; }
-    .service-row h3 { margin:0; font-size:clamp(21px,2.6vw,36px); font-weight:500; letter-spacing:-.04em; }
-    .service-row h3 span { display:block; margin-top:8px; color:#b9d0d1; font:500 13px "Barlow Condensed",sans-serif; letter-spacing:.2em; }
-    .service-row:hover h3 span,.service-row:hover small { color:#e7f5e9; }
-    .service-row .arrow { font-size:28px; font-weight:400; text-align:right; }
-    .service-image { margin-top:64px; position:relative; aspect-ratio:2.5; overflow:hidden; border-radius:18px; box-shadow:0 24px 55px #092b3140; }
-    .service-image img { width:100%; height:100%; object-fit:cover; object-position:center 43%; filter:saturate(.82); }
-    .service-image::after { content:""; position:absolute; inset:0; background:linear-gradient(0deg,#17373fac,transparent 58%); }
-    .service-image span { position:absolute; z-index:1; bottom:24px; left:30px; color:#fff; font-size:11px; letter-spacing:.11em; }
-    .process { background:#edf3ef; color:var(--ink); padding:120px 0 127px; }
-    .process .section-index { color:#5c8b85; }
-    .process .section-heading h2 { font-family:"Noto Sans JP",sans-serif; font-size:clamp(33px,4.5vw,64px); font-weight:600; letter-spacing:-.06em; }
-    .process .section-heading p { color:#5c7774; }
-    .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-    .step { min-height:270px; padding:34px 32px 28px; border-radius:18px; background:#ffffffba; box-shadow:0 18px 45px #234e3d0d,inset 0 1px #fff; }
-    .step:not(:first-child) { padding-left:32px; }
-    .step:last-child { border:0; }
-    .step-num { color:#6c9f94; font:500 54px "Barlow Condensed",sans-serif; line-height:1; }
-    .step h3 { margin:24px 0 14px; font-size:19px; font-weight:600; }
-    .step p { color:#5d7470; font-size:13px; line-height:1.9; margin:0; }
-    .contact { position:relative; background:linear-gradient(130deg,#285b5d,#1d4653 77%); padding:115px 0 120px; overflow:hidden; }
-    .contact::before { content:""; position:absolute; right:-140px; top:-230px; width:760px; height:760px; border-radius:50%; background:radial-gradient(circle,#a9d9ba38,transparent 67%); }
-    .contact .container { position:relative; }
-    .contact h2 { margin:24px 0 22px; font-size:clamp(40px,5.5vw,76px); line-height:1.38; font-weight:600; letter-spacing:-.065em; }
-    .contact > .container > p { color:#d1e5dc; font-size:14px; line-height:2; }
-    .contact-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:50px; }
-    .contact-card { min-height:166px; border-radius:20px; background:linear-gradient(135deg,#d4eee42e,#bedddd15); padding:28px 29px; box-shadow:inset 0 1px #ffffff3b,0 18px 40px #103b3f2b; }
-    .contact-card small { display:block; color:#c5e4d9; font:600 13px "Barlow Condensed",sans-serif; letter-spacing:.22em; }
-    .contact-card strong { display:flex; align-items:center; justify-content:space-between; margin-top:26px; font-size:24px; font-weight:500; }
-    .contact-card strong span { display:grid; place-items:center; width:42px; height:42px; border-radius:50%; background:#bfe0d22b; color:#e7f5ec; font:400 27px "Barlow Condensed",sans-serif; }
-    .demo-note { margin-top:24px; color:#cee4dc; font-size:11px; }
-    .footer { background:#17383d; color:#c3d9d4; padding:39px 0; }
-    .footer-inner { display:flex; justify-content:space-between; align-items:end; gap:30px; }
-    .footer strong { color:#fff; font:600 21px "Barlow Condensed",sans-serif; letter-spacing:.12em; }
-    .footer p { margin:8px 0 0; font-size:11px; line-height:1.8; }
-    .footer a { font-size:11px; text-decoration:none; border-bottom:1px solid #a9d7c5; padding-bottom:4px; }
-    .replay { position:fixed; z-index:31; bottom:18px; right:18px; padding:11px 15px; border-radius:11px; background:#1f4c50ed; color:#e9f4ed; border:1px solid #b4dccc89; box-shadow:0 12px 30px #123b3f59; font-size:11px; opacity:0; visibility:hidden; transition:opacity .3s,background .3s; }
+    .service-row small { color:#8ca9a1; font:600 17px "Barlow Condensed",sans-serif; }
+    .service-row h3 { margin:0; font-size:clamp(21px,2.4vw,31px); font-weight:500; }
+    .service-row h3 span { display:block; margin-top:8px; color:#88a09b; font:500 12px "Barlow Condensed",sans-serif; letter-spacing:.16em; }
+    .service-row .arrow { font:400 28px "Barlow Condensed",sans-serif; text-align:right; transition:transform .3s; }
+    .service-row:hover .arrow { transform:translate(4px,-4px); }
+    .process { padding:118px 0 132px; background:#f7f9f7; }
+    .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:36px; border-top:1px solid var(--line); }
+    .step { padding:29px 12px 0 0; }
+    .step-num { color:#6b9c8e; font:500 46px "Barlow Condensed",sans-serif; }
+    .step h3 { margin:15px 0 13px; font-size:19px; font-weight:600; }
+    .step p { margin:0; color:var(--soft); font-size:13px; line-height:2; }
+    .contact { padding:120px 0 130px; background:#fff; }
+    .contact h2 { margin:28px 0 20px; font-size:clamp(42px,5.2vw,72px); line-height:1.42; font-weight:500; letter-spacing:-.06em; }
+    .contact-intro { margin:0 0 57px; color:var(--soft); font-size:14px; line-height:2; }
+    .contact-list { border-top:1px solid var(--line); }
+    .contact-option { display:flex; justify-content:space-between; align-items:center; gap:20px; min-height:139px; padding:25px 12px; border-bottom:1px solid var(--line); text-decoration:none; color:var(--ink); position:relative; overflow:hidden; transition:padding .35s,color .35s; }
+    .contact-option::before { content:""; position:absolute; inset:0; background:linear-gradient(90deg,#eaf4eb,#f8fbf8); transform:translateX(-101%); transition:transform .45s cubic-bezier(.2,.7,.2,1); }
+    .contact-option:hover::before,.contact-option:focus-visible::before { transform:translateX(0); }
+    .contact-option:hover,.contact-option:focus-visible { padding-left:27px; color:var(--green-deep); }
+    .contact-option > * { position:relative; }
+    .contact-option small { display:block; color:#6d988a; font:600 12px "Barlow Condensed",sans-serif; letter-spacing:.22em; }
+    .contact-option strong { display:block; margin-top:8px; font-size:clamp(22px,2.7vw,34px); font-weight:500; }
+    .contact-option .arrow { display:grid; place-items:center; width:50px; height:50px; border-radius:50%; background:#e7f2e9; color:var(--green); font-size:28px; transition:transform .3s,background .3s,color .3s; }
+    .contact-option:hover .arrow { transform:translate(4px,-4px); background:var(--green); color:white; }
+    .demo-note { margin:23px 0 0; color:#869890; font-size:11px; line-height:1.8; }
+    .footer { padding:43px 0; background:#eff4f0; color:#668079; }
+    .footer-inner { display:flex; justify-content:space-between; align-items:end; gap:25px; }
+    .footer strong { color:var(--ink); font:600 21px "Barlow Condensed",sans-serif; letter-spacing:.12em; }
+    .footer p { margin:7px 0 0; font-size:11px; }
+    .footer a { color:var(--green); font-size:11px; text-decoration:none; border-bottom:1px solid #8aaa9f; padding-bottom:4px; }
+    .case-dialog { border:0; padding:0; width:min(890px,calc(100% - 36px)); max-height:calc(100% - 36px); color:var(--ink); background:white; box-shadow:0 28px 80px #19362e4f; }
+    .case-dialog::backdrop { background:#102c2aa8; backdrop-filter:blur(4px); }
+    .dialog-image { width:100%; max-height:400px; aspect-ratio:16/8; object-fit:cover; }
+    .dialog-content { padding:35px 42px 43px; }
+    .dialog-content small { color:var(--green); font:600 12px "Barlow Condensed",sans-serif; letter-spacing:.17em; }
+    .dialog-content h3 { margin:12px 0 15px; font-size:clamp(24px,3vw,37px); font-weight:500; }
+    .dialog-content p { color:var(--soft); font-size:14px; line-height:2; }
+    .dialog-close { position:absolute; top:14px; right:14px; width:43px; height:43px; border:0; border-radius:50%; background:#fffffff0; color:var(--ink); font-size:22px; }
+    .replay { position:fixed; z-index:31; right:15px; bottom:15px; border:0; border-radius:100px; padding:12px 17px; background:#326d61ee; color:white; box-shadow:0 10px 22px #173a3050; font-size:11px; opacity:0; visibility:hidden; transition:opacity .3s,background .3s; }
     .replay.show { opacity:1; visibility:visible; }
-    .replay:hover { background:#39716c; }
+    .replay:hover { background:#204f45; }
     .intro { position:fixed; z-index:100; inset:0; visibility:hidden; pointer-events:none; overflow:hidden; }
     .intro.active { visibility:visible; pointer-events:auto; }
     .door { position:absolute; inset:0 14px 0; z-index:2; transform:translateY(0); will-change:transform; background-color:#747a7b; background-image:linear-gradient(90deg,#0005 0%,#fff1 13%,transparent 33%,#0002 63%,#0006 100%),url('images/shutter-metal-v3.jpg'); background-size:100% 100%,cover; background-position:center; box-shadow:inset 8px 0 18px #0006,inset -8px 0 18px #0007,0 24px 34px #000b; }
@@ -139,65 +154,68 @@
     .housing { position:absolute; z-index:5; top:0; left:0; right:0; height:37px; background:linear-gradient(#10181b,#3f484a 28%,#242d30 68%,#080c0e); box-shadow:0 8px 20px #0008; }
     .intro.opening .door { animation:raise 3.15s linear forwards; }
     @keyframes raise { 0%,7% { transform:translateY(0); } 15% { transform:translateY(-1.3%); } 20% { transform:translateY(-1.1%); } 30% { transform:translateY(-8%); } 58% { transform:translateY(-52%); } 84% { transform:translateY(-94%); } 100% { transform:translateY(-105%); } }
-    .skip { position:absolute; z-index:6; right:27px; bottom:27px; border:1px solid #e3eee490; border-radius:10px; background:#243e40d1; color:#fff; padding:10px 15px; font-size:11px; letter-spacing:.08em; }
+    .skip { position:absolute; z-index:6; right:27px; bottom:27px; border:1px solid #e3eee490; border-radius:10px; background:#243e40d1; color:white; padding:10px 15px; font-size:11px; }
     .intro.opening .skip { opacity:0; pointer-events:none; }
-    html.js .reveal { opacity:0; transform:translateY(18px); transition:opacity .85s ease,transform 1s cubic-bezier(.2,.65,.2,1); }
+    html.js .reveal { opacity:0; transform:translateY(20px); transition:opacity .85s ease,transform 1s cubic-bezier(.2,.65,.2,1); }
     html.js .reveal.visible { opacity:1; transform:translateY(0); }
     @media (max-width:900px) {
-      .nav { gap:17px; }
+      .nav { gap:18px; }
       .nav a { font-size:10px; }
-      .hero h1 { font-size:clamp(47px,7.5vw,78px); }
-      .intro-grid { gap:5%; }
+      .work-grid { gap:13px; }
     }
     @media (max-width:720px) {
-      .container { width:min(100% - 40px,1240px); }
+      .container { width:calc(100% - 40px); }
       .header-inner { min-height:68px; }
       .site-name { font-size:19px; }
       .menu-toggle { display:block; }
-      .nav { display:none; position:absolute; top:68px; left:0; right:0; padding:20px; background:#19383ef5; border-bottom:1px solid #d3e9db30; box-shadow:0 20px 32px #06282b55; }
+      .nav { display:none; position:absolute; top:68px; left:0; right:0; padding:14px 20px 22px; background:#fff; box-shadow:0 20px 28px #204a3e20; }
       .nav.open { display:flex; align-items:stretch; flex-direction:column; gap:0; }
-      .nav a { padding:15px 6px; font-size:13px; }
-      .nav .nav-contact { margin-top:9px; justify-content:space-between; padding:15px; }
-      .hero { min-height:690px; max-height:none; }
-      .hero-slide { background-position:62% center; }
-      .hero-slide.two { background-position:55% center; }
-      .hero::before { background:linear-gradient(90deg,#12383bd6,#153f4359),linear-gradient(0deg,#10363da8,transparent 55%); }
-      .hero::after { display:none; }
-      .hero-content { padding-top:100px; padding-bottom:92px; }
-      .hero h1 { font-size:clamp(48px,10.5vw,72px); }
+      .nav a { padding:15px 4px; font-size:13px; }
+      .hero { min-height:720px; max-height:none; }
+      .hero-image,.hero::before { top:68px; }
+      .hero-image { background-position:64% center; }
+      .hero::before { background:linear-gradient(90deg,#f8faf7f0 0%,#f8faf7b6 62%,#f8faf74d 100%),linear-gradient(0deg,#eff4ee9e,transparent 40%); }
+      .hero-content { padding-top:225px; }
+      .hero h1 { font-size:clamp(48px,10vw,70px); }
       .hero-sub { font-size:13px; }
-      .hero-actions { margin-top:28px; }
-      .button { min-width:0; width:100%; }
-      .photo-credit { display:none; }
-      .hero-bottom-inner { min-height:63px; }
-      .intro-copy,.services,.process,.contact { padding:80px 0 90px; }
+      .hero-actions { gap:10px 25px; margin-top:31px; }
+      .action-link { font-size:13px; }
+      .hero-foot .concept { display:none; }
+      .intro-copy,.services,.process,.contact { padding:82px 0 90px; }
       .intro-grid { grid-template-columns:1fr; gap:0; }
-      .intro-text { padding-top:0; margin-top:30px; }
+      .intro-text { padding-top:28px; }
       .intro-text p { font-size:13px; }
-      .feature-photo { min-height:590px; padding:70px 0; }
-      .feature-photo::before { background:linear-gradient(90deg,#123b40dc,#12383d68),url('images/engine-inspection-v5.jpg') 63% center/cover no-repeat; }
-      .feature-photo .container { min-height:450px; }
-      .feature-photo p { font-size:13px; }
-      .section-heading { display:block; margin-bottom:38px; }
-      .section-heading p { margin-top:22px; }
-      .service-row { grid-template-columns:40px 1fr 22px; gap:13px; min-height:126px; }
-      .service-row h3 { font-size:22px; }
-      .service-image { aspect-ratio:1.4; margin-top:42px; }
-      .steps { display:grid; grid-template-columns:1fr; gap:14px; }
-      .step,.step:not(:first-child) { padding:27px 26px 31px; min-height:0; border:0; }
-      .step h3 { margin:12px 0 8px; }
-      .contact-grid { grid-template-columns:1fr; margin-top:34px; }
-      .contact-card { min-height:143px; }
+      .work { padding:82px 0 92px; }
+      .section-heading { display:block; margin-bottom:32px; }
+      .section-heading p { margin-top:18px; }
+      .work-grid { grid-template-columns:1fr 1fr; gap:26px 13px; }
+      .work-card:first-child { grid-column:span 2; }
+      .work-card:first-child .work-photo { aspect-ratio:1.65; }
+      .work-photo { aspect-ratio:4/4.4; }
+      .work-meta { margin-top:12px; }
+      .work-card strong { font-size:17px; }
+      .work-open { width:40px; height:40px; bottom:12px; right:12px; }
+      .feature { min-height:580px; }
+      .feature::before { background-position:48% center; }
+      .feature::after { background:linear-gradient(90deg,#173730bd,#244b3a68); }
+      .feature p { font-size:13px; }
+      .service-row { grid-template-columns:40px 1fr 25px; gap:12px; min-height:124px; padding-right:5px; }
+      .service-row h3 { font-size:21px; }
+      .steps { grid-template-columns:1fr; gap:0; }
+      .step { padding:24px 0; border-bottom:1px solid var(--line); }
+      .contact-option { min-height:120px; }
+      .contact-option .arrow { width:43px; height:43px; }
       .footer-inner { display:block; }
       .footer a { display:inline-block; margin-top:22px; }
-      .replay { right:10px; bottom:10px; }
+      .dialog-content { padding:25px; }
+      .dialog-image { aspect-ratio:4/3; }
+      .replay { right:9px; bottom:9px; }
     }
     @media (prefers-reduced-motion:reduce) {
       html { scroll-behavior:auto; }
       .intro,.replay { display:none!important; }
-      .header-inner,.hero-content,.hero-bottom { opacity:1; transform:none; transition:none; }
-      html.js .reveal { opacity:1; transform:none; transition:none; }
-      .hero-slide { transition:none; transform:none; }
+      .hero-image,html.js .reveal { transform:none; transition:none; opacity:1; }
+      .work-photo img,.work-open,.service-row,.contact-option { transition:none; }
     }
   </style>
 </head>
@@ -207,44 +225,64 @@
       <a class="site-name" href="#top">AUTO SERVICE<small>自動車整備工場｜コンセプトデモ</small></a>
       <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="nav" type="button">MENU ☰</button>
       <nav class="nav" id="nav" aria-label="メインメニュー">
-        <a href="#about">私たちについて</a><a href="#services">サービス</a><a href="#process">ご利用の流れ</a><a class="nav-contact" href="#contact">お問い合わせ <span>↗</span></a>
+        <a href="#about">私たちについて</a><a href="#work">整備事例</a><a href="#services">サービス</a><a href="#process">ご利用の流れ</a><a class="nav-contact" href="#contact">お問い合わせ <span>↗</span></a>
       </nav>
     </div>
   </header>
   <main id="top">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-slide one active" aria-hidden="true"></div><div class="hero-slide two" aria-hidden="true"></div>
+      <div class="hero-image" role="img" aria-label="明るい整備工場で車を確認する整備士のイメージ"></div>
       <div class="container hero-content">
         <h1 id="hero-title">その一台に、<br>責任を。</h1>
         <p class="hero-sub">整備の先にある、いつもの毎日まで。<br>車のことを、安心して相談できる場所へ。</p>
-        <div class="hero-actions"><a class="button light" href="#phone">電話で相談 <span>↗</span></a><a class="button outline" href="#booking">予約希望を送る <span>↗</span></a></div>
+        <div class="hero-actions"><a class="action-link" href="#phone">電話で相談 <span class="arrow">↗</span></a><a class="action-link" href="#booking">予約希望を送る <span class="arrow">↗</span></a></div>
       </div>
-      <div class="photo-credit">PHOTOGRAPHIC CONCEPT IMAGE</div>
-      <div class="hero-bottom"><div class="container hero-bottom-inner"><span>SCROLL TO DISCOVER ↓</span><div class="slide-controls"><span class="slide-count" id="slide-count">01 / 02</span><span class="slide-progress" aria-hidden="true"><i id="slide-progress"></i></span></div></div></div>
+      <div class="hero-foot"><div class="container"><span>SCROLL TO DISCOVER ↓</span><span class="concept">※ 写真は生成したコンセプトイメージです</span></div></div>
     </section>
     <section class="intro-copy" id="about">
       <div class="container intro-grid">
-        <div class="reveal"><div class="section-index">01 / OUR APPROACH</div><h2>車に向き合う。<br><b>人に向き合う。</b></h2></div>
+        <div class="reveal"><div class="kicker">01 / OUR APPROACH</div><h2>車に向き合う。<br><em>人に向き合う。</em></h2></div>
         <div class="intro-text reveal"><p>気になる音や乗り心地の変化から、車検や日々のメンテナンスまで。整備内容が分からないまま車を預ける不安を減らせるよう、相談から作業までの流れを分かりやすく伝えるサイトを目指します。</p><a class="text-link" href="#process">ご利用の流れを見る <span>→</span></a></div>
       </div>
     </section>
-    <section class="feature-photo" aria-label="整備風景のイメージ">
-      <div class="container"><div class="reveal"><div class="section-index">CRAFT & CARE</div><h2>見えないところこそ、<br>丁寧に。</h2><p>工場の仕事が伝わる写真を大きく使い、技術への信頼感を表現します。実際の店舗写真がそろったら、この部分に差し替えられます。</p></div></div>
+    <section class="work" id="work">
+      <div class="container">
+        <div class="section-heading reveal"><div><div class="kicker">02 / WORKS</div><h2>整備事例</h2></div><p>一台ずつ向き合う仕事を、写真と短い説明で。気になる整備を選ぶと内容をご覧いただけます。</p></div>
+        <div class="work-filters" role="group" aria-label="整備事例の絞り込み">
+          <button class="work-filter active" type="button" data-filter="all" aria-pressed="true">すべて</button>
+          <button class="work-filter" type="button" data-filter="inspection" aria-pressed="false">点検</button>
+          <button class="work-filter" type="button" data-filter="repair" aria-pressed="false">整備</button>
+        </div>
+        <div class="work-grid">
+          <button class="work-card reveal" type="button" data-category="inspection" data-title="日常点検・車両チェック" data-desc="お車の状態や気になる症状を確認し、必要な整備を分かりやすくご案内する事例のイメージです。" data-image="images/garage-daylight-v7.jpg">
+            <span class="work-photo"><img src="images/garage-daylight-v7.jpg" alt="明るい工場で車両を点検するイメージ" loading="lazy"><span class="work-open" aria-hidden="true">↗</span></span><span class="work-meta"><span>01 / INSPECTION</span><small>点検</small></span><strong>日常点検・車両チェック</strong>
+          </button>
+          <button class="work-card reveal" type="button" data-category="inspection" data-title="エンジンまわりの点検" data-desc="エンジンまわりの状態を確認し、気になる変化を一緒に整理する事例のイメージです。" data-image="images/engine-daylight-v7.jpg">
+            <span class="work-photo"><img src="images/engine-daylight-v7.jpg" alt="整備士がエンジンを確認するイメージ" loading="lazy"><span class="work-open" aria-hidden="true">↗</span></span><span class="work-meta"><span>02 / ENGINE CARE</span><small>点検</small></span><strong>エンジンまわりの点検</strong>
+          </button>
+          <button class="work-card reveal" type="button" data-category="repair" data-title="ブレーキまわりの整備" data-desc="安全に関わるブレーキまわりを丁寧に確認する整備事例のイメージです。" data-image="images/brake-daylight-v7.jpg">
+            <span class="work-photo"><img src="images/brake-daylight-v7.jpg" alt="整備士がブレーキを確認するイメージ" loading="lazy"><span class="work-open" aria-hidden="true">↗</span></span><span class="work-meta"><span>03 / BRAKE SERVICE</span><small>整備</small></span><strong>ブレーキまわりの整備</strong>
+          </button>
+        </div>
+        <p class="work-note">※ 掲載写真と内容はデザイン確認用のイメージです。実際の整備実績がそろったら差し替えられます。</p>
+      </div>
+    </section>
+    <section class="feature" aria-label="整備への姿勢">
+      <div class="container reveal"><div class="kicker">CRAFT & CARE</div><h2>見えないところこそ、<br>丁寧に。</h2><p>車と人に向き合う時間を、確かな安心へ。実際の工場写真やスタッフの姿を重ねることで、整備への姿勢が伝わるページに育てられます。</p></div>
     </section>
     <section class="services" id="services">
       <div class="container">
-        <div class="section-heading reveal"><div><div class="section-index">02 / SERVICE</div><h2>SERVICE</h2></div><p>日常のメンテナンスから、気になる症状の相談まで。サービスの入口を見つけやすく整理します。</p></div>
+        <div class="section-heading reveal"><div><div class="kicker">03 / SERVICE</div><h2>サービス</h2></div><p>日常のメンテナンスから、気になる症状の相談まで。必要なサービスを見つけやすく整理します。</p></div>
         <div class="service-list">
           <a class="service-row reveal" href="#contact"><small>01</small><h3>車検・定期点検<span>INSPECTION</span></h3><span class="arrow">↗</span></a>
           <a class="service-row reveal" href="#contact"><small>02</small><h3>修理・メンテナンス<span>REPAIR & MAINTENANCE</span></h3><span class="arrow">↗</span></a>
           <a class="service-row reveal" href="#contact"><small>03</small><h3>タイヤ・オイル交換<span>TIRE & OIL SERVICE</span></h3><span class="arrow">↗</span></a>
         </div>
-        <div class="service-image reveal"><img src="images/brake-service-v5.jpg" alt="ブレーキ周辺を点検する整備士のイメージ" loading="lazy"><span>※ 生成したイメージ写真です</span></div>
       </div>
     </section>
     <section class="process" id="process">
       <div class="container">
-        <div class="section-heading reveal"><div><div class="section-index">03 / PROCESS</div><h2>ご相談から整備まで。</h2></div><p>初めての方にも、次に何をするかが伝わるように。実際の運用が決まったら内容を合わせます。</p></div>
+        <div class="section-heading reveal"><div><div class="kicker">04 / PROCESS</div><h2>ご相談から整備まで。</h2></div><p>初めての方にも、次に何をするかが伝わるように。実際の運用に合わせて内容を調整できます。</p></div>
         <div class="steps">
           <div class="step reveal"><div class="step-num">01</div><h3>まずはご相談</h3><p>気になる症状やご希望をお聞きします。車種や状況が分かる範囲でお伝えください。</p></div>
           <div class="step reveal"><div class="step-num">02</div><h3>確認・お見積もり</h3><p>車の状態を確認し、必要な作業と費用の目安をお伝えします。</p></div>
@@ -254,18 +292,19 @@
     </section>
     <section class="contact" id="contact">
       <div class="container">
-        <div class="section-index reveal">04 / CONTACT</div>
+        <div class="kicker reveal">05 / CONTACT</div>
         <h2 class="reveal">車のこと、<br>まずはご相談ください。</h2>
-        <p class="reveal">気になる症状や整備のご希望に合わせて、相談方法をお選びください。</p>
-        <div class="contact-grid">
-          <div class="contact-card reveal" id="phone"><small>BY PHONE</small><strong>電話で相談 <span>↗</span></strong></div>
-          <div class="contact-card reveal" id="booking"><small>BOOKING REQUEST</small><strong>予約希望を送る <span>↗</span></strong></div>
+        <p class="contact-intro reveal">気になる症状や整備のご希望に合わせて、相談方法をお選びください。</p>
+        <div class="contact-list">
+          <a class="contact-option reveal" id="phone" href="#contact" aria-label="電話で相談。電話番号は準備中です"><span><small>BY PHONE</small><strong>電話で相談</strong></span><span class="arrow" aria-hidden="true">↗</span></a>
+          <a class="contact-option reveal" id="booking" href="#contact" aria-label="予約希望を送る。送信先は準備中です"><span><small>BOOKING REQUEST</small><strong>予約希望を送る</strong></span><span class="arrow" aria-hidden="true">↗</span></a>
         </div>
         <p class="demo-note">※ デモのため、電話番号と予約希望の送信先はまだ設定していません。</p>
       </div>
     </section>
   </main>
   <footer class="footer"><div class="container footer-inner"><div><strong>AUTO SERVICE</strong><p>自動車整備工場ホームページ｜デザイン・動作確認用デモ</p></div><a href="#top">ページの先頭へ ↑</a></div></footer>
+  <dialog class="case-dialog" id="case-dialog" aria-labelledby="dialog-title"><button class="dialog-close" type="button" id="dialog-close" aria-label="閉じる">×</button><img class="dialog-image" id="dialog-image" alt=""><div class="dialog-content"><small>MAINTENANCE CONCEPT</small><h3 id="dialog-title"></h3><p id="dialog-description"></p><p>※ 生成写真を使用したデザイン確認用のイメージです。</p></div></dialog>
   <div class="intro active" id="intro" aria-label="シャッターが開くオープニングアニメーション">
     <div class="door"></div><div class="rail left"></div><div class="rail right"></div><div class="housing"></div>
     <button class="skip" type="button" id="skip">スキップ →</button>
@@ -279,34 +318,19 @@
     const header = document.getElementById('header');
     const menuToggle = document.getElementById('menu-toggle');
     const nav = document.getElementById('nav');
-    const slides = [...document.querySelectorAll('.hero-slide')];
-    const slideCount = document.getElementById('slide-count');
-    const slideProgress = document.getElementById('slide-progress');
-    let startTimer, finishTimer, slideTimer, slideIndex = 0;
+    const dialog = document.getElementById('case-dialog');
+    let startTimer, finishTimer;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    function showSlide(index) {
-      slideIndex = index;
-      slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
-      slideCount.textContent = (index + 1 === 1 ? '01' : '02') + ' / 02';
-      slideProgress.classList.toggle('second', index === 1);
-    }
-    function startSlides() {
-      clearInterval(slideTimer);
-      if (reducedMotion.matches) return;
-      slideTimer = setInterval(() => showSlide((slideIndex + 1) % slides.length), 5900);
-    }
     function finishIntro() {
       clearTimeout(startTimer); clearTimeout(finishTimer);
       intro.classList.remove('active','opening');
       intro.setAttribute('aria-hidden','true');
       document.body.classList.add('hero-ready');
       replay.classList.add('show');
-      startSlides();
     }
     function playIntro() {
       if (reducedMotion.matches) { finishIntro(); return; }
-      clearTimeout(startTimer); clearTimeout(finishTimer); clearInterval(slideTimer);
-      showSlide(0);
+      clearTimeout(startTimer); clearTimeout(finishTimer);
       replay.classList.remove('show');
       document.body.classList.remove('hero-ready');
       intro.classList.remove('opening');
@@ -336,6 +360,27 @@
     } else {
       document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
     }
+    document.querySelectorAll('.work-filter').forEach(filter => filter.addEventListener('click', () => {
+      document.querySelectorAll('.work-filter').forEach(item => {
+        const active = item === filter;
+        item.classList.toggle('active', active);
+        item.setAttribute('aria-pressed', String(active));
+      });
+      document.querySelectorAll('.work-card').forEach(card => {
+        card.hidden = filter.dataset.filter !== 'all' && card.dataset.category !== filter.dataset.filter;
+      });
+    }));
+    document.querySelectorAll('.work-card').forEach(card => card.addEventListener('click', () => {
+      document.getElementById('dialog-image').src = card.dataset.image;
+      document.getElementById('dialog-image').alt = card.querySelector('img').alt;
+      document.getElementById('dialog-title').textContent = card.dataset.title;
+      document.getElementById('dialog-description').textContent = card.dataset.desc;
+      dialog.showModal();
+      document.body.classList.add('dialog-open');
+    }));
+    document.getElementById('dialog-close').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+    dialog.addEventListener('close', () => document.body.classList.remove('dialog-open'));
     playIntro();
   </script>
 </body>
