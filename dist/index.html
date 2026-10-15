@@ -146,14 +146,23 @@
     .replay:hover { color:#183d35; border-color:#183d35; }
     .intro { position:fixed; z-index:100; inset:0; visibility:hidden; pointer-events:none; overflow:hidden; background:#f8faf7; opacity:1; }
     .intro.active { visibility:visible; pointer-events:auto; }
-    .intro::before { content:""; position:absolute; inset:-5%; background:linear-gradient(#f7faf6ad,#f7faf6ad),url('images/garage-daylight-v7.jpg') center/cover no-repeat; filter:blur(23px); transform:scale(1.06); opacity:.85; }
-    .intro::after { content:""; position:absolute; inset:-20% auto -20% 0; width:36vw; min-width:240px; background:linear-gradient(90deg,transparent,#ffffff7d 35%,#ffffffea 50%,#ffffff86 65%,transparent); filter:blur(36px); transform:translateX(-65vw) skewX(-12deg); opacity:0; }
-    .intro.opening { animation:softReveal 1.95s cubic-bezier(.3,.7,.2,1) .12s forwards; }
-    .intro.opening::before { animation:photoFocus 2.05s ease-out forwards; }
-    .intro.opening::after { animation:lightSweep 1.6s ease-in-out .13s forwards; }
-    @keyframes softReveal { 0%,16% { opacity:1; } 100% { opacity:0; } }
-    @keyframes photoFocus { from { filter:blur(23px); transform:scale(1.06); } to { filter:blur(0); transform:scale(1); } }
-    @keyframes lightSweep { 0% { transform:translateX(-65vw) skewX(-12deg); opacity:0; } 18% { opacity:1; } 82% { opacity:.8; } 100% { transform:translateX(150vw) skewX(-12deg); opacity:0; } }
+    .intro::before { content:""; position:absolute; inset:-5%; background:linear-gradient(#f7faf6bb,#f7faf6bb),url('images/garage-daylight-v7.jpg') center/cover no-repeat; filter:blur(18px); transform:scale(1.04); opacity:0; }
+    .intro.opening { animation:softReveal .65s ease-in 2.12s forwards; }
+    .intro.opening::before { animation:photoReveal 1.25s ease 1.12s forwards; }
+    .car-art { position:absolute; z-index:1; left:50%; top:49%; width:min(820px,84vw); height:auto; overflow:visible; transform:translate(-50%,-50%); fill:none; stroke:#4b8278; stroke-width:2.1; stroke-linecap:round; stroke-linejoin:round; filter:drop-shadow(0 2px 8px #6d9b8c24); }
+    .car-art .car-outline { stroke-dasharray:1900; stroke-dashoffset:1900; }
+    .car-art .car-glass { stroke:#82a9a2; stroke-width:1.55; stroke-dasharray:800; stroke-dashoffset:800; }
+    .car-art .car-detail { stroke:#a0bbb4; stroke-width:1.4; stroke-dasharray:700; stroke-dashoffset:700; }
+    .car-art .car-wheel { stroke:#4b8278; stroke-width:1.8; stroke-dasharray:370; stroke-dashoffset:370; }
+    .intro.opening .car-outline { animation:drawLine 1.5s cubic-bezier(.3,.5,.15,1) .12s forwards; }
+    .intro.opening .car-glass { animation:drawLine 1.12s ease .58s forwards; }
+    .intro.opening .car-detail { animation:drawLine .9s ease .85s forwards; }
+    .intro.opening .car-wheel { animation:drawLine 1s ease .66s forwards; }
+    .intro.opening .car-art { animation:carDissolve .58s ease 1.92s forwards; }
+    @keyframes drawLine { to { stroke-dashoffset:0; } }
+    @keyframes carDissolve { to { opacity:0; transform:translate(-50%,-51.5%); } }
+    @keyframes photoReveal { to { opacity:1; filter:blur(0); transform:scale(1); } }
+    @keyframes softReveal { to { opacity:0; } }
     .skip { position:absolute; z-index:6; right:29px; bottom:25px; border:0; border-bottom:1px solid #648479; padding:8px 1px; background:none; color:#30554e; font-size:11px; font-weight:600; }
     .intro.opening .skip { opacity:0; pointer-events:none; }
     .hero-ready .hero h1 { animation:titleArrive .8s cubic-bezier(.2,.7,.2,1) both; }
@@ -310,7 +319,14 @@
   </main>
   <footer class="footer"><div class="container footer-inner"><div><strong>AUTO SERVICE</strong><p>自動車整備工場ホームページ｜デザイン・動作確認用デモ</p></div><a href="#top">ページの先頭へ ↑</a></div></footer>
   <dialog class="case-dialog" id="case-dialog" aria-labelledby="dialog-title"><button class="dialog-close" type="button" id="dialog-close" aria-label="閉じる">×</button><img class="dialog-image" id="dialog-image" alt=""><div class="dialog-content"><small>MAINTENANCE CONCEPT</small><h3 id="dialog-title"></h3><p id="dialog-description"></p><p>※ 生成写真を使用したデザイン確認用のイメージです。</p></div></dialog>
-  <div class="intro active" id="intro" aria-label="光とともに写真が現れるオープニングアニメーション">
+  <div class="intro active" id="intro" aria-label="車の輪郭が線で描かれ、工場の写真が現れるオープニングアニメーション">
+    <svg class="car-art" viewBox="0 0 1000 350" role="img" aria-label="車の横姿のラインアート">
+      <path class="car-outline" d="M83 246 C92 223 116 217 151 212 L222 200 C247 194 265 174 292 144 L326 107 C345 88 372 78 403 77 L578 77 C610 78 630 88 655 108 L725 175 C770 181 812 194 864 212 C882 218 894 228 896 246 L896 257 C896 264 890 268 881 268 L829 268 C829 235 804 210 771 210 C737 210 710 236 710 268 L318 268 C318 235 293 210 260 210 C226 210 200 236 200 268 L112 268 C91 268 81 260 83 246 Z"/>
+      <path class="car-glass" d="M310 170 L352 117 C365 104 383 98 408 98 L487 98 L487 173 L310 173 M506 98 L578 98 C602 99 621 107 639 125 L699 173 L506 173 Z"/>
+      <path class="car-detail" d="M488 184 L488 253 M507 184 L696 184 M365 186 L443 186 M745 185 L824 199 M128 221 L178 213"/>
+      <circle class="car-wheel" cx="260" cy="268" r="46"/>
+      <circle class="car-wheel" cx="771" cy="268" r="46"/>
+    </svg>
     <button class="skip" type="button" id="skip">スキップ →</button>
   </div>
   <script>
@@ -341,7 +357,7 @@
       intro.removeAttribute('aria-hidden');
       void intro.offsetWidth;
       startTimer = setTimeout(() => intro.classList.add('opening'), 170);
-      finishTimer = setTimeout(finishIntro, 2350);
+      finishTimer = setTimeout(finishIntro, 2950);
     }
     skip.addEventListener('click', finishIntro);
     replay.addEventListener('click', playIntro);
