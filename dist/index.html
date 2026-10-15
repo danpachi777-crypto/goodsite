@@ -6,6 +6,8 @@
   <meta name="theme-color" content="#171c1e">
   <meta name="description" content="自動車整備工場のサイト向け、リアルなシャッター演出のデモ。">
   <title>シャッター演出デモ | 自動車整備工場</title>
+  <link rel="preload" as="image" href="images/shutter-metal-v2.png">
+  <link rel="preload" as="image" href="images/garage-hero-v3.png">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap');
     :root { font-family:"Noto Sans JP",sans-serif; color:#eeeae2; background:#171c1e; }
@@ -24,12 +26,16 @@
     .nav a:hover { color:#d8ac7e; }
     .nav .contact { padding:13px 20px; border:1px solid #ffffff90; }
     .hero { min-height:730px; height:100svh; max-height:1000px; position:relative; display:flex; align-items:center; isolation:isolate; background:#202527; overflow:hidden; }
-    .hero-photo { position:absolute; inset:0; z-index:-2; background-image:url('images/garage-hero-v2.png'); background-size:cover; background-position:center 47%; }
-    .hero::before { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(90deg,#101517e8 0%,#101517bc 34%,#10151765 63%,#10151722 100%),linear-gradient(0deg,#0b1013a8,transparent 36%); }
+    .hero-photo { position:absolute; inset:0; z-index:-2; background-image:url('images/garage-hero-v3.png'); background-size:cover; background-position:center 46%; }
+    .hero::before { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(90deg,#0b1013b4 0%,#0b10137a 34%,#0b101321 68%,transparent 100%),linear-gradient(0deg,#0b10135e,transparent 30%); }
     .hero-content { position:relative; padding-top:110px; padding-bottom:55px; }
+    .header-inner,.hero-content,.hero-foot { opacity:0; transform:translateY(13px); transition:opacity .8s ease,transform 1s cubic-bezier(.2,.7,.2,1); }
+    body.ready .header-inner,body.ready .hero-content,body.ready .hero-foot { opacity:1; transform:translateY(0); }
+    body.ready .hero-content { transition-delay:.16s; }
+    body.ready .hero-foot { transition-delay:.3s; }
     .eyebrow { display:flex; align-items:center; gap:15px; color:#d7ad7f; font:600 12px "Barlow Condensed",sans-serif; letter-spacing:.27em; }
     .eyebrow::before { content:""; display:block; width:29px; height:1px; background:#d7ad7f; }
-    h1 { margin:33px 0 25px; font-size:clamp(41px,5.2vw,77px); font-weight:600; line-height:1.39; letter-spacing:-.07em; text-shadow:0 3px 30px #0007; }
+    h1 { margin:33px 0 25px; font-size:clamp(48px,6.6vw,102px); font-weight:600; line-height:1.27; letter-spacing:-.075em; text-shadow:0 3px 30px #0007; }
     .hero-lead { margin:0; color:#e2ded5; font-size:15px; font-weight:400; line-height:2.1; text-shadow:0 2px 10px #0009; }
     .actions { display:flex; gap:13px; flex-wrap:wrap; margin-top:39px; }
     .button { display:inline-flex; align-items:center; justify-content:space-between; gap:25px; min-width:193px; min-height:55px; padding:0 22px; font-size:13px; font-weight:600; text-decoration:none; transition:background .2s,color .2s; }
@@ -75,8 +81,16 @@
     .rail { position:absolute; z-index:4; top:0; bottom:0; width:16px; background:linear-gradient(90deg,#060a0c,#51595a 24%,#9ea5a3 37%,#283133 65%,#0c1215); box-shadow:0 0 14px #000b; }
     .rail.left { left:0; } .rail.right { right:0; transform:scaleX(-1); }
     .housing { position:absolute; z-index:5; top:0; left:0; right:0; height:37px; background:linear-gradient(#10181b,#3f484a 28%,#242d30 68%,#080c0e); box-shadow:0 8px 20px #0008; }
-    .intro.opening .door { animation:raise 1.75s cubic-bezier(.68,.04,.22,1) forwards; }
-    @keyframes raise { 0% { transform:translateY(0); } 16% { transform:translateY(-2%); } 23% { transform:translateY(-2%); } 100% { transform:translateY(-105%); } }
+    .intro.opening .door { animation:raise 3.15s linear forwards; }
+    @keyframes raise {
+      0%,7% { transform:translateY(0); }
+      15% { transform:translateY(-1.3%); }
+      20% { transform:translateY(-1.1%); }
+      30% { transform:translateY(-8%); }
+      58% { transform:translateY(-52%); }
+      84% { transform:translateY(-94%); }
+      100% { transform:translateY(-105%); }
+    }
     .skip { position:absolute; z-index:6; bottom:25px; right:28px; border:1px solid #ffffff90; background:#182023ad; color:#fff; padding:10px 16px; font-size:11px; letter-spacing:.08em; }
     .intro.opening .skip { opacity:0; pointer-events:none; }
     @media (max-width:760px) {
@@ -87,9 +101,9 @@
       .nav .contact { padding:10px 12px; font-size:11px; }
       .hero { min-height:700px; max-height:none; }
       .hero-photo { background-position:61% center; }
-      .hero::before { background:linear-gradient(90deg,#101517de,#10151780 73%,#10151738),linear-gradient(0deg,#0b1013b8,transparent 55%); }
+      .hero::before { background:linear-gradient(90deg,#101517b8,#1015175b 73%,#10151722),linear-gradient(0deg,#0b101397,transparent 55%); }
       .hero-content { padding-top:90px; }
-      h1 { font-size:clamp(36px,8.6vw,59px); }
+      h1 { font-size:clamp(43px,10.5vw,66px); }
       .hero-lead { font-size:13px; }
       .services { padding:70px 0 80px; }
       .services-head { display:block; }
@@ -102,7 +116,7 @@
       .footer-inner span { display:block; margin:4px 0; }
       .replay { right:12px; bottom:12px; font-size:11px; }
     }
-    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .intro,.replay { display:none!important; } }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .intro,.replay { display:none!important; } .header-inner,.hero-content,.hero-foot { opacity:1; transform:none; transition:none; } }
   </style>
 </head>
 <body>
@@ -119,8 +133,8 @@
       <div class="hero-photo" aria-hidden="true"></div>
       <div class="container hero-content">
         <div class="eyebrow">AUTO MAINTENANCE & REPAIR</div>
-        <h1 id="hero-title">愛車に、<br>確かな整備を。</h1>
-        <p class="hero-lead">いつもの安心は、見えないところの丁寧な仕事から。<br>点検から修理まで、車のことを気軽に相談できる場所へ。</p>
+        <h1 id="hero-title">その一台に、<br>責任を。</h1>
+        <p class="hero-lead">整備の先にある、いつもの毎日まで。<br>車のことを、安心して相談できる場所へ。</p>
         <div class="actions"><a class="button button-primary" href="#services">サービスを見る <span>↗</span></a><a class="button button-secondary" href="#services">相談の流れ <span>→</span></a></div>
         <p class="sample">※ 画像・店名・サービス内容は演出確認用の仮素材です。</p>
       </div>
@@ -156,17 +170,19 @@
       intro.classList.remove('active','opening');
       intro.setAttribute('aria-hidden','true');
       replay.classList.add('show');
+      document.body.classList.add('ready');
     }
     function playIntro() {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { finishIntro(); return; }
       clearTimeout(startTimer); clearTimeout(finishTimer);
       replay.classList.remove('show');
+      document.body.classList.remove('ready');
       intro.classList.remove('opening');
       intro.classList.add('active');
       intro.removeAttribute('aria-hidden');
       void intro.offsetWidth;
-      startTimer = setTimeout(() => intro.classList.add('opening'), 500);
-      finishTimer = setTimeout(finishIntro, 2450);
+      startTimer = setTimeout(() => intro.classList.add('opening'), 550);
+      finishTimer = setTimeout(finishIntro, 3900);
     }
     skip.addEventListener('click', finishIntro);
     replay.addEventListener('click', playIntro);
