@@ -1,164 +1,176 @@
 <!doctype html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#151b20" />
-    <meta name="description" content="自動車整備工場サイト向け、ガレージのシャッターが開くオープニング演出デモ。" />
-    <title>シャッター演出デモ | MACHI GARAGE</title>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap');
-      :root { font-family: 'Noto Sans JP', sans-serif; color: #f7f5ef; background: #151b20; }
-      * { box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
-      body { margin: 0; min-width: 320px; }
-      button, a { -webkit-tap-highlight-color: transparent; }
-      button { font: inherit; cursor: pointer; }
-      a { color: inherit; }
-      .site { min-height: 100vh; overflow: hidden; }
-      .wrap { width: min(1180px, calc(100% - 48px)); margin: auto; }
-      .header { height: 80px; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 2; }
-      .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; line-height: 1; }
-      .brand-icon { display: grid; place-items: center; width: 38px; height: 38px; border: 2px solid #fa704d; transform: rotate(45deg); }
-      .brand-icon svg { transform: rotate(-45deg); width: 22px; height: 22px; }
-      .brand-name { font-family: 'Barlow Condensed', sans-serif; font-size: 25px; letter-spacing: .09em; font-weight: 800; }
-      .brand-name small { display: block; font-family: 'Noto Sans JP', sans-serif; font-size: 8px; font-weight: 600; letter-spacing: .14em; margin-top: 5px; color: #aeb7b9; }
-      .nav { display: flex; align-items: center; gap: 34px; }
-      .nav a { font-size: 12px; font-weight: 700; text-decoration: none; color: #dce1dc; }
-      .nav .nav-contact { padding: 12px 21px; border: 1px solid #fa704d; color: #fa704d; }
-      .hero { min-height: 640px; height: calc(100svh - 80px); max-height: 820px; position: relative; display: grid; align-items: center; background: radial-gradient(circle at 69% 45%, #27333a 0, #192127 42%, #151b20 75%); }
-      .hero::before { content: ''; position: absolute; inset: 0; opacity: .16; background-image: linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg,#ffffff 1px,transparent 1px); background-size: 64px 64px; mask-image: linear-gradient(90deg, transparent 10%, black 75%); }
-      .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: #5b6363; }
-      .hero-inner { position: relative; width: min(1180px, calc(100% - 48px)); margin: auto; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 30px; }
-      .eyebrow { color: #ff8060; letter-spacing: .19em; font: 700 14px 'Barlow Condensed', sans-serif; }
-      .eyebrow::before { content: ''; display: inline-block; vertical-align: middle; width: 24px; height: 2px; background: currentColor; margin-right: 12px; }
-      h1 { font-size: clamp(38px, 4.1vw, 62px); letter-spacing: -.055em; line-height: 1.34; margin: 23px 0 21px; font-weight: 800; white-space: nowrap; }
-      h1 em { color: #fa704d; font-style: normal; }
-      .lead { font-size: 15px; line-height: 2.1; color: #bcc5c6; margin: 0 0 34px; }
-      .actions { display: flex; gap: 12px; flex-wrap: wrap; }
-      .button { display: inline-flex; align-items: center; justify-content: center; min-height: 54px; padding: 0 26px; text-decoration: none; font-size: 13px; font-weight: 800; transition: transform .2s, background .2s; border: 0; }
-      .button:hover { transform: translateY(-3px); }
-      .button.primary { background: #fa704d; color: #11191d; }
-      .button.secondary { border: 1px solid #778184; color: #f7f5ef; background: transparent; }
-      .button span { font-size: 21px; margin-left: 18px; font-weight: 400; }
-      .sample-note { font-size: 11px; color: #8b9899; margin-top: 24px; }
-      .visual { position: relative; aspect-ratio: 1.12; max-width: 610px; width: 100%; justify-self: end; }
-      .visual svg { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 32px 28px #0005); }
-      .visual-stamp { position: absolute; right: -7px; bottom: 6%; background: #f8f5ec; color: #182128; padding: 19px 24px; box-shadow: 0 14px 35px #0005; transform: rotate(-4deg); }
-      .visual-stamp strong { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 28px; letter-spacing: .07em; line-height: 1; }
-      .visual-stamp small { font-size: 10px; letter-spacing: .07em; font-weight: 800; }
-      .scroll-cue { position: absolute; bottom: 30px; left: max(24px, calc((100% - 1180px)/2)); color: #9ba5a5; font: 700 11px 'Barlow Condensed', sans-serif; letter-spacing: .2em; writing-mode: vertical-rl; display: flex; gap: 12px; align-items: center; }
-      .scroll-cue::after { content: ''; height: 45px; width: 1px; background: #fa704d; }
-      .services { background: #f4f2ec; color: #172127; padding: 100px 0 115px; }
-      .section-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 32px; }
-      .section-head h2 { font-size: clamp(28px,3vw,42px); letter-spacing: -.04em; line-height: 1.4; margin: 12px 0 0; }
-      .section-head p { color: #667174; font-size: 13px; line-height: 1.9; margin: 0; }
-      .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-      .card { background: #fff; padding: 31px; min-height: 215px; border-top: 3px solid #fa704d; }
-      .card-num { color: #f47b5c; font-family: 'Barlow Condensed',sans-serif; font-size: 28px; font-weight: 700; }
-      .card h3 { font-size: 20px; margin: 25px 0 10px; }
-      .card p { color: #697477; font-size: 13px; line-height: 1.8; margin: 0; }
-      .footer { padding: 28px 0; background: #151b20; color: #9ba7a8; font-size: 11px; }
-      .footer .wrap { display: flex; justify-content: space-between; gap: 20px; }
-      .replay { position: fixed; right: 22px; bottom: 22px; z-index: 20; border: 1px solid #fa704d; background: #202a30; color: #fff; padding: 13px 18px; box-shadow: 0 12px 28px #0006; font-size: 12px; font-weight: 700; opacity: 0; pointer-events: none; transition: opacity .3s; }
-      .replay.show { opacity: 1; pointer-events: auto; }
-      .replay:hover { background: #fa704d; color: #152027; }
-      .intro { position: fixed; z-index: 100; inset: 0; overflow: hidden; pointer-events: none; visibility: hidden; }
-      .intro.active { visibility: visible; pointer-events: auto; }
-      .shutter { position: absolute; inset: 0; background: repeating-linear-gradient(to bottom, #343d42 0, #343d42 3px, #273138 3px, #273138 46px, #172127 47px, #172127 49px, #465158 50px, #465158 52px); box-shadow: inset 0 0 0 8px #1a242a, 0 22px 40px #0009; transform: translateY(0); will-change: transform; }
-      .shutter::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 14px; background: #111a20; border-top: 2px solid #6d7779; box-shadow: 0 6px 12px #0008; }
-      .intro.opening .shutter { transform: translateY(-105%); transition: transform 1.25s cubic-bezier(.76,.02,.18,1); }
-      .intro-mark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: min(88%, 460px); transition: opacity .25s, transform .45s; }
-      .intro.opening .intro-mark { opacity: 0; transform: translate(-50%, -75%); }
-      .intro-diamond { width: 62px; height: 62px; margin: 0 auto 25px; border: 2px solid #fa704d; transform: rotate(45deg); display: grid; place-items: center; }
-      .intro-diamond svg { width: 35px; height: 35px; transform: rotate(-45deg); }
-      .intro-mark strong { display: block; font: 800 clamp(40px, 8vw, 70px)/1 'Barlow Condensed', sans-serif; letter-spacing: .12em; text-shadow: 0 3px 15px #0007; }
-      .intro-mark p { margin: 16px 0 0; font-size: 12px; font-weight: 700; letter-spacing: .32em; color: #d1d8d5; }
-      .intro-line { width: 110px; height: 2px; background: #707e80; margin: 28px auto 0; overflow: hidden; }
-      .intro-line::after { content: ''; display: block; width: 100%; height: 100%; background: #fa704d; transform: translateX(-100%); animation: load .72s ease-out forwards; }
-      @keyframes load { to { transform: translateX(0); } }
-      .skip { position: absolute; bottom: 30px; right: 32px; background: transparent; color: #dbe1df; border: 0; letter-spacing: .1em; font-size: 12px; text-decoration: underline; text-underline-offset: 5px; }
-      .intro.opening .skip { opacity: 0; pointer-events: none; }
-      @media (max-width: 850px) { .nav a:not(.nav-contact) { display: none; } .hero { height: auto; max-height: none; min-height: 0; padding: 58px 0 100px; } .hero-inner { grid-template-columns: 1fr; gap: 22px; } .visual { max-width: 490px; justify-self: center; } .scroll-cue { display: none; } .section-head { align-items: start; flex-direction: column; gap: 10px; } }
-      @media (max-width: 560px) { .wrap, .hero-inner { width: min(100% - 36px, 1180px); } .header { height: 70px; } .brand-name { font-size: 20px; } .brand-icon { width: 32px; height: 32px; } .nav .nav-contact { padding: 10px 12px; font-size: 11px; } .hero { padding: 42px 0 80px; } h1 { font-size: clamp(34px, 9vw, 48px); } .lead { font-size: 13px; } .visual { width: 94%; margin-top: 8px; } .visual-stamp { padding: 13px 16px; right: -10px; } .visual-stamp strong { font-size: 22px; } .cards { grid-template-columns: 1fr; } .card { min-height: 0; } .services { padding: 65px 0 75px; } .footer .wrap { flex-direction: column; } .replay { right: 12px; bottom: 12px; } }
-      @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .intro { display: none !important; } .replay { display: none !important; } .button { transition: none; } }
-    </style>
-  </head>
-  <body>
-    <div class="site" id="top">
-      <header class="header wrap">
-        <a class="brand" href="#top" aria-label="MACHI GARAGE トップ">
-          <span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M7 23 23 7M17 7h6v6M6 17l9 9" stroke="#FA704D" stroke-width="3" stroke-linecap="square"/></svg></span>
-          <span class="brand-name">MACHI GARAGE<small>街のクルマの相談所</small></span>
-        </a>
-        <nav class="nav" aria-label="メインメニュー"><a href="#services">サービス</a><a href="#services">私たちについて</a><a class="nav-contact" href="#services">ご相談はこちら ↗</a></nav>
-      </header>
-      <main>
-        <section class="hero" aria-labelledby="hero-title">
-          <div class="hero-inner">
-            <div class="hero-copy">
-              <div class="eyebrow">YOUR LOCAL AUTO PARTNER</div>
-              <h1 id="hero-title">その音、気になったら。<br /><em>いつもの工場へ。</em></h1>
-              <p class="lead">小さな違和感から、車検・日々のメンテナンスまで。<br />クルマの「ちょっと相談したい」を、気軽に話せる場所です。</p>
-              <div class="actions"><a class="button primary" href="#services">サービスを見る <span>↗</span></a><a class="button secondary" href="#services">相談の流れを見る <span>→</span></a></div>
-              <p class="sample-note">※ これは演出確認用のサンプルサイトです。店名・内容は仮のものです。</p>
-            </div>
-            <div class="visual" aria-label="ガレージ内の車を描いたイラスト" role="img">
-              <svg viewBox="0 0 600 530" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <defs><linearGradient id="wall" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#3a4549"/><stop offset="1" stop-color="#1c262b"/></linearGradient><linearGradient id="car" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e1e5df"/><stop offset=".55" stop-color="#aab3b1"/><stop offset="1" stop-color="#6f7d80"/></linearGradient><linearGradient id="window" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#536b72"/><stop offset="1" stop-color="#1a2930"/></linearGradient></defs>
-                <path d="M55 105 300 25 545 105v335H55Z" fill="url(#wall)" stroke="#5c696b" stroke-width="5"/><path d="M44 110 300 19l256 91" fill="none" stroke="#fa704d" stroke-width="9"/>
-                <path d="M102 152h396v256H102z" fill="#131d23" stroke="#667273" stroke-width="5"/><path d="M111 170h378M111 194h378M111 218h378M111 242h378M111 266h378" stroke="#29353a" stroke-width="4"/>
-                <path d="M107 424 9 500h582l-98-76Z" fill="#374349"/><path d="M300 425v70M84 462h431" stroke="#59666a" stroke-width="3" opacity=".6"/>
-                <path d="M90 356c21-7 45-12 81-16l45-72c9-13 23-20 41-21h114c18 0 31 8 44 21l53 69 42 13c16 5 26 17 27 32l-4 28H76l-4-25c-2-14 4-23 18-29Z" fill="url(#car)" stroke="#dfe3de" stroke-width="4"/>
-                <path d="m222 273-36 65h244l-49-65c-5-7-13-10-22-10H248c-12 0-20 3-26 10Z" fill="url(#window)" stroke="#d9e0dc" stroke-width="4"/><path d="m300 264 2 74" stroke="#c9d0cc" stroke-width="4"/>
-                <path d="M81 365c76 12 148 18 219 18s156-7 229-18" fill="none" stroke="#687477" stroke-width="5"/><path d="M180 387h242" stroke="#243139" stroke-width="17" stroke-linecap="round"/><path d="M245 390h110" stroke="#929e9d" stroke-width="7" stroke-linecap="round"/>
-                <path d="M86 358h57l-12 24H82zM514 358h-57l12 24h49z" fill="#ffe9c5" stroke="#fdf4df" stroke-width="3"/><circle cx="158" cy="418" r="32" fill="#121c22" stroke="#647073" stroke-width="7"/><circle cx="158" cy="418" r="13" fill="#a4adab"/><circle cx="449" cy="418" r="32" fill="#121c22" stroke="#647073" stroke-width="7"/><circle cx="449" cy="418" r="13" fill="#a4adab"/>
-                <path d="M168 336h274" stroke="#f6f6ec" stroke-width="3" opacity=".55"/><path d="M515 150h28v58h-28z" fill="#fa704d"/><path d="M54 150h28v58H54z" fill="#fa704d"/>
-              </svg>
-              <div class="visual-stamp"><strong>DRIVE EASY.</strong><small>車のこと、もっと気軽に。</small></div>
-            </div>
-          </div>
-          <div class="scroll-cue">SCROLL TO EXPLORE</div>
-        </section>
-        <section class="services" id="services">
-          <div class="wrap">
-            <div class="section-head"><div><div class="eyebrow">WHAT WE DO</div><h2>いつもの安心を、<br />整備から。</h2></div><p>サイト本番では、ここに実際のサービス・料金・整備事例を掲載します。<br />このデモではオープニング演出とトップ画面の雰囲気を確認できます。</p></div>
-            <div class="cards"><article class="card"><div class="card-num">01 /</div><h3>車検・定期点検</h3><p>点検項目や見積もりの流れを分かりやすく案内する想定です。</p></article><article class="card"><div class="card-num">02 /</div><h3>修理・メンテナンス</h3><p>異音や警告灯など、症状から相談できる入口を用意します。</p></article><article class="card"><div class="card-num">03 /</div><h3>タイヤ・オイル交換</h3><p>よくある作業を探しやすくまとめ、予約へつなげます。</p></article></div>
-          </div>
-        </section>
-      </main>
-      <footer class="footer"><div class="wrap"><span>MACHI GARAGE — OPENING ANIMATION DEMO</span><span>このサイトはデザイン・動作確認用サンプルです。</span></div></footer>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171c1e">
+  <meta name="description" content="自動車整備工場のサイト向け、リアルなシャッター演出のデモ。">
+  <title>シャッター演出デモ | 自動車整備工場</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap');
+    :root { font-family:"Noto Sans JP",sans-serif; color:#eeeae2; background:#171c1e; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; min-width:320px; }
+    a { color:inherit; }
+    button { font:inherit; cursor:pointer; }
+    .container { width:min(1180px,calc(100% - 64px)); margin-inline:auto; }
+    .header { position:absolute; z-index:5; top:0; left:0; right:0; border-bottom:1px solid #ffffff32; }
+    .header-inner { height:80px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .site-label { font:600 13px "Barlow Condensed",sans-serif; letter-spacing:.24em; text-decoration:none; white-space:nowrap; }
+    .site-label span { font-family:"Noto Sans JP",sans-serif; letter-spacing:.12em; margin-left:12px; font-size:10px; font-weight:500; color:#ddd4c5; }
+    .nav { display:flex; align-items:center; gap:34px; }
+    .nav a { font-size:12px; font-weight:600; text-decoration:none; }
+    .nav a:hover { color:#d8ac7e; }
+    .nav .contact { padding:13px 20px; border:1px solid #ffffff90; }
+    .hero { min-height:730px; height:100svh; max-height:1000px; position:relative; display:flex; align-items:center; isolation:isolate; background:#202527; overflow:hidden; }
+    .hero-photo { position:absolute; inset:0; z-index:-2; background-image:url('images/garage-hero-v2.png'); background-size:cover; background-position:center 47%; }
+    .hero::before { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(90deg,#101517e8 0%,#101517bc 34%,#10151765 63%,#10151722 100%),linear-gradient(0deg,#0b1013a8,transparent 36%); }
+    .hero-content { position:relative; padding-top:110px; padding-bottom:55px; }
+    .eyebrow { display:flex; align-items:center; gap:15px; color:#d7ad7f; font:600 12px "Barlow Condensed",sans-serif; letter-spacing:.27em; }
+    .eyebrow::before { content:""; display:block; width:29px; height:1px; background:#d7ad7f; }
+    h1 { margin:33px 0 25px; font-size:clamp(41px,5.2vw,77px); font-weight:600; line-height:1.39; letter-spacing:-.07em; text-shadow:0 3px 30px #0007; }
+    .hero-lead { margin:0; color:#e2ded5; font-size:15px; font-weight:400; line-height:2.1; text-shadow:0 2px 10px #0009; }
+    .actions { display:flex; gap:13px; flex-wrap:wrap; margin-top:39px; }
+    .button { display:inline-flex; align-items:center; justify-content:space-between; gap:25px; min-width:193px; min-height:55px; padding:0 22px; font-size:13px; font-weight:600; text-decoration:none; transition:background .2s,color .2s; }
+    .button-primary { color:#181b1c; background:#d9b68c; border:1px solid #d9b68c; }
+    .button-primary:hover { background:#f0cfaa; }
+    .button-secondary { border:1px solid #ffffffa0; color:#fff; background:#1014164f; }
+    .button-secondary:hover { background:#ffffff29; }
+    .button span { font-size:19px; font-weight:400; line-height:1; }
+    .sample { margin-top:26px; color:#d4d1cbb8; font-size:11px; }
+    .hero-foot { position:absolute; bottom:29px; left:0; right:0; display:flex; align-items:end; justify-content:space-between; gap:20px; color:#eee9dfb7; font:500 11px "Barlow Condensed",sans-serif; letter-spacing:.22em; }
+    .hero-foot span:last-child { font-family:"Noto Sans JP",sans-serif; letter-spacing:.08em; font-size:10px; }
+    .services { background:#eae7df; color:#1b2224; padding:95px 0 110px; }
+    .services-head { display:flex; align-items:end; justify-content:space-between; gap:30px; margin-bottom:35px; }
+    .services h2 { margin:17px 0 0; font-weight:600; letter-spacing:-.055em; font-size:clamp(28px,3vw,42px); line-height:1.45; }
+    .services-head p { color:#566165; font-size:13px; line-height:1.9; margin:0 0 3px; }
+    .services .eyebrow { color:#8e653e; }
+    .services .eyebrow::before { background:#8e653e; }
+    .cards { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid #aeb2ae; border-bottom:1px solid #aeb2ae; }
+    .card { padding:28px 28px 33px; border-right:1px solid #aeb2ae; min-height:218px; }
+    .card:first-child { padding-left:0; }
+    .card:last-child { border:0; }
+    .card .num { font:600 15px "Barlow Condensed",sans-serif; letter-spacing:.12em; color:#936f4c; }
+    .card h3 { font-size:18px; margin:29px 0 12px; font-weight:600; }
+    .card p { margin:0; color:#697173; font-size:12px; line-height:1.85; }
+    .footer { background:#171c1e; color:#a7aaa7; padding:26px 0; font-size:10px; letter-spacing:.06em; }
+    .footer-inner { display:flex; justify-content:space-between; gap:20px; }
+    .replay { position:fixed; z-index:30; right:24px; bottom:23px; padding:12px 16px; border:1px solid #d9b68c; color:#eeeae2; background:#171c1eea; box-shadow:0 12px 28px #0007; font-size:12px; opacity:0; visibility:hidden; transition:opacity .3s,background .2s; }
+    .replay.show { opacity:1; visibility:visible; }
+    .replay:hover { background:#333a3b; }
+    /* Door and frame stay separate, as they do on an actual rolling shutter. */
+    .intro { position:fixed; z-index:100; inset:0; overflow:hidden; visibility:hidden; pointer-events:none; background:transparent; }
+    .intro.active { visibility:visible; pointer-events:auto; }
+    .door { position:absolute; inset:0 14px 0; z-index:2; will-change:transform; transform:translateY(0); background-color:#747a7b;
+      background-image:linear-gradient(90deg,#0005 0%,#fff1 13%,transparent 33%,#0002 63%,#0006 100%),url('images/shutter-metal-v2.png');
+      background-size:100% 100%,cover;
+      background-position:center;
+      box-shadow:inset 8px 0 18px #0006,inset -8px 0 18px #0007,0 24px 34px #000b;
+    }
+    .door::before { content:""; position:absolute; inset:0; opacity:.26; mix-blend-mode:multiply;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8 .12' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+    }
+    .door::after { content:""; position:absolute; bottom:0; left:0; right:0; height:21px; background:linear-gradient(#919898 0 2px,#343e40 3px 7px,#151d20 8px 17px,#080c0e 18px); box-shadow:0 8px 15px #0009; }
+    .rail { position:absolute; z-index:4; top:0; bottom:0; width:16px; background:linear-gradient(90deg,#060a0c,#51595a 24%,#9ea5a3 37%,#283133 65%,#0c1215); box-shadow:0 0 14px #000b; }
+    .rail.left { left:0; } .rail.right { right:0; transform:scaleX(-1); }
+    .housing { position:absolute; z-index:5; top:0; left:0; right:0; height:37px; background:linear-gradient(#10181b,#3f484a 28%,#242d30 68%,#080c0e); box-shadow:0 8px 20px #0008; }
+    .intro.opening .door { animation:raise 1.75s cubic-bezier(.68,.04,.22,1) forwards; }
+    @keyframes raise { 0% { transform:translateY(0); } 16% { transform:translateY(-2%); } 23% { transform:translateY(-2%); } 100% { transform:translateY(-105%); } }
+    .skip { position:absolute; z-index:6; bottom:25px; right:28px; border:1px solid #ffffff90; background:#182023ad; color:#fff; padding:10px 16px; font-size:11px; letter-spacing:.08em; }
+    .intro.opening .skip { opacity:0; pointer-events:none; }
+    @media (max-width:760px) {
+      .container { width:min(100% - 38px,1180px); }
+      .header-inner { height:70px; }
+      .site-label span { display:none; }
+      .nav a:not(.contact) { display:none; }
+      .nav .contact { padding:10px 12px; font-size:11px; }
+      .hero { min-height:700px; max-height:none; }
+      .hero-photo { background-position:61% center; }
+      .hero::before { background:linear-gradient(90deg,#101517de,#10151780 73%,#10151738),linear-gradient(0deg,#0b1013b8,transparent 55%); }
+      .hero-content { padding-top:90px; }
+      h1 { font-size:clamp(36px,8.6vw,59px); }
+      .hero-lead { font-size:13px; }
+      .services { padding:70px 0 80px; }
+      .services-head { display:block; }
+      .services-head p { margin-top:20px; }
+      .cards { display:block; }
+      .card,.card:first-child { padding:25px 0 29px; min-height:0; border-right:0; border-bottom:1px solid #aeb2ae; }
+      .card:last-child { border:0; }
+      .card h3 { margin:13px 0 10px; }
+      .footer-inner { display:block; }
+      .footer-inner span { display:block; margin:4px 0; }
+      .replay { right:12px; bottom:12px; font-size:11px; }
+    }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .intro,.replay { display:none!important; } }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a class="site-label" href="#top">AUTO SERVICE <span>自動車整備工場サイト・演出デモ</span></a>
+      <nav class="nav" aria-label="メインメニュー">
+        <a href="#services">サービス</a><a href="#services">工場について</a><a href="#services" class="contact">お問い合わせ ↗</a>
+      </nav>
     </div>
-    <div class="intro active" id="intro" aria-label="オープニングアニメーション">
-      <div class="shutter"><div class="intro-mark"><div class="intro-diamond"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M7 23 23 7M17 7h6v6M6 17l9 9" stroke="#FA704D" stroke-width="3" stroke-linecap="square"/></svg></div><strong>MACHI GARAGE</strong><p>街のクルマの相談所</p><div class="intro-line"></div></div></div>
-      <button class="skip" id="skip" type="button">スキップ →</button>
-    </div>
-    <button class="replay" id="replay" type="button">↺ シャッターをもう一度見る</button>
-    <script>
-      const intro = document.getElementById('intro');
-      const replay = document.getElementById('replay');
-      const skip = document.getElementById('skip');
-      let startTimer, finishTimer;
-      function finishIntro() {
-        clearTimeout(startTimer); clearTimeout(finishTimer);
-        intro.classList.remove('active', 'opening');
-        intro.setAttribute('aria-hidden', 'true');
-        replay.classList.add('show');
-      }
-      function playIntro() {
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { finishIntro(); return; }
-        clearTimeout(startTimer); clearTimeout(finishTimer);
-        replay.classList.remove('show');
-        intro.classList.remove('opening');
-        intro.classList.add('active');
-        intro.removeAttribute('aria-hidden');
-        void intro.offsetWidth;
-        startTimer = setTimeout(() => intro.classList.add('opening'), 900);
-        finishTimer = setTimeout(finishIntro, 2350);
-      }
-      skip.addEventListener('click', finishIntro);
-      replay.addEventListener('click', playIntro);
-      playIntro();
-    </script>
-  </body>
+  </header>
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-photo" aria-hidden="true"></div>
+      <div class="container hero-content">
+        <div class="eyebrow">AUTO MAINTENANCE & REPAIR</div>
+        <h1 id="hero-title">愛車に、<br>確かな整備を。</h1>
+        <p class="hero-lead">いつもの安心は、見えないところの丁寧な仕事から。<br>点検から修理まで、車のことを気軽に相談できる場所へ。</p>
+        <div class="actions"><a class="button button-primary" href="#services">サービスを見る <span>↗</span></a><a class="button button-secondary" href="#services">相談の流れ <span>→</span></a></div>
+        <p class="sample">※ 画像・店名・サービス内容は演出確認用の仮素材です。</p>
+      </div>
+      <div class="container hero-foot"><span>SCROLL TO EXPLORE ↓</span><span>GARAGE OPENING CONCEPT / 2026</span></div>
+    </section>
+    <section class="services" id="services">
+      <div class="container">
+        <div class="services-head">
+          <div><div class="eyebrow">SERVICE</div><h2>車のことを、<br>安心して任せられる場所に。</h2></div>
+          <p>本番では実際のサービスや料金、整備事例を掲載します。<br>このページはオープニング演出の確認用デモです。</p>
+        </div>
+        <div class="cards">
+          <article class="card"><div class="num">01 /</div><h3>車検・定期点検</h3><p>点検内容と見積もりの流れを分かりやすく。</p></article>
+          <article class="card"><div class="num">02 /</div><h3>修理・メンテナンス</h3><p>異音や警告灯など、症状から相談できる入口に。</p></article>
+          <article class="card"><div class="num">03 /</div><h3>タイヤ・オイル交換</h3><p>日々の整備も迷わず探せる構成に。</p></article>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="container footer-inner"><span>AUTO SERVICE WEBSITE CONCEPT</span><span>このサイトはデザイン・動作確認用サンプルです。</span></div></footer>
+  <div class="intro active" id="intro" aria-label="シャッターが開くオープニングアニメーション">
+    <div class="door"></div><div class="rail left"></div><div class="rail right"></div><div class="housing"></div>
+    <button class="skip" type="button" id="skip">スキップ →</button>
+  </div>
+  <button class="replay" type="button" id="replay">↺ シャッターをもう一度見る</button>
+  <script>
+    const intro = document.getElementById('intro');
+    const replay = document.getElementById('replay');
+    const skip = document.getElementById('skip');
+    let startTimer, finishTimer;
+    function finishIntro() {
+      clearTimeout(startTimer); clearTimeout(finishTimer);
+      intro.classList.remove('active','opening');
+      intro.setAttribute('aria-hidden','true');
+      replay.classList.add('show');
+    }
+    function playIntro() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { finishIntro(); return; }
+      clearTimeout(startTimer); clearTimeout(finishTimer);
+      replay.classList.remove('show');
+      intro.classList.remove('opening');
+      intro.classList.add('active');
+      intro.removeAttribute('aria-hidden');
+      void intro.offsetWidth;
+      startTimer = setTimeout(() => intro.classList.add('opening'), 500);
+      finishTimer = setTimeout(finishIntro, 2450);
+    }
+    skip.addEventListener('click', finishIntro);
+    replay.addEventListener('click', playIntro);
+    playIntro();
+  </script>
+</body>
 </html>
