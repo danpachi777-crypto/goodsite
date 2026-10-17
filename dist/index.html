@@ -43,7 +43,7 @@
     .hero h1 { margin:0; color:#263f3d; font-size:clamp(51px,6.9vw,96px); line-height:1.38; font-weight:500; letter-spacing:-.08em; }
     .hero-sub { margin:23px 0 0; color:#415a55; font-size:14px; line-height:2.1; font-weight:500; }
     .hero-actions { display:flex; gap:34px; flex-wrap:wrap; margin-top:42px; }
-    .action-link { display:inline-flex; align-items:center; gap:18px; position:relative; padding:10px 1px 14px; color:var(--green-deep); font-size:14px; font-weight:600; text-decoration:none; transition:color .25s; }
+    .action-link { display:inline-flex; align-items:center; gap:18px; position:relative; padding:10px 1px 14px; border:0; background:none; color:var(--green-deep); font-size:14px; font-weight:600; text-decoration:none; transition:color .25s; }
     .action-link::after { content:""; position:absolute; bottom:4px; left:0; right:0; height:1px; background:var(--green); transition:height .25s,background .25s; }
     .action-link:hover { color:#163c35; }
     .action-link:hover::after { height:3px; background:#2d806d; }
@@ -130,7 +130,7 @@
     .contact h2 { margin:28px 0 20px; font-size:clamp(42px,5.2vw,72px); line-height:1.42; font-weight:500; letter-spacing:-.06em; }
     .contact-intro { margin:0 0 57px; color:var(--soft); font-size:14px; line-height:2; }
     .contact-list { border-top:1px solid var(--line); }
-    .contact-option { display:flex; justify-content:space-between; align-items:center; gap:20px; min-height:139px; padding:25px 12px; border-bottom:1px solid var(--line); text-decoration:none; color:var(--ink); position:relative; overflow:hidden; transition:padding .35s,color .35s; }
+    .contact-option { display:flex; justify-content:space-between; align-items:center; gap:20px; width:100%; min-height:139px; padding:25px 12px; border:0; border-bottom:1px solid var(--line); background:none; text-align:left; text-decoration:none; color:var(--ink); position:relative; overflow:hidden; transition:padding .35s,color .35s; }
     .contact-option::before { content:""; position:absolute; inset:0; background:linear-gradient(90deg,#eaf4eb,#f8fbf8); transform:translateX(-101%); transition:transform .45s cubic-bezier(.2,.7,.2,1); }
     .contact-option:hover::before,.contact-option:focus-visible::before { transform:translateX(0); }
     .contact-option:hover,.contact-option:focus-visible { padding-left:27px; color:var(--green-deep); }
@@ -153,6 +153,40 @@
     .dialog-content h3 { margin:12px 0 15px; font-size:clamp(24px,3vw,37px); font-weight:500; }
     .dialog-content p { color:var(--soft); font-size:14px; line-height:2; }
     .dialog-close { position:absolute; top:14px; right:14px; width:43px; height:43px; border:0; border-radius:50%; background:#fffffff0; color:var(--ink); font-size:22px; }
+    .booking-dialog { width:min(1030px,calc(100% - 36px)); max-width:none; max-height:calc(100dvh - 36px); margin:auto; padding:0; border:0; background:#fff; color:var(--ink); box-shadow:0 30px 90px #16382f55; overflow:auto; }
+    .booking-dialog::backdrop { background:#142f2bb5; backdrop-filter:blur(6px); }
+    .booking-layout { display:grid; grid-template-columns:37% 63%; min-height:680px; }
+    .booking-aside { position:relative; display:flex; flex-direction:column; justify-content:space-between; overflow:hidden; padding:48px 38px 43px; background:linear-gradient(145deg,#edf5ee,#dfeee9 62%,#dbe9ef); }
+    .booking-aside::after { content:""; position:absolute; width:400px; height:400px; border:1px solid #5c9a833b; border-radius:50%; bottom:-180px; left:-185px; box-shadow:0 0 0 52px #ffffff2e,0 0 0 105px #ffffff2a; pointer-events:none; }
+    .booking-aside > * { position:relative; z-index:1; }
+    .booking-aside .kicker { margin-top:7px; }
+    .booking-aside h2 { margin:74px 0 21px; font-size:clamp(34px,3.6vw,49px); line-height:1.52; font-weight:500; letter-spacing:-.065em; }
+    .booking-aside p { margin:0; color:#58746b; font-size:13px; line-height:2.1; }
+    .booking-aside-foot { color:#5e8d7e; font:600 12px "Barlow Condensed",sans-serif; letter-spacing:.2em; }
+    .booking-form-wrap { padding:48px 54px 43px; }
+    .booking-top { display:flex; justify-content:space-between; align-items:start; gap:20px; }
+    .booking-top h3 { margin:0; font-size:28px; font-weight:500; letter-spacing:-.05em; }
+    .booking-top p { margin:9px 0 0; color:#738a82; font-size:12px; line-height:1.8; }
+    .booking-close { flex:none; display:grid; place-items:center; width:39px; height:39px; margin:-9px -14px 0 0; border:0; border-radius:50%; background:#eef5f0; color:var(--green-deep); font-size:23px; line-height:1; transition:background .25s,transform .25s; }
+    .booking-close:hover { background:#d9ebe0; transform:rotate(90deg); }
+    .booking-form { margin-top:33px; }
+    .booking-field { display:block; margin-bottom:24px; }
+    .booking-field > span { display:flex; align-items:center; gap:8px; margin-bottom:7px; color:#395850; font-size:12px; font-weight:600; }
+    .booking-field em { color:#518b77; font-size:10px; font-style:normal; font-weight:500; }
+    .booking-field input,.booking-field select,.booking-field textarea { display:block; width:100%; min-height:43px; padding:10px 0 11px; border:0; border-bottom:1px solid #b7cbc1; border-radius:0; outline:0; background:transparent; color:var(--ink); font:500 14px "Noto Sans JP",sans-serif; transition:border-color .25s,background .25s; }
+    .booking-field input::placeholder,.booking-field textarea::placeholder { color:#a0b1a9; }
+    .booking-field input:focus,.booking-field select:focus,.booking-field textarea:focus { border-bottom:2px solid var(--green); background:#f7faf7; }
+    .booking-field textarea { min-height:87px; resize:vertical; line-height:1.7; }
+    .booking-pair { display:grid; grid-template-columns:1fr 1fr; gap:21px; }
+    .booking-help { margin:-12px 0 24px; color:#7a9086; font-size:11px; line-height:1.8; }
+    .booking-bottom { display:flex; align-items:center; justify-content:space-between; gap:18px; padding-top:8px; }
+    .booking-bottom p { max-width:290px; margin:0; color:#7b9188; font-size:11px; line-height:1.8; }
+    .booking-submit { flex:none; display:inline-flex; align-items:center; justify-content:space-between; gap:23px; min-width:188px; min-height:54px; padding:0 21px; border:0; background:var(--green-deep); color:#fff; font-size:13px; font-weight:600; transition:background .25s,transform .25s; }
+    .booking-submit:hover { background:#3b7b69; transform:translateY(-2px); }
+    .booking-submit span { font-size:22px; line-height:1; transition:transform .25s; }
+    .booking-submit:hover span { transform:translate(3px,-3px); }
+    .booking-feedback { margin:19px 0 0; padding:13px 15px; background:#eff6f0; color:var(--green-deep); font-size:12px; line-height:1.8; }
+    .booking-feedback:empty { display:none; }
     .replay { border:0; border-bottom:1px solid #819f93; padding:5px 0 7px; background:none; color:var(--green-deep); font:600 10px "Barlow Condensed",sans-serif; letter-spacing:.14em; opacity:0; visibility:hidden; transition:opacity .3s,color .3s,border-color .3s; }
     .replay.show { opacity:1; visibility:visible; }
     .replay:hover { color:#183d35; border-color:#183d35; }
@@ -228,6 +262,20 @@
       .footer a { display:inline-block; margin-top:22px; }
       .dialog-content { padding:25px; }
       .dialog-image { aspect-ratio:4/3; }
+      .booking-dialog { width:calc(100% - 18px); max-height:calc(100dvh - 18px); }
+      .booking-layout { display:block; min-height:0; }
+      .booking-aside { padding:29px 27px 25px; min-height:0; }
+      .booking-aside h2 { margin:23px 0 8px; font-size:28px; }
+      .booking-aside p { font-size:12px; }
+      .booking-aside-foot { display:none; }
+      .booking-form-wrap { padding:29px 27px 32px; }
+      .booking-top h3 { font-size:23px; }
+      .booking-form { margin-top:25px; }
+      .booking-pair { grid-template-columns:1fr; gap:0; }
+      .booking-field { margin-bottom:18px; }
+      .booking-bottom { align-items:stretch; flex-direction:column; }
+      .booking-bottom p { max-width:none; }
+      .booking-submit { width:100%; }
     }
     @media (prefers-reduced-motion:reduce) {
       html { scroll-behavior:auto; }
@@ -255,7 +303,7 @@
       <div class="container hero-content">
         <h1 id="hero-title">その一台に、<br>責任を。</h1>
         <p class="hero-sub">整備の先にある、いつもの毎日まで。<br>車のことを、安心して相談できる場所へ。</p>
-        <div class="hero-actions"><a class="action-link" href="#phone">電話で相談 <span class="arrow">↗</span></a><a class="action-link" href="#booking">予約希望を送る <span class="arrow">↗</span></a></div>
+        <div class="hero-actions"><a class="action-link" href="#phone">電話で相談 <span class="arrow">↗</span></a><button class="action-link booking-trigger" type="button">予約希望を送る <span class="arrow" aria-hidden="true">↗</span></button></div>
       </div>
       <div class="hero-foot"><div class="container"><span>SCROLL TO DISCOVER ↓</span><span class="hero-foot-right"><span class="concept">※ 写真は生成したコンセプトイメージです</span><button class="replay" type="button" id="replay">↺ REPLAY OPENING</button></span></div></div>
     </section>
@@ -319,7 +367,7 @@
         <p class="contact-intro reveal">気になる症状や整備のご希望に合わせて、相談方法をお選びください。</p>
         <div class="contact-list">
           <a class="contact-option reveal" id="phone" href="#contact" aria-label="電話で相談。電話番号は準備中です"><span><small>BY PHONE</small><strong>電話で相談</strong></span><span class="arrow" aria-hidden="true">↗</span></a>
-          <a class="contact-option reveal" id="booking" href="#contact" aria-label="予約希望を送る。送信先は準備中です"><span><small>BOOKING REQUEST</small><strong>予約希望を送る</strong></span><span class="arrow" aria-hidden="true">↗</span></a>
+          <button class="contact-option reveal booking-trigger" id="booking" type="button"><span><small>BOOKING REQUEST</small><strong>予約希望を送る</strong></span><span class="arrow" aria-hidden="true">↗</span></button>
         </div>
         <p class="demo-note">※ デモのため、電話番号と予約希望の送信先はまだ設定していません。</p>
       </div>
@@ -327,6 +375,44 @@
   </main>
   <footer class="footer"><div class="container footer-inner"><div><strong>AUTO SERVICE</strong><p>自動車整備工場ホームページ｜デザイン・動作確認用デモ</p></div><a href="#top">ページの先頭へ ↑</a></div></footer>
   <dialog class="case-dialog" id="case-dialog" aria-labelledby="dialog-title"><button class="dialog-close" type="button" id="dialog-close" aria-label="閉じる">×</button><img class="dialog-image" id="dialog-image" alt=""><div class="dialog-content"><small>MAINTENANCE CONCEPT</small><h3 id="dialog-title"></h3><p id="dialog-description"></p><p>※ 生成写真を使用したデザイン確認用のイメージです。</p></div></dialog>
+  <dialog class="booking-dialog" id="booking-dialog" aria-labelledby="booking-title" aria-describedby="booking-intro">
+    <div class="booking-layout">
+      <div class="booking-aside">
+        <div>
+          <div class="kicker">BOOKING REQUEST</div>
+          <h2>愛車のこと、<br>気軽にお聞かせください。</h2>
+          <p id="booking-intro">整備や点検のご相談内容と、ご希望の日時をお知らせください。年式など不明な項目は空欄で大丈夫です。</p>
+        </div>
+        <div class="booking-aside-foot">CARE FOR EVERY DRIVE.</div>
+      </div>
+      <div class="booking-form-wrap">
+        <div class="booking-top"><div><h3 id="booking-title">予約希望フォーム</h3><p>ご希望を確認するための入力フォームです。</p></div><button class="booking-close" id="booking-close" type="button" aria-label="フォームを閉じる">×</button></div>
+        <form class="booking-form" id="booking-form">
+          <label class="booking-field"><span>相談内容 <em>必須</em></span><textarea name="consultation" placeholder="例：車検の相談、ブレーキの異音、オイル交換など" required></textarea></label>
+          <div class="booking-pair">
+            <label class="booking-field"><span>第1希望日 <em>必須</em></span><input name="date_first" type="date" required></label>
+            <label class="booking-field"><span>希望時間 <em>必須</em></span><input name="time_first" type="time" required></label>
+          </div>
+          <div class="booking-pair">
+            <label class="booking-field"><span>第2希望日 <em>任意</em></span><input name="date_second" type="date"></label>
+            <label class="booking-field"><span>希望時間 <em>任意</em></span><input name="time_second" type="time"></label>
+          </div>
+          <p class="booking-help">日時はご希望として伺います。予約確定ではありません。</p>
+          <div class="booking-pair">
+            <label class="booking-field"><span>車種 <em>必須</em></span><input name="vehicle" type="text" placeholder="例：トヨタ プリウス" autocomplete="off" required></label>
+            <label class="booking-field"><span>年式 <em>任意</em></span><input name="year" type="text" placeholder="例：2020年式／不明" inputmode="numeric"></label>
+          </div>
+          <div class="booking-pair">
+            <label class="booking-field"><span>お名前 <em>必須</em></span><input name="customer_name" type="text" autocomplete="name" placeholder="例：山田 太郎" required></label>
+            <label class="booking-field"><span>電話番号 <em>必須</em></span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="例：090-1234-5678" required></label>
+          </div>
+          <label class="booking-field"><span>メールアドレス <em>任意</em></span><input name="email" type="email" autocomplete="email" inputmode="email" placeholder="例：you@example.com"></label>
+          <div class="booking-bottom"><p>※ 現在はデザイン確認用です。送信先の設定後に受付を開始します。</p><button class="booking-submit" type="submit">入力内容を確認 <span aria-hidden="true">↗</span></button></div>
+          <p class="booking-feedback" id="booking-feedback" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </dialog>
   <div class="intro active" id="intro" aria-label="車の輪郭が線で描かれ、工場の写真が現れるオープニングアニメーション">
     <img class="car-art" src="images/sedan-design-sketch-v10.png" alt="細部まで描かれたセダンのデザインスケッチ">
     <button class="skip" type="button" id="skip">スキップ →</button>
@@ -340,6 +426,9 @@
     const menuToggle = document.getElementById('menu-toggle');
     const nav = document.getElementById('nav');
     const dialog = document.getElementById('case-dialog');
+    const bookingDialog = document.getElementById('booking-dialog');
+    const bookingForm = document.getElementById('booking-form');
+    const bookingFeedback = document.getElementById('booking-feedback');
     let startTimer, finishTimer;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     function finishIntro() {
@@ -410,7 +499,7 @@
       clearInterval(workTimer);
       if (reducedMotion.matches) return;
       workTimer = setInterval(() => {
-        if (!document.hidden && !workShowcase.matches(':hover') && !workShowcase.contains(document.activeElement) && !dialog.open) showWork(workIndex + 1);
+        if (!document.hidden && !workShowcase.matches(':hover') && !workShowcase.contains(document.activeElement) && !dialog.open && !bookingDialog.open) showWork(workIndex + 1);
       }, 6500);
     }
     function moveWork(direction) {
@@ -447,6 +536,30 @@
     document.getElementById('dialog-close').addEventListener('click', () => dialog.close());
     dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
     dialog.addEventListener('close', () => document.body.classList.remove('dialog-open'));
+    const localToday = new Date();
+    const todayString = [localToday.getFullYear(), String(localToday.getMonth() + 1).padStart(2, '0'), String(localToday.getDate()).padStart(2, '0')].join('-');
+    bookingForm.querySelectorAll('input[type="date"]').forEach(input => { input.min = todayString; });
+    const secondDate = bookingForm.elements.date_second;
+    const secondTime = bookingForm.elements.time_second;
+    function syncSecondPreference() {
+      secondDate.required = Boolean(secondTime.value);
+      secondTime.required = Boolean(secondDate.value);
+    }
+    secondDate.addEventListener('change', syncSecondPreference);
+    secondTime.addEventListener('change', syncSecondPreference);
+    document.querySelectorAll('.booking-trigger').forEach(button => button.addEventListener('click', () => {
+      bookingFeedback.textContent = '';
+      bookingDialog.showModal();
+      document.body.classList.add('dialog-open');
+      bookingDialog.querySelector('textarea').focus();
+    }));
+    document.getElementById('booking-close').addEventListener('click', () => bookingDialog.close());
+    bookingDialog.addEventListener('close', () => document.body.classList.remove('dialog-open'));
+    bookingForm.addEventListener('submit', event => {
+      event.preventDefault();
+      bookingFeedback.textContent = '入力内容を確認しました。現在、予約希望の送信先は未設定のため、まだ送信されていません。';
+      bookingFeedback.scrollIntoView({ block:'nearest', behavior:reducedMotion.matches ? 'instant' : 'smooth' });
+    });
     playIntro();
   </script>
 </body>
