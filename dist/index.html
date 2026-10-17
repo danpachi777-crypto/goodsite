@@ -66,31 +66,43 @@
     .section-heading { display:flex; align-items:end; justify-content:space-between; gap:30px; margin-bottom:45px; }
     .section-heading h2 { margin:22px 0 0; font-size:clamp(39px,4.8vw,68px); line-height:1.3; font-weight:500; letter-spacing:-.065em; }
     .section-heading p { max-width:390px; margin:0 0 8px; color:var(--soft); font-size:13px; line-height:2; }
-    .work-filters { display:flex; gap:26px; margin-bottom:24px; border-bottom:1px solid #d5e0d8; }
-    .work-filter { position:relative; border:0; background:none; padding:0 1px 17px; color:#718782; font-size:12px; font-weight:600; }
-    .work-filter::after { content:""; position:absolute; left:0; right:100%; bottom:-1px; height:2px; background:var(--green); transition:right .3s; }
-    .work-filter:hover,.work-filter.active { color:var(--green-deep); }
-    .work-filter:hover::after,.work-filter.active::after { right:0; }
-    .work-grid { display:grid; grid-template-columns:1.35fr 1fr 1fr; gap:20px; align-items:start; }
-    .work-card { display:block; padding:0; border:0; background:none; color:inherit; text-align:left; }
-    .work-card[hidden] { display:none; }
-    .work-photo { position:relative; display:block; overflow:hidden; aspect-ratio:4/4.35; background:#dde6e0; }
-    .work-card:first-child .work-photo { aspect-ratio:4/4.35; }
-    .work-photo img { width:100%; height:100%; object-fit:cover; transition:transform .6s cubic-bezier(.2,.65,.2,1),filter .4s; }
-    .work-card:nth-child(1) img { object-position:64% center; }
-    .work-card:nth-child(2) img { object-position:44% center; }
-    .work-card:nth-child(3) img { object-position:45% center; }
-    .work-card:hover img,.work-card:focus-visible img { transform:scale(1.055); filter:saturate(1.08); }
-    .work-photo::after { content:""; position:absolute; inset:0; background:#294b3b00; transition:background .35s; }
-    .work-card:hover .work-photo::after,.work-card:focus-visible .work-photo::after { background:#294b3b16; }
-    .work-open { position:absolute; z-index:1; bottom:18px; right:18px; display:grid; place-items:center; width:48px; height:48px; border-radius:50%; background:#fffffff0; color:var(--green); font-size:23px; transition:transform .3s,background .3s,color .3s; }
-    .work-card:hover .work-open,.work-card:focus-visible .work-open { transform:rotate(45deg); background:var(--green); color:#fff; }
-    .work-meta { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:21px; color:#739088; font:600 11px "Barlow Condensed",sans-serif; letter-spacing:.16em; }
-    .work-meta small { font:500 11px "Noto Sans JP",sans-serif; letter-spacing:.05em; }
-    .work-card strong { display:block; margin-top:10px; font-size:clamp(17px,1.7vw,23px); line-height:1.5; font-weight:500; }
-    .work-note { margin:35px 0 0; color:#789087; font-size:11px; }
+    .work-showcase { position:relative; min-height:590px; overflow:hidden; isolation:isolate; background:#e6f0e9; transition:background .75s ease; }
+    .work-showcase[data-tone="1"] { background:#e7eef2; }
+    .work-showcase[data-tone="2"] { background:#edf1e8; }
+    .work-ghost { position:absolute; z-index:-1; top:34px; left:55px; color:#356f6318; font:700 clamp(105px,16vw,230px) "Barlow Condensed",sans-serif; letter-spacing:.02em; white-space:nowrap; user-select:none; pointer-events:none; }
+    .work-slide { position:absolute; inset:0; z-index:1; opacity:0; transform:translateX(35px); pointer-events:none; transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1); }
+    .work-slide.active { z-index:2; opacity:1; transform:translateX(0); pointer-events:auto; }
+    .work-slide.leaving { transform:translateX(-35px); }
+    .work-slide-copy { position:absolute; z-index:3; left:9%; top:48%; width:35%; transform:translateY(-50%); }
+    .work-slide-num { color:var(--green); font:600 14px "Barlow Condensed",sans-serif; letter-spacing:.2em; }
+    .work-slide-copy h3 { margin:30px 0 8px; font-size:clamp(34px,4vw,57px); line-height:1.43; font-weight:500; letter-spacing:-.065em; }
+    .work-slide-type { color:#5c8f84; font:600 13px "Barlow Condensed",sans-serif; letter-spacing:.18em; }
+    .work-slide-copy p { max-width:310px; margin:29px 0 0; color:#4e6961; font-size:13px; line-height:2.05; }
+    .work-detail { display:inline-flex; align-items:center; gap:45px; margin-top:28px; border:0; border-bottom:1px solid #6f9d8b; padding:8px 0 12px; background:none; color:var(--green-deep); font-size:13px; font-weight:600; transition:gap .3s,color .3s; }
+    .work-detail:hover { gap:58px; color:#163d34; }
+    .work-detail span { font-size:23px; line-height:1; }
+    .work-slide-visual { position:absolute; z-index:1; top:34px; right:0; bottom:0; width:68%; overflow:hidden; -webkit-mask-image:linear-gradient(90deg,transparent,#000 24%); mask-image:linear-gradient(90deg,transparent,#000 24%); }
+    .work-slide-visual img { width:100%; height:100%; object-fit:cover; object-position:center; }
+    .work-slide:nth-of-type(2) .work-slide-visual img { object-position:42% center; }
+    .work-slide:nth-of-type(3) .work-slide-visual img { object-position:46% center; }
+    .work-slide.active .work-slide-visual img { animation:workPhotoIn .85s cubic-bezier(.2,.65,.2,1) both; }
+    .work-slide.active .work-slide-copy > * { animation:workCopyIn .62s cubic-bezier(.2,.65,.2,1) both; }
+    .work-slide.active .work-slide-copy > :nth-child(2) { animation-delay:.08s; }
+    .work-slide.active .work-slide-copy > :nth-child(3) { animation-delay:.14s; }
+    .work-slide.active .work-slide-copy > :nth-child(4) { animation-delay:.2s; }
+    .work-slide.active .work-slide-copy > :nth-child(5) { animation-delay:.26s; }
+    @keyframes workPhotoIn { from { opacity:.35; transform:translateX(30px) scale(1.045); } to { opacity:1; transform:translateX(0) scale(1); } }
+    @keyframes workCopyIn { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+    .work-nav { position:absolute; z-index:5; top:50%; display:grid; place-items:center; width:52px; height:52px; border:0; border-radius:50%; background:#244e45; color:#fff; font-size:24px; transform:translateY(-50%); transition:background .25s,scale .25s; }
+    .work-nav:hover { background:#3d806f; scale:1.08; }
+    .work-nav.prev { left:20px; }
+    .work-nav.next { right:20px; }
+    .work-progress { position:absolute; z-index:5; left:9%; right:9%; bottom:26px; display:flex; align-items:center; gap:16px; width:210px; color:var(--green-deep); font:600 13px "Barlow Condensed",sans-serif; letter-spacing:.1em; }
+    .work-progress-track { flex:1; height:1px; background:#527f7359; }
+    .work-progress-track i { display:block; height:2px; width:33.333%; background:var(--green); transition:width .65s; }
+    .work-note { margin:24px 0 0; color:#789087; font-size:11px; }
     .feature { position:relative; min-height:610px; display:flex; align-items:center; overflow:hidden; background:#e8ede8; }
-    .feature::before { content:""; position:absolute; inset:0; background:url('images/engine-daylight-v7.jpg') center 48%/cover no-repeat; }
+    .feature::before { content:""; position:absolute; inset:0; background:url('images/team-workshop-v11.jpg') center 48%/cover no-repeat; }
     .feature::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,#173730c2 0%,#244b3a8d 34%,#234d3a0a 74%); }
     .feature .container { position:relative; z-index:1; }
     .feature .kicker { color:#c5e1d6; }
@@ -144,16 +156,13 @@
     .replay { border:0; border-bottom:1px solid #819f93; padding:5px 0 7px; background:none; color:var(--green-deep); font:600 10px "Barlow Condensed",sans-serif; letter-spacing:.14em; opacity:0; visibility:hidden; transition:opacity .3s,color .3s,border-color .3s; }
     .replay.show { opacity:1; visibility:visible; }
     .replay:hover { color:#183d35; border-color:#183d35; }
-    .intro { position:fixed; z-index:100; inset:0; visibility:hidden; pointer-events:none; overflow:hidden; background:#f8faf7; opacity:1; }
+    .intro { position:fixed; z-index:100; inset:0; visibility:hidden; pointer-events:none; overflow:hidden; background:linear-gradient(130deg,#fff,#f3f8f4); opacity:1; }
     .intro.active { visibility:visible; pointer-events:auto; }
-    .intro::before { content:""; position:absolute; inset:-5%; background:linear-gradient(#f7faf6bb,#f7faf6bb),url('images/garage-daylight-v7.jpg') center/cover no-repeat; filter:blur(18px); transform:scale(1.04); opacity:0; }
     .intro.opening { animation:softReveal .65s ease-in 2.12s forwards; }
-    .intro.opening::before { animation:photoReveal 1.25s ease 1.12s forwards; }
     .car-art { position:absolute; z-index:1; left:50%; top:49%; width:min(950px,90vw); height:auto; transform:translate(-50%,-50%); clip-path:inset(0 0 18% 0); -webkit-mask-image:linear-gradient(90deg,#000 0 50%,transparent 52%); mask-image:linear-gradient(90deg,#000 0 50%,transparent 52%); -webkit-mask-size:210% 100%; mask-size:210% 100%; -webkit-mask-position:100% 0; mask-position:100% 0; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; }
     .intro.opening .car-art { animation:drawSketch 1.7s cubic-bezier(.3,.5,.15,1) .12s forwards,carDissolve .58s ease 2.02s forwards; }
     @keyframes drawSketch { to { -webkit-mask-position:0 0; mask-position:0 0; } }
     @keyframes carDissolve { to { opacity:0; transform:translate(-50%,-51.5%); } }
-    @keyframes photoReveal { to { opacity:1; filter:blur(0); transform:scale(1); } }
     @keyframes softReveal { to { opacity:0; } }
     .skip { position:absolute; z-index:6; right:29px; bottom:25px; border:0; border-bottom:1px solid #648479; padding:8px 1px; background:none; color:#30554e; font-size:11px; font-weight:600; }
     .intro.opening .skip { opacity:0; pointer-events:none; }
@@ -194,13 +203,17 @@
       .work { padding:82px 0 92px; }
       .section-heading { display:block; margin-bottom:32px; }
       .section-heading p { margin-top:18px; }
-      .work-grid { grid-template-columns:1fr 1fr; gap:26px 13px; }
-      .work-card:first-child { grid-column:span 2; }
-      .work-card:first-child .work-photo { aspect-ratio:1.65; }
-      .work-photo { aspect-ratio:4/4.4; }
-      .work-meta { margin-top:12px; }
-      .work-card strong { font-size:17px; }
-      .work-open { width:40px; height:40px; bottom:12px; right:12px; }
+      .work-showcase { min-height:710px; }
+      .work-ghost { top:39%; left:10px; font-size:105px; }
+      .work-slide-visual { top:0; right:0; bottom:auto; width:100%; height:53%; -webkit-mask-image:linear-gradient(0deg,transparent,#000 28%); mask-image:linear-gradient(0deg,transparent,#000 28%); }
+      .work-slide-copy { top:auto; bottom:102px; left:29px; width:calc(100% - 58px); transform:none; }
+      .work-slide-copy h3 { margin:11px 0 3px; font-size:31px; }
+      .work-slide-copy p { margin-top:11px; font-size:12px; line-height:1.8; }
+      .work-detail { margin-top:12px; }
+      .work-nav { top:auto; bottom:18px; width:43px; height:43px; transform:none; font-size:20px; }
+      .work-nav.prev { left:19px; }
+      .work-nav.next { right:19px; }
+      .work-progress { left:50%; right:auto; bottom:32px; width:145px; transform:translateX(-50%); gap:9px; }
       .feature { min-height:580px; }
       .feature::before { background-position:48% center; }
       .feature::after { background:linear-gradient(90deg,#173730bd,#244b3a68); }
@@ -220,7 +233,8 @@
       html { scroll-behavior:auto; }
       .intro { display:none!important; }
       .hero-image,html.js .reveal { transform:none; transition:none; opacity:1; }
-      .work-photo img,.work-open,.service-row,.contact-option { transition:none; }
+      .work-slide,.work-showcase,.work-progress-track i,.service-row,.contact-option { transition:none; }
+      .work-slide.active .work-slide-visual img,.work-slide.active .work-slide-copy > * { animation:none; }
       .hero-ready .hero h1,.hero-ready .hero-sub,.hero-ready .hero-actions { animation:none; }
     }
   </style>
@@ -253,22 +267,24 @@
     </section>
     <section class="work" id="work">
       <div class="container">
-        <div class="section-heading reveal"><div><div class="kicker">02 / WORKS</div><h2>整備事例</h2></div><p>一台ずつ向き合う仕事を、写真と短い説明で。気になる整備を選ぶと内容をご覧いただけます。</p></div>
-        <div class="work-filters" role="group" aria-label="整備事例の絞り込み">
-          <button class="work-filter active" type="button" data-filter="all" aria-pressed="true">すべて</button>
-          <button class="work-filter" type="button" data-filter="inspection" aria-pressed="false">点検</button>
-          <button class="work-filter" type="button" data-filter="repair" aria-pressed="false">整備</button>
-        </div>
-        <div class="work-grid">
-          <button class="work-card reveal" type="button" data-category="inspection" data-title="日常点検・車両チェック" data-desc="お車の状態や気になる症状を確認し、必要な整備を分かりやすくご案内する事例のイメージです。" data-image="images/garage-daylight-v7.jpg">
-            <span class="work-photo"><img src="images/garage-daylight-v7.jpg" alt="明るい工場で車両を点検するイメージ" loading="lazy"><span class="work-open" aria-hidden="true">↗</span></span><span class="work-meta"><span>01 / INSPECTION</span><small>点検</small></span><strong>日常点検・車両チェック</strong>
-          </button>
-          <button class="work-card reveal" type="button" data-category="inspection" data-title="エンジンまわりの点検" data-desc="エンジンまわりの状態を確認し、気になる変化を一緒に整理する事例のイメージです。" data-image="images/engine-daylight-v7.jpg">
-            <span class="work-photo"><img src="images/engine-daylight-v7.jpg" alt="整備士がエンジンを確認するイメージ" loading="lazy"><span class="work-open" aria-hidden="true">↗</span></span><span class="work-meta"><span>02 / ENGINE CARE</span><small>点検</small></span><strong>エンジンまわりの点検</strong>
-          </button>
-          <button class="work-card reveal" type="button" data-category="repair" data-title="ブレーキまわりの整備" data-desc="安全に関わるブレーキまわりを丁寧に確認する整備事例のイメージです。" data-image="images/brake-daylight-v7.jpg">
-            <span class="work-photo"><img src="images/brake-daylight-v7.jpg" alt="整備士がブレーキを確認するイメージ" loading="lazy"><span class="work-open" aria-hidden="true">↗</span></span><span class="work-meta"><span>03 / BRAKE SERVICE</span><small>整備</small></span><strong>ブレーキまわりの整備</strong>
-          </button>
+        <div class="section-heading reveal"><div><div class="kicker">02 / WORKS</div><h2>整備事例</h2></div><p>写真を大きく見ながら、一台ずつの仕事へ。矢印で事例を切り替えられます。</p></div>
+        <div class="work-showcase reveal" id="work-showcase" data-tone="0" aria-label="整備事例" aria-roledescription="カルーセル">
+          <div class="work-ghost" id="work-ghost" aria-hidden="true">INSPECTION</div>
+          <article class="work-slide active" data-title="日常点検・車両チェック" data-desc="車両のコンディションを確認し、気になる症状や必要な整備を分かりやすく整理する事例のイメージです。" data-image="images/diagnostic-daylight-v11.jpg" data-ghost="INSPECTION" aria-hidden="false">
+            <div class="work-slide-copy"><span class="work-slide-num">01 / 03</span><h3>日常点検・<br>車両チェック</h3><span class="work-slide-type">VEHICLE INSPECTION</span><p>気になる変化を見逃さないために。車の状態を確かめ、整備の入口を分かりやすく。</p><button class="work-detail" type="button">事例の内容を見る <span>→</span></button></div>
+            <div class="work-slide-visual"><img src="images/diagnostic-daylight-v11.jpg" alt="整備士が診断機で車両を点検するイメージ"></div>
+          </article>
+          <article class="work-slide" data-title="エンジンまわりの点検" data-desc="エンジンまわりの状態を確認し、気になる変化を一緒に整理する事例のイメージです。" data-image="images/engine-daylight-v7.jpg" data-ghost="ENGINE CARE" aria-hidden="true" inert>
+            <div class="work-slide-copy"><span class="work-slide-num">02 / 03</span><h3>エンジンまわりの<br>点検</h3><span class="work-slide-type">ENGINE CARE</span><p>見えない部分も丁寧に。いつもの走りに関わるエンジンまわりを確認します。</p><button class="work-detail" type="button">事例の内容を見る <span>→</span></button></div>
+            <div class="work-slide-visual"><img src="images/engine-daylight-v7.jpg" alt="整備士がエンジンを確認するイメージ"></div>
+          </article>
+          <article class="work-slide" data-title="ブレーキまわりの整備" data-desc="安全に関わるブレーキまわりを丁寧に確認する整備事例のイメージです。" data-image="images/brake-daylight-v7.jpg" data-ghost="BRAKE CARE" aria-hidden="true" inert>
+            <div class="work-slide-copy"><span class="work-slide-num">03 / 03</span><h3>ブレーキまわりの<br>整備</h3><span class="work-slide-type">BRAKE SERVICE</span><p>毎日の安心につながる部分だからこそ。細部の状態まで確かめます。</p><button class="work-detail" type="button">事例の内容を見る <span>→</span></button></div>
+            <div class="work-slide-visual"><img src="images/brake-daylight-v7.jpg" alt="整備士がブレーキを確認するイメージ"></div>
+          </article>
+          <button class="work-nav prev" id="work-prev" type="button" aria-label="前の整備事例">‹</button>
+          <button class="work-nav next" id="work-next" type="button" aria-label="次の整備事例">›</button>
+          <div class="work-progress" aria-live="polite"><span id="work-current">01</span><span class="work-progress-track" aria-hidden="true"><i id="work-progress-bar"></i></span><span>03</span></div>
         </div>
         <p class="work-note">※ 掲載写真と内容はデザイン確認用のイメージです。実際の整備実績がそろったら差し替えられます。</p>
       </div>
@@ -365,21 +381,66 @@
     } else {
       document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
     }
-    document.querySelectorAll('.work-filter').forEach(filter => filter.addEventListener('click', () => {
-      document.querySelectorAll('.work-filter').forEach(item => {
-        const active = item === filter;
-        item.classList.toggle('active', active);
-        item.setAttribute('aria-pressed', String(active));
+    const workShowcase = document.getElementById('work-showcase');
+    const workSlides = [...workShowcase.querySelectorAll('.work-slide')];
+    const workCurrent = document.getElementById('work-current');
+    const workProgress = document.getElementById('work-progress-bar');
+    const workGhost = document.getElementById('work-ghost');
+    let workIndex = 0, workTimer, workLeaveTimer, touchStartX = 0;
+    function showWork(index) {
+      const next = (index + workSlides.length) % workSlides.length;
+      const previous = workIndex;
+      if (next === previous) return;
+      workIndex = next;
+      clearTimeout(workLeaveTimer);
+      workSlides.forEach((slide, i) => {
+        const active = i === next;
+        slide.classList.toggle('active', active);
+        slide.classList.toggle('leaving', i === previous);
+        slide.setAttribute('aria-hidden', String(!active));
+        slide.inert = !active;
       });
-      document.querySelectorAll('.work-card').forEach(card => {
-        card.hidden = filter.dataset.filter !== 'all' && card.dataset.category !== filter.dataset.filter;
-      });
-    }));
-    document.querySelectorAll('.work-card').forEach(card => card.addEventListener('click', () => {
-      document.getElementById('dialog-image').src = card.dataset.image;
-      document.getElementById('dialog-image').alt = card.querySelector('img').alt;
-      document.getElementById('dialog-title').textContent = card.dataset.title;
-      document.getElementById('dialog-description').textContent = card.dataset.desc;
+      workShowcase.dataset.tone = String(next);
+      workGhost.textContent = workSlides[next].dataset.ghost;
+      workCurrent.textContent = String(next + 1).padStart(2, '0');
+      workProgress.style.width = ((next + 1) / workSlides.length * 100) + '%';
+      workLeaveTimer = setTimeout(() => workSlides[previous].classList.remove('leaving'), 850);
+    }
+    function startWorkAuto() {
+      clearInterval(workTimer);
+      if (reducedMotion.matches) return;
+      workTimer = setInterval(() => {
+        if (!document.hidden && !workShowcase.matches(':hover') && !workShowcase.contains(document.activeElement) && !dialog.open) showWork(workIndex + 1);
+      }, 6500);
+    }
+    function moveWork(direction) {
+      showWork(workIndex + direction);
+      startWorkAuto();
+    }
+    document.getElementById('work-prev').addEventListener('click', () => moveWork(-1));
+    document.getElementById('work-next').addEventListener('click', () => moveWork(1));
+    workShowcase.addEventListener('keydown', event => {
+      if (event.key === 'ArrowLeft') { event.preventDefault(); moveWork(-1); }
+      if (event.key === 'ArrowRight') { event.preventDefault(); moveWork(1); }
+    });
+    workShowcase.addEventListener('touchstart', event => { touchStartX = event.changedTouches[0].screenX; }, { passive:true });
+    workShowcase.addEventListener('touchend', event => {
+      const distance = event.changedTouches[0].screenX - touchStartX;
+      if (Math.abs(distance) > 55) moveWork(distance < 0 ? 1 : -1);
+    }, { passive:true });
+    if ('IntersectionObserver' in window) {
+      const workObserver = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) startWorkAuto();
+        else clearInterval(workTimer);
+      }, { threshold:.25 });
+      workObserver.observe(workShowcase);
+    } else startWorkAuto();
+    document.querySelectorAll('.work-detail').forEach(button => button.addEventListener('click', () => {
+      const slide = button.closest('.work-slide');
+      document.getElementById('dialog-image').src = slide.dataset.image;
+      document.getElementById('dialog-image').alt = slide.querySelector('img').alt;
+      document.getElementById('dialog-title').textContent = slide.dataset.title;
+      document.getElementById('dialog-description').textContent = slide.dataset.desc;
       dialog.showModal();
       document.body.classList.add('dialog-open');
     }));
