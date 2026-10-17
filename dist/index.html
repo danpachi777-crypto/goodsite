@@ -122,19 +122,31 @@
     .services .section-heading { display:block; margin:0; }
     .services .section-heading p { max-width:290px; margin:27px 0 0; }
     .service-list { border-top:1px solid var(--line); }
-    .service-row { position:relative; display:grid; grid-template-columns:64px 1fr 38px; align-items:center; gap:20px; min-height:152px; padding:0 13px 0 5px; border-bottom:1px solid var(--line); color:var(--ink); text-decoration:none; overflow:hidden; transition:padding .35s,color .35s; }
-    .service-row::before { content:""; position:absolute; inset:0; background:#eff6f1; transform:translateX(-101%); transition:transform .45s cubic-bezier(.2,.7,.2,1); }
-    .service-row:nth-child(2)::before { background:#eaf3f5; }
-    .service-row:nth-child(3)::before { background:#f3f5ec; }
-    .service-row:hover::before,.service-row:focus-visible::before { transform:translateX(0); }
-    .service-row:hover,.service-row:focus-visible { padding-left:25px; color:var(--green-deep); }
+    .service-item { --service-accent:#356f63; --service-wash:#eaf4ec; position:relative; isolation:isolate; border-bottom:1px solid var(--line); }
+    .service-item:nth-child(2) { --service-accent:#507f8f; --service-wash:#e7f1f4; }
+    .service-item:nth-child(3) { --service-accent:#748968; --service-wash:#eff3e9; }
+    .service-item::after { content:""; position:absolute; z-index:2; left:0; right:0; bottom:-1px; height:2px; background:var(--service-accent); transform:scaleX(0); transform-origin:left; transition:transform .68s cubic-bezier(.2,.7,.2,1); pointer-events:none; }
+    .service-item:hover::after,.service-item:focus-within::after,.service-item.open::after { transform:scaleX(1); }
+    .service-row { position:relative; display:grid; grid-template-columns:64px 1fr 48px; align-items:center; gap:20px; width:100%; min-height:152px; padding:0 13px 0 5px; border:0; background:none; color:var(--ink); text-align:left; overflow:hidden; transition:padding .4s,color .4s; }
+    .service-row::before { content:""; position:absolute; inset:0; background:linear-gradient(90deg,var(--service-wash),#fff); transform:scaleX(0); transform-origin:left; transition:transform .6s cubic-bezier(.2,.7,.2,1); }
+    .service-item:hover .service-row::before,.service-item:focus-within .service-row::before,.service-item.open .service-row::before { transform:scaleX(1); }
+    .service-item:hover .service-row,.service-item:focus-within .service-row,.service-item.open .service-row { padding-left:24px; color:var(--service-accent); }
     .service-row > * { position:relative; }
-    .service-row small { color:#8ca9a1; font:600 17px "Barlow Condensed",sans-serif; }
-    .service-row h3 { margin:0; font-size:clamp(21px,2.4vw,31px); font-weight:500; }
-    .service-row h3 span { display:block; margin-top:8px; color:#88a09b; font:500 12px "Barlow Condensed",sans-serif; letter-spacing:.16em; }
-    .service-row:nth-child(2) h3 span { color:#7c9eaa; }
-    .service-row .arrow { font:400 28px "Barlow Condensed",sans-serif; text-align:right; transition:transform .3s; }
-    .service-row:hover .arrow { transform:translate(4px,-4px); }
+    .service-row small { color:#8ca9a1; font:600 17px "Barlow Condensed",sans-serif; transition:transform .4s,color .4s; }
+    .service-item:hover .service-row small,.service-item.open .service-row small { transform:translateY(-4px); color:var(--service-accent); }
+    .service-title { font-size:clamp(21px,2.4vw,31px); font-weight:500; }
+    .service-title span { display:block; margin-top:8px; color:#88a09b; font:500 12px "Barlow Condensed",sans-serif; letter-spacing:.16em; transition:letter-spacing .4s,color .4s; }
+    .service-item:hover .service-title span,.service-item.open .service-title span { color:var(--service-accent); letter-spacing:.22em; }
+    .service-row .arrow { display:grid; place-items:center; width:48px; height:48px; border:1px solid transparent; border-radius:50%; font:400 28px "Barlow Condensed",sans-serif; transition:transform .42s,border-color .42s,background .42s; }
+    .service-item:hover .arrow,.service-item:focus-within .arrow { transform:rotate(45deg); border-color:#9dbbad; background:#ffffffa8; }
+    .service-item.open .arrow { transform:rotate(135deg); border-color:#9dbbad; background:#ffffffa8; }
+    .service-panel { display:grid; grid-template-rows:0fr; opacity:0; background:linear-gradient(90deg,var(--service-wash),#fff 75%); transition:grid-template-rows .56s cubic-bezier(.2,.7,.2,1),opacity .35s; }
+    .service-item.open .service-panel { grid-template-rows:1fr; opacity:1; }
+    .service-panel-inner { min-height:0; overflow:hidden; }
+    .service-panel-content { display:flex; justify-content:space-between; align-items:end; gap:22px; padding:1px 28px 31px 89px; }
+    .service-panel p { max-width:410px; margin:0; color:#536d66; font-size:13px; line-height:2; }
+    .service-panel-link { flex:none; display:inline-flex; align-items:center; gap:24px; padding:5px 0 8px; border-bottom:1px solid var(--service-accent); color:var(--service-accent); font-size:12px; font-weight:600; text-decoration:none; transition:gap .3s; }
+    .service-panel-link:hover { gap:32px; }
     .process { padding:118px 0 132px; background:#f4f7f5; }
     .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:36px; border-top:1px solid var(--line); }
     .step { padding:29px 12px 0 0; }
@@ -281,7 +293,10 @@
       .feature::after { background:linear-gradient(90deg,#173730bd,#244b3a68); }
       .feature p { font-size:13px; }
       .service-row { grid-template-columns:40px 1fr 25px; gap:12px; min-height:124px; padding-right:5px; }
-      .service-row h3 { font-size:21px; }
+      .service-title { font-size:21px; }
+      .service-row .arrow { width:34px; height:34px; font-size:23px; }
+      .service-panel-content { display:block; padding:0 25px 27px 55px; }
+      .service-panel-link { margin-top:18px; }
       .steps { grid-template-columns:1fr; gap:0; }
       .step { padding:24px 0; border-bottom:1px solid var(--line); }
       .contact-option { min-height:120px; }
@@ -309,7 +324,7 @@
       html { scroll-behavior:auto; }
       .intro { display:none!important; }
       .hero-image,html.js .reveal { transform:none; transition:none; opacity:1; }
-      .work-slide,.work-showcase,.work-progress-track i,.service-row,.contact-option { transition:none; }
+      .work-slide,.work-showcase,.work-progress-track i,.service-row,.service-row::before,.service-item::after,.service-row .arrow,.service-panel,.service-title span,.contact-option { transition:none; }
       .work-slide.active .work-slide-visual img,.work-slide.active .work-slide-copy > * { animation:none; }
       .feature::before,.nav-label > span { transform:none; transition:none; }
       .nav-en { display:none; }
@@ -375,9 +390,18 @@
       <div class="container">
         <div class="section-heading reveal"><div><div class="kicker">03 / SERVICE</div><h2>サービス</h2></div><p>日常のメンテナンスから、気になる症状の相談まで。必要なサービスを見つけやすく整理します。</p></div>
         <div class="service-list">
-          <a class="service-row reveal" href="#contact"><small>01</small><h3>車検・定期点検<span>INSPECTION</span></h3><span class="arrow">↗</span></a>
-          <a class="service-row reveal" href="#contact"><small>02</small><h3>修理・メンテナンス<span>REPAIR & MAINTENANCE</span></h3><span class="arrow">↗</span></a>
-          <a class="service-row reveal" href="#contact"><small>03</small><h3>タイヤ・オイル交換<span>TIRE & OIL SERVICE</span></h3><span class="arrow">↗</span></a>
+          <div class="service-item reveal">
+            <button class="service-row" id="service-trigger-1" type="button" aria-expanded="false" aria-controls="service-panel-1" aria-label="車検・定期点検の内容を開く"><small>01</small><span class="service-title">車検・定期点検<span>INSPECTION</span></span><span class="arrow" aria-hidden="true">↗</span></button>
+            <div class="service-panel" id="service-panel-1" role="region" aria-labelledby="service-trigger-1" aria-hidden="true" inert><div class="service-panel-inner"><div class="service-panel-content"><p>車の状態を確認し、必要な整備と費用の目安を分かりやすくご案内します。</p><a class="service-panel-link" href="#contact">相談する <span aria-hidden="true">→</span></a></div></div></div>
+          </div>
+          <div class="service-item reveal">
+            <button class="service-row" id="service-trigger-2" type="button" aria-expanded="false" aria-controls="service-panel-2" aria-label="修理・メンテナンスの内容を開く"><small>02</small><span class="service-title">修理・メンテナンス<span>REPAIR &amp; MAINTENANCE</span></span><span class="arrow" aria-hidden="true">↗</span></button>
+            <div class="service-panel" id="service-panel-2" role="region" aria-labelledby="service-trigger-2" aria-hidden="true" inert><div class="service-panel-inner"><div class="service-panel-content"><p>気になる音や走りの変化など、症状からご相談いただけます。状態を確かめて作業内容をお伝えします。</p><a class="service-panel-link" href="#contact">相談する <span aria-hidden="true">→</span></a></div></div></div>
+          </div>
+          <div class="service-item reveal">
+            <button class="service-row" id="service-trigger-3" type="button" aria-expanded="false" aria-controls="service-panel-3" aria-label="タイヤ・オイル交換の内容を開く"><small>03</small><span class="service-title">タイヤ・オイル交換<span>TIRE &amp; OIL SERVICE</span></span><span class="arrow" aria-hidden="true">↗</span></button>
+            <div class="service-panel" id="service-panel-3" role="region" aria-labelledby="service-trigger-3" aria-hidden="true" inert><div class="service-panel-inner"><div class="service-panel-content"><p>タイヤやオイルなど、日常のメンテナンスを気軽に。交換時期が分からない場合もご相談ください。</p><a class="service-panel-link" href="#contact">相談する <span aria-hidden="true">→</span></a></div></div></div>
+          </div>
         </div>
       </div>
     </section>
@@ -489,6 +513,21 @@
     });
     nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
       nav.classList.remove('open'); menuToggle.setAttribute('aria-expanded','false');
+    }));
+    const serviceItems = [...document.querySelectorAll('.service-item')];
+    serviceItems.forEach(item => item.querySelector('.service-row').addEventListener('click', () => {
+      const shouldOpen = !item.classList.contains('open');
+      serviceItems.forEach(other => {
+        const open = other === item && shouldOpen;
+        const button = other.querySelector('.service-row');
+        const panel = other.querySelector('.service-panel');
+        const label = button.querySelector('.service-title').firstChild.textContent.trim();
+        other.classList.toggle('open', open);
+        button.setAttribute('aria-expanded', String(open));
+        button.setAttribute('aria-label', `${label}の内容を${open ? '閉じる' : '開く'}`);
+        panel.setAttribute('aria-hidden', String(!open));
+        panel.inert = !open;
+      });
     }));
     function updateHeader() { header.classList.toggle('scrolled', window.scrollY > 80); }
     window.addEventListener('scroll', updateHeader, { passive:true });
