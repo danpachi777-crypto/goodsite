@@ -31,9 +31,14 @@
     .nav a::after { content:""; position:absolute; left:0; right:100%; bottom:2px; height:1px; background:var(--green); transition:right .32s; }
     .nav a:hover { color:var(--green); }
     .nav a:hover::after { right:0; }
-    .nav-contact { color:var(--green); }
-    .nav-contact span { display:inline-block; margin-left:8px; transition:transform .25s; }
-    .nav-contact:hover span { transform:translate(3px,-3px); }
+    .nav-label { display:grid; overflow:hidden; line-height:1.6; perspective:400px; }
+    .nav-label > span { grid-area:1/1; display:block; transition:transform .42s cubic-bezier(.2,.7,.2,1),opacity .3s ease; backface-visibility:hidden; }
+    .nav-en { opacity:0; transform:translateY(100%) rotateX(-55deg); color:var(--green); font:600 12px "Barlow Condensed",sans-serif; letter-spacing:.12em; }
+    .nav a:hover .nav-ja,.nav a:focus-visible .nav-ja { opacity:0; transform:translateY(-100%) rotateX(55deg); }
+    .nav a:hover .nav-en,.nav a:focus-visible .nav-en { opacity:1; transform:translateY(0) rotateX(0); }
+    .nav-contact { display:flex; align-items:center; color:var(--green); }
+    .nav-contact > span:last-child { display:inline-block; margin-left:8px; transition:transform .25s; }
+    .nav-contact:hover > span:last-child { transform:translate(3px,-3px); }
     .menu-toggle { display:none; border:0; padding:10px 0; background:none; color:var(--ink); font-size:12px; letter-spacing:.12em; }
     .hero { position:relative; isolation:isolate; height:min(840px,100svh); min-height:660px; overflow:hidden; background:#edf1ed; }
     .hero-image { position:absolute; inset:78px 0 0; z-index:-2; background:url('images/garage-daylight-v7.jpg') center 52%/cover no-repeat; transform:scale(1.025); transition:transform 8s ease-out; }
@@ -66,10 +71,13 @@
     .section-heading { display:flex; align-items:end; justify-content:space-between; gap:30px; margin-bottom:45px; }
     .section-heading h2 { margin:22px 0 0; font-size:clamp(39px,4.8vw,68px); line-height:1.3; font-weight:500; letter-spacing:-.065em; }
     .section-heading p { max-width:390px; margin:0 0 8px; color:var(--soft); font-size:13px; line-height:2; }
-    .work-showcase { position:relative; min-height:590px; overflow:hidden; isolation:isolate; background:#e6f0e9; transition:background .75s ease; }
-    .work-showcase[data-tone="1"] { background:#e7eef2; }
-    .work-showcase[data-tone="2"] { background:#edf1e8; }
-    .work-ghost { position:absolute; z-index:-1; top:34px; left:55px; color:#356f6318; font:700 clamp(105px,16vw,230px) "Barlow Condensed",sans-serif; letter-spacing:.02em; white-space:nowrap; user-select:none; pointer-events:none; }
+    .work-showcase { position:relative; min-height:590px; overflow:hidden; isolation:isolate; background:#e6f0e9; transition:background 1s ease; }
+    .work-showcase::before { content:""; position:absolute; z-index:0; inset:0; background:radial-gradient(circle at 86% 15%,#ffffffb3,transparent 56%); pointer-events:none; }
+    .work-showcase[data-tone="1"] { background:#dfeef2; }
+    .work-showcase[data-tone="2"] { background:#f0f1e7; }
+    .work-ghost { position:absolute; z-index:0; top:34px; left:55px; color:#356f631a; font:700 clamp(105px,16vw,230px) "Barlow Condensed",sans-serif; letter-spacing:.02em; white-space:nowrap; user-select:none; pointer-events:none; transition:color .8s ease; }
+    .work-showcase[data-tone="1"] .work-ghost { color:#4d8c9a20; }
+    .work-showcase[data-tone="2"] .work-ghost { color:#7f88681c; }
     .work-slide { position:absolute; inset:0; z-index:1; opacity:0; transform:translateX(35px); pointer-events:none; transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1); }
     .work-slide.active { z-index:2; opacity:1; transform:translateX(0); pointer-events:auto; }
     .work-slide.leaving { transform:translateX(-35px); }
@@ -85,13 +93,13 @@
     .work-slide-visual img { width:100%; height:100%; object-fit:cover; object-position:center; }
     .work-slide:nth-of-type(2) .work-slide-visual img { object-position:42% center; }
     .work-slide:nth-of-type(3) .work-slide-visual img { object-position:46% center; }
-    .work-slide.active .work-slide-visual img { animation:workPhotoIn .85s cubic-bezier(.2,.65,.2,1) both; }
+    .work-slide.active .work-slide-visual img { animation:workPhotoIn 1.28s cubic-bezier(.2,.65,.2,1) both; }
     .work-slide.active .work-slide-copy > * { animation:workCopyIn .62s cubic-bezier(.2,.65,.2,1) both; }
     .work-slide.active .work-slide-copy > :nth-child(2) { animation-delay:.08s; }
     .work-slide.active .work-slide-copy > :nth-child(3) { animation-delay:.14s; }
     .work-slide.active .work-slide-copy > :nth-child(4) { animation-delay:.2s; }
     .work-slide.active .work-slide-copy > :nth-child(5) { animation-delay:.26s; }
-    @keyframes workPhotoIn { from { opacity:.35; transform:translateX(30px) scale(1.045); } to { opacity:1; transform:translateX(0) scale(1); } }
+    @keyframes workPhotoIn { from { opacity:.5; clip-path:inset(0 0 0 13%); transform:scale(1.065); filter:saturate(.75); } to { opacity:1; clip-path:inset(0); transform:scale(1); filter:saturate(1); } }
     @keyframes workCopyIn { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
     .work-nav { position:absolute; z-index:5; top:50%; display:grid; place-items:center; width:52px; height:52px; border:0; border-radius:50%; background:#244e45; color:#fff; font-size:24px; transform:translateY(-50%); transition:background .25s,scale .25s; }
     .work-nav:hover { background:#3d806f; scale:1.08; }
@@ -102,7 +110,8 @@
     .work-progress-track i { display:block; height:2px; width:33.333%; background:var(--green); transition:width .65s; }
     .work-note { margin:24px 0 0; color:#789087; font-size:11px; }
     .feature { position:relative; min-height:610px; display:flex; align-items:center; overflow:hidden; background:#e8ede8; }
-    .feature::before { content:""; position:absolute; inset:0; background:url('images/team-workshop-v11.jpg') center 48%/cover no-repeat; }
+    .feature::before { content:""; position:absolute; inset:0; background:url('images/team-workshop-v11.jpg') center 48%/cover no-repeat; transform:scale(1.065); transition:transform 1.9s cubic-bezier(.2,.65,.2,1); }
+    .feature.in-view::before { transform:scale(1); }
     .feature::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,#173730c2 0%,#244b3a8d 34%,#234d3a0a 74%); }
     .feature .container { position:relative; z-index:1; }
     .feature .kicker { color:#c5e1d6; }
@@ -112,12 +121,15 @@
     .service-list { border-top:1px solid var(--line); }
     .service-row { position:relative; display:grid; grid-template-columns:100px 1fr 50px; align-items:center; gap:20px; min-height:139px; padding:0 27px 0 5px; border-bottom:1px solid var(--line); color:var(--ink); text-decoration:none; overflow:hidden; transition:padding .35s,color .35s; }
     .service-row::before { content:""; position:absolute; inset:0; background:#eff6f1; transform:translateX(-101%); transition:transform .45s cubic-bezier(.2,.7,.2,1); }
+    .service-row:nth-child(2)::before { background:#eaf3f5; }
+    .service-row:nth-child(3)::before { background:#f3f5ec; }
     .service-row:hover::before,.service-row:focus-visible::before { transform:translateX(0); }
     .service-row:hover,.service-row:focus-visible { padding-left:25px; color:var(--green-deep); }
     .service-row > * { position:relative; }
     .service-row small { color:#8ca9a1; font:600 17px "Barlow Condensed",sans-serif; }
     .service-row h3 { margin:0; font-size:clamp(21px,2.4vw,31px); font-weight:500; }
     .service-row h3 span { display:block; margin-top:8px; color:#88a09b; font:500 12px "Barlow Condensed",sans-serif; letter-spacing:.16em; }
+    .service-row:nth-child(2) h3 span { color:#7c9eaa; }
     .service-row .arrow { font:400 28px "Barlow Condensed",sans-serif; text-align:right; transition:transform .3s; }
     .service-row:hover .arrow { transform:translate(4px,-4px); }
     .process { padding:118px 0 132px; background:#f7f9f7; }
@@ -219,6 +231,9 @@
       .nav { display:none; position:absolute; top:68px; left:0; right:0; padding:14px 20px 22px; background:#fff; box-shadow:0 20px 28px #204a3e20; }
       .nav.open { display:flex; align-items:stretch; flex-direction:column; gap:0; }
       .nav a { padding:15px 4px; font-size:13px; }
+      .nav-label { display:block; }
+      .nav-en { display:none!important; }
+      .nav a:hover .nav-ja,.nav a:focus-visible .nav-ja { opacity:1; transform:none; }
       .hero { min-height:720px; max-height:none; }
       .hero-image,.hero::before { top:68px; }
       .hero-image { background-position:64% center; }
@@ -283,6 +298,9 @@
       .hero-image,html.js .reveal { transform:none; transition:none; opacity:1; }
       .work-slide,.work-showcase,.work-progress-track i,.service-row,.contact-option { transition:none; }
       .work-slide.active .work-slide-visual img,.work-slide.active .work-slide-copy > * { animation:none; }
+      .feature::before,.nav-label > span { transform:none; transition:none; }
+      .nav-en { display:none; }
+      .nav a:hover .nav-ja,.nav a:focus-visible .nav-ja { opacity:1; }
       .hero-ready .hero h1,.hero-ready .hero-sub,.hero-ready .hero-actions { animation:none; }
     }
   </style>
@@ -293,7 +311,7 @@
       <a class="site-name" href="#top">AUTO SERVICE<small>自動車整備工場｜コンセプトデモ</small></a>
       <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="nav" type="button">MENU ☰</button>
       <nav class="nav" id="nav" aria-label="メインメニュー">
-        <a href="#about">私たちについて</a><a href="#work">整備事例</a><a href="#services">サービス</a><a href="#process">ご利用の流れ</a><a class="nav-contact" href="#contact">お問い合わせ <span>↗</span></a>
+        <a href="#about" aria-label="私たちについて"><span class="nav-label"><span class="nav-ja">私たちについて</span><span class="nav-en" aria-hidden="true">ABOUT</span></span></a><a href="#work" aria-label="整備事例"><span class="nav-label"><span class="nav-ja">整備事例</span><span class="nav-en" aria-hidden="true">WORKS</span></span></a><a href="#services" aria-label="サービス"><span class="nav-label"><span class="nav-ja">サービス</span><span class="nav-en" aria-hidden="true">SERVICE</span></span></a><a href="#process" aria-label="ご利用の流れ"><span class="nav-label"><span class="nav-ja">ご利用の流れ</span><span class="nav-en" aria-hidden="true">PROCESS</span></span></a><a class="nav-contact" href="#contact" aria-label="お問い合わせ"><span class="nav-label"><span class="nav-ja">お問い合わせ</span><span class="nav-en" aria-hidden="true">CONTACT</span></span><span aria-hidden="true">↗</span></a>
       </nav>
     </div>
   </header>
@@ -467,8 +485,13 @@
         if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
       }), { threshold:.12 });
       document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      const featureObserver = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) { entries[0].target.classList.add('in-view'); featureObserver.disconnect(); }
+      }, { threshold:.18 });
+      featureObserver.observe(document.querySelector('.feature'));
     } else {
       document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+      document.querySelector('.feature').classList.add('in-view');
     }
     const workShowcase = document.getElementById('work-showcase');
     const workSlides = [...workShowcase.querySelectorAll('.work-slide')];
