@@ -334,13 +334,13 @@
   </style>
   <link rel="stylesheet" href="refresh-light.css">
 </head>
-<body>
+<body data-map-address="">
   <header class="header" id="header">
     <div class="container header-inner">
       <a class="site-name" href="#top">AUTO SERVICE<small>自動車整備工場｜コンセプトデモ</small></a>
       <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="nav" type="button">メニュー ☰</button>
       <nav class="nav" id="nav" aria-label="メインメニュー">
-        <a href="#about">私たちについて</a><a href="#work">整備事例</a><a href="#services">サービス</a><a href="#process">ご利用の流れ</a><a class="nav-contact" href="#contact">お問い合わせ <span aria-hidden="true">↗</span></a>
+        <a href="#about">私たちについて</a><a href="#work">整備事例</a><a href="#services">サービス</a><a href="#process">ご利用の流れ</a><a href="#access">アクセス</a><a class="nav-contact" href="#contact">お問い合わせ <span aria-hidden="true">↗</span></a>
       </nav>
     </div>
   </header>
@@ -426,8 +426,38 @@
         <p class="demo-note">※ デモのため、電話番号と予約希望の送信先はまだ設定していません。</p>
       </div>
     </section>
+    <section class="access" id="access" aria-labelledby="access-title">
+      <div class="container">
+        <div class="access-heading reveal">
+          <h2 id="access-title">アクセス</h2>
+          <p>所在地が決まり次第、地図と道順をご案内します。</p>
+        </div>
+        <div class="map-frame reveal">
+          <iframe id="access-map" title="所在地を表示するGoogleマップ" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=%E6%97%A5%E6%9C%AC&amp;output=embed"></iframe>
+          <div class="map-pending" id="map-pending">
+            <strong>所在地の掲載準備中</strong>
+            <span>住所を設定すると、ここに工場の場所を表示します。</span>
+          </div>
+        </div>
+        <a class="map-link" id="map-link" href="https://www.google.com/maps/" target="_blank" rel="noopener noreferrer" hidden>Googleマップで道順を見る <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
   </main>
-  <footer class="footer"><div class="container footer-inner"><div><strong>AUTO SERVICE</strong><p>自動車整備工場ホームページ｜デザイン・動作確認用デモ</p></div><a href="#top">ページの先頭へ ↑</a></div></footer>
+  <footer class="footer" aria-labelledby="company-title">
+    <div class="container">
+      <div class="company-layout">
+        <div class="company-lead"><h2 id="company-title">会社情報</h2><p>事業所の情報をここに掲載します。</p></div>
+        <dl class="company-details">
+          <div><dt>会社名</dt><dd>掲載準備中</dd></div>
+          <div><dt>所在地</dt><dd id="company-address">掲載準備中</dd></div>
+          <div><dt>電話番号</dt><dd>掲載準備中</dd></div>
+          <div><dt>営業時間</dt><dd>掲載準備中</dd></div>
+          <div><dt>定休日</dt><dd>掲載準備中</dd></div>
+        </dl>
+      </div>
+      <div class="footer-bottom"><div><strong>AUTO SERVICE</strong><p>自動車整備工場ホームページ｜デザイン・動作確認用デモ</p></div><a href="#top">ページの先頭へ ↑</a></div>
+    </div>
+  </footer>
   <dialog class="case-dialog" id="case-dialog" aria-labelledby="dialog-title"><button class="dialog-close" type="button" id="dialog-close" aria-label="閉じる">×</button><div class="dialog-content"><h3 id="dialog-title"></h3><p id="dialog-description"></p><p>※ デザイン確認用のイメージです。</p></div></dialog>
   <dialog class="booking-dialog" id="booking-dialog" aria-labelledby="booking-title" aria-describedby="booking-intro">
     <div class="booking-layout">
@@ -481,6 +511,16 @@
     const bookingDialog = document.getElementById('booking-dialog');
     const bookingForm = document.getElementById('booking-form');
     const bookingFeedback = document.getElementById('booking-feedback');
+    const mapAddress = document.body.dataset.mapAddress.trim();
+    if (mapAddress) {
+      const mapQuery = encodeURIComponent(mapAddress);
+      document.getElementById('access-map').src = 'https://www.google.com/maps?q=' + mapQuery + '&output=embed';
+      document.getElementById('map-pending').hidden = true;
+      const mapLink = document.getElementById('map-link');
+      mapLink.href = 'https://www.google.com/maps/search/?api=1&query=' + mapQuery;
+      mapLink.hidden = false;
+      document.getElementById('company-address').textContent = mapAddress;
+    }
     let startTimer, finishTimer;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     function finishIntro() {
