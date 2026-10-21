@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f4ee">
+  <title>Opening Studies — AUTO SERVICE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="opening.css">
+  <link rel="stylesheet" href="openings.css">
+  <link rel="stylesheet" href="blueprint.css">
+  <link rel="stylesheet" href="blueprint-side.css">
+</head>
+<body class="studies-page">
+  <header class="studies-header"><a class="studies-brand" href="./">AUTO SERVICE<span>CRAFTED WITH CARE.</span></a><a class="back-to-site" href="./">サイトへ戻る <span aria-hidden="true">↗</span></a></header>
+  <main class="studies-main">
+    <div class="studies-intro"><div><p class="overline"><span></span> MOTION DESIGN / 2026</p><h1>一台が、生まれる瞬間。</h1></div><p class="studies-description">部品が出会い、美しい一台になる。<br>3つのオープニングを、見比べてみてください。</p></div>
+    <div class="studies-workspace">
+      <section class="preview-panel" aria-label="オープニングのプレビュー">
+        <div class="preview-topbar"><span><i></i> LIVE PREVIEW</span><span id="preview-duration">6.6 SEC / SOUND OFF</span></div>
+        <div class="preview-stage" id="preview-stage" role="img" aria-label="部品が集まってセダンが完成するアニメーション"></div>
+        <div class="preview-controls">
+          <button id="play-toggle" class="play-button" type="button" aria-label="一時停止">Ⅱ</button>
+          <button id="restart" class="restart-button" type="button" aria-label="最初から再生">↺</button>
+          <label class="sr-only" for="timeline">アニメーションの再生位置</label><input id="timeline" class="timeline" type="range" min="0" max="6600" value="0" step="1">
+          <span class="timecode" id="timecode">0.0 / 6.6</span>
+          <button id="fullscreen" class="fullscreen-button" type="button" aria-label="全画面で見る">⛶</button>
+        </div>
+        <p class="reduced-note" id="reduced-note" hidden>端末の「視差効果を減らす」設定に合わせ、完成した車を表示しています。バーを動かすと組み立ての各段階を確認できます。</p>
+      </section>
+      <aside class="variant-panel" aria-label="演出の選択">
+        <div class="variant-heading"><span>SELECT A DIRECTION</span><span>01 — 03</span></div>
+        <div class="variant-list" role="group" aria-label="オープニングのパターン">
+          <button class="variant-card selected" type="button" data-variant="atelier" aria-pressed="true"><span class="variant-number">01</span><span class="variant-content"><span class="variant-name">アトリエ <span class="recommend">おすすめ</span></span><span class="variant-english">THE ATELIER</span><span class="variant-description">空中に並ぶ部品を、ひとつずつ精密に。<br>やわらかな光の中で、車が完成する。</span><span class="variant-tags"><span class="swatch atelier-swatch"></span>上質・繊細・明るい</span></span><span class="variant-check" aria-hidden="true">↗</span></button>
+          <button class="variant-card" type="button" data-variant="blueprint" aria-pressed="false"><span class="variant-number">02</span><span class="variant-content"><span class="variant-name">ブループリント</span><span class="variant-english">FROM THE BLUEPRINT</span><span class="variant-description">設計線から、滑らかな組み立てへ。<br>横向きの一台に、光と質感が宿る。</span><span class="variant-tags"><span class="swatch blueprint-swatch"></span>写実的・滑らか・シネマティック</span></span><span class="variant-check" aria-hidden="true">↗</span></button>
+          <button class="variant-card" type="button" data-variant="orbit" aria-pressed="false"><span class="variant-number">03</span><span class="variant-content"><span class="variant-name">オービット</span><span class="variant-english">EVERY PART, ONE PURPOSE</span><span class="variant-description">旋回するパーツが、吸い寄せられる。<br>深い緑と光の中で、美しさがひとつに。</span><span class="variant-tags"><span class="swatch orbit-swatch"></span>立体感・躍動・ドラマチック</span></span><span class="variant-check" aria-hidden="true">↗</span></button>
+        </div>
+        <a class="try-opening" id="try-opening" href="./?opening=atelier"><span>この演出でサイトを見る</span><span aria-hidden="true">↗</span></a>
+        <p class="selection-note">サイトへのつながりまで、実際の画面で確認できます。</p>
+      </aside>
+    </div>
+    <section class="sequence-section" aria-label="演出の流れ"><div class="sequence-title"><span class="overline">THE SEQUENCE</span><h2>組み上がる、その余韻まで。</h2></div><ol class="sequence-list"><li><span>01 / GATHER</span><h3>部品が集まる</h3><p>タイヤ、エンジン、ボディ。<br>それぞれの役割を、動きで見せる。</p></li><li><span>02 / ASSEMBLE</span><h3>精密につながる</h3><p>部品が定位置に収まり、<br>ひとつのシルエットになる。</p></li><li><span>03 / REVEAL</span><h3>美しさが灯る</h3><p>ボディに光が流れ、ライトが点灯。<br>完成した一台から、サイトへ。</p></li></ol></section>
+  </main>
+  <footer class="studies-footer"><span>AUTO SERVICE — OPENING STUDIES</span><span>細部を整える。それが、私たちの仕事。</span></footer>
+  <script src="blueprint-side-assets.js"></script>
+  <script src="blueprint-side-scene.js"></script>
+  <script src="opening-engine.js"></script>
+  <script src="openings.js"></script>
+</body>
+</html>

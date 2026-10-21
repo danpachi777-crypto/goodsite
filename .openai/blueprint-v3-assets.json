@@ -1,0 +1,40 @@
+{
+  "direction": "02 / Blueprint — smooth side elevation",
+  "generation_tool": "Built-in image_gen",
+  "assets": {
+    "manifest": "dist/blueprint-side-assets.js",
+    "photo": "dist/images/blueprint-side-sedan-v3.webp",
+    "chassis": "dist/images/blueprint-side-chassis-v3.webp",
+    "wire": "dist/images/blueprint-side-wire-v3.webp",
+    "components": [
+      "dist/images/blueprint-side-shell-v3.webp",
+      "dist/images/blueprint-side-cabin-v3.webp",
+      "dist/images/blueprint-side-rearDoor-v3.webp",
+      "dist/images/blueprint-side-frontDoor-v3.webp",
+      "dist/images/blueprint-side-hood-v3.webp",
+      "dist/images/blueprint-side-bumper-v3.webp",
+      "dist/images/blueprint-side-rearWheel-v3.webp",
+      "dist/images/blueprint-side-frontWheel-v3.webp"
+    ]
+  },
+  "prompts": [
+    {
+      "mode": "generate",
+      "transparent_background": true,
+      "prompt": "Use case: product-mockup. Asset type: photorealistic transparent vehicle cutout for a smooth automotive parts-assembly website animation. Create one premium contemporary brandless titanium-silver sports sedan in an EXACT SIDE PROFILE, perfectly perpendicular to the camera, front pointing RIGHT. This is a true side elevation: the two visible wheels are equal-size perfect circles on the same horizontal baseline; no front grille face visible, no rear end face visible, no three-quarter perspective, no high camera, no perspective convergence along the length. Camera centered at door-handle height, long 100mm product lens, precise realistic proportions. Show the entire vehicle with comfortable transparent margins: vehicle spans approximately x=120 to x=1416 in a 1536x1024 landscape frame, roof near y=300, tire bottoms near y=740. Real metallic silver paint with subtle cool-blue tint, sophisticated broad strip-light reflections, rich dark glass, detailed identical aluminum multi-spoke wheels, realistic rubber tires, subtle cyan rear rim light. Clean coherent automotive advertising photography, not illustration, not cartoon, not vector art. Genuinely transparent background, no environment, no floor, no ground shadow, no painted checkerboard, no text, no logos, no badges, no watermark. All parts attached: this is the completed car whose components will be separated in code."
+    },
+    {
+      "mode": "reference-image edit",
+      "transparent_background": true,
+      "reference": "Completed side-elevation sedan from the first prompt",
+      "prompt": "Use case: precise-object-edit. Image 1 is the edit target, the exact geometric reference for an automotive assembly animation. Reveal this SAME car's exposed rolling chassis by removing its entire body shell, roof, glass, all doors, hood, trunk, fenders and bumpers. Preserve the PERFECT SIDE PROFILE with the front pointing RIGHT. Preserve the exact 1536x1024 canvas, exact camera angle, and exact screen position and size of the two visible wheels (rear wheel centered approximately x=325 y=628, front wheel x=1260 y=630, both radius approximately 113 pixels). Do not shift, zoom, tilt or recenter. Keep the two wheels in place and reveal detailed photoreal chassis rails, floorpan, suspension, powertrain and engine over the front axle on the RIGHT. Precise mechanical black and brushed metal surfaces with the same soft cool white studio strip lighting as the source. The rear wheel and front wheel remain fully round and equal in diameter; no angled perspective. Genuinely transparent background, no floor, no environment, no text, no logos, no floating exterior panels. This asset will be placed directly underneath the original image at matching coordinates."
+    }
+  ],
+  "implementation": {
+    "scene": "dist/blueprint-side-scene.js",
+    "styles": "dist/blueprint-side.css",
+    "duration_ms": 8200,
+    "derivatives": "Static component masks and cyan blueprint edges are rendered into image layers before playback; no live image convolution or moving clipping masks.",
+    "playback": "Direction 02 uses synchronized browser-native animations after decoding assets. UI progress updates separately. Directions 01 and 03 retain their artwork and timelines."
+  }
+}

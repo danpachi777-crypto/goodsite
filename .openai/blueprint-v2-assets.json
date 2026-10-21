@@ -1,0 +1,37 @@
+{
+  "direction": "02 / Blueprint",
+  "generation_tool": "Built-in image_gen (generate and reference-image edit)",
+  "assets": [
+    {
+      "path": "dist/images/blueprint-sedan-v2.webp",
+      "description": "Photographic completed sedan, with transparency",
+      "source": "exec-8a2da3de-e4be-43bd-a053-78264f2625b6.png",
+      "conversion": "WebP quality 92, alpha quality 100, original 1536 x 1024 dimensions"
+    },
+    {
+      "path": "dist/images/blueprint-chassis-v2.webp",
+      "description": "Matching exposed rolling chassis, with transparency",
+      "source": "exec-8d45694b-5454-41a5-9383-e99aa33f0172.png",
+      "conversion": "WebP quality 90, alpha quality 100, original 1536 x 1024 dimensions"
+    }
+  ],
+  "prompts": [
+    {
+      "mode": "generate",
+      "transparent_background": true,
+      "prompt": "Use case: product-mockup. Asset type: photorealistic transparent vehicle cutout for a cinematic automotive assembly animation on a dark navy blueprint stage. Generate ONE finished premium contemporary sports sedan, brandless, metallic titanium silver with a subtle cool blue cast, precise glossy clearcoat, dark glass, realistic brushed aluminum multi-spoke rims and detailed black rubber tires. Camera: low front three-quarter view, car's nose points to the RIGHT side of the image, left side of the car visible, lens 65mm, natural believable proportions, no exaggerated concept-car shapes. Full vehicle including all wheels completely inside frame, centered with generous transparent margins (about 8% left and right, 16% top, 12% bottom), landscape composition 1536x1024. The entire car is in sharp focus. Lighting: sophisticated automobile advertising photography; broad soft white strip-light reflections running along the bonnet, roof, side panels; subtle cyan rim light from the rear left, bright clean frontal edge highlights, rich dark undercarriage. Genuine photoreal materials and mechanical detail, not illustration, not cartoon, not vector art, no rendered UI. Headlamps have crisp thin LED elements but no exaggerated glow. Background must be genuinely transparent, no environment, no floor, no ground shadow, no checkerboard painted into the image. No text, no logos, no badges, no watermark, no license-plate lettering, no people. This is the final assembled car asset; keep every part attached and geometrically consistent."
+    },
+    {
+      "mode": "reference-image edit",
+      "reference": "Completed sedan from the first prompt",
+      "transparent_background": true,
+      "prompt": "Use case: precise-object-edit. Image 1 is the edit target and geometric reference for a matching automotive assembly-animation layer. Create a photoreal exposed rolling chassis of THIS EXACT sedan in the EXACT SAME camera angle, image dimensions, framing, overall position, perspective and wheel positions. Remove the entire exterior body shell, front bumper, bonnet/hood, all doors, roof, windows, fenders and trunk panel. Reveal believable detailed automotive structural floorpan, suspension, subframes, drivetrain, engine in the front-right engine bay and black structural frame beneath the removed bodywork. Keep the original four wheels, their size, perspective and exact screen positions, including the large near front wheel and smaller near rear wheel. Keep the same cool photographic studio lighting and high mechanical detail. Maintain a genuinely transparent background with no floor, no shadows or environment, no text or logos. This is a separate undercarriage layer that will be placed precisely UNDER the original car at identical image coordinates; do not zoom, recenter, rotate or reposition the vehicle. Photoreal engineering product photography, not blueprint drawing, not illustration. No floating exterior panels; exterior bodywork is absent."
+    }
+  ],
+  "implementation": {
+    "renderer": "dist/blueprint-scene.js",
+    "styles": "dist/blueprint.css",
+    "duration_ms": 8200,
+    "notes": "Photographic component masks, exposed chassis, cyan design outlines, perspective floor, reflection, dolly movement and headlamp lighting. Shared controls and directions 01 and 03 retained."
+  }
+}

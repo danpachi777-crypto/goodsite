@@ -221,19 +221,7 @@
     .replay:hover { color:#183d35; border-color:#183d35; }
     .intro { position:fixed; z-index:100; inset:0; visibility:hidden; pointer-events:none; overflow:hidden; background:linear-gradient(130deg,#fff,#f3f8f4); opacity:1; }
     .intro.active { visibility:visible; pointer-events:auto; }
-    .intro.opening { animation:softReveal .55s ease-in 2.6s forwards; }
-    .car-art { position:absolute; z-index:1; left:50%; top:49%; width:min(950px,90vw); height:auto; opacity:0; transform:translate3d(calc(-50% - 110vw),-50%,0); clip-path:inset(0 0 18% 0); will-change:transform,opacity,filter; }
-    .intro.opening .car-art { animation:carDrive 2.55s both; }
-    @keyframes carDrive {
-      0% { opacity:1; transform:translate3d(calc(-50% - 110vw),-50%,0) scale(.96); filter:blur(5px); }
-      35% { opacity:1; transform:translate3d(-50%,-50%,0) scale(1); filter:blur(0); }
-      51% { opacity:1; transform:translate3d(calc(-50% + 2vw),-50%,0) scale(1); filter:blur(0); }
-      86% { opacity:1; filter:blur(1px); }
-      100% { opacity:0; transform:translate3d(calc(-50% + 115vw),-50%,0) scale(1.05); filter:blur(8px); }
-    }
-    @keyframes softReveal { to { opacity:0; } }
     .skip { position:absolute; z-index:6; right:29px; bottom:25px; border:0; border-bottom:1px solid #648479; padding:8px 1px; background:none; color:#30554e; font-size:11px; font-weight:600; }
-    .intro.opening .skip { opacity:0; pointer-events:none; }
     .hero-ready .hero h1 { animation:titleArrive .8s cubic-bezier(.2,.7,.2,1) both; }
     .hero-ready .hero-sub { animation:titleArrive .8s cubic-bezier(.2,.7,.2,1) .12s both; }
     .hero-ready .hero-actions { animation:titleArrive .8s cubic-bezier(.2,.7,.2,1) .22s both; }
@@ -338,6 +326,9 @@
     }
   </style>
   <link rel="stylesheet" href="refresh-light.css">
+  <link rel="stylesheet" href="opening.css">
+  <link rel="stylesheet" href="blueprint.css">
+  <link rel="stylesheet" href="blueprint-side.css">
 </head>
 <body data-map-address="">
   <header class="header" id="header">
@@ -358,7 +349,7 @@
         <p class="hero-sub">音、振動、乗り心地。いつもと違うことを聞き、<br>車の状態と必要な作業を一つずつ確かめます。</p>
         <div class="hero-actions"><a class="action-link" href="#phone">電話で相談 <span class="arrow">↗</span></a><button class="action-link booking-trigger" type="button">予約希望を送る <span class="arrow" aria-hidden="true">↗</span></button></div>
       </div>
-      <div class="hero-foot"><div class="container"><span>下へスクロール ↓</span><span class="hero-foot-right"><span class="concept">※ 写真は生成したコンセプトイメージです</span><button class="replay" type="button" id="replay">↺ オープニングを再生</button></span></div></div>
+      <div class="hero-foot"><div class="container"><span>下へスクロール ↓</span><span class="hero-foot-right"><span class="concept">※ 写真は生成したコンセプトイメージです</span><a class="opening-compare" href="openings.html">3つの演出を見比べる ↗</a><button class="replay" type="button" id="replay">↺ オープニングを再生</button></span></div></div>
     </section>
     <section class="quick-topics" aria-label="ご相談いただける内容">
       <div class="container quick-topics-layout">
@@ -518,10 +509,13 @@
       </div>
     </div>
   </dialog>
-  <div class="intro active" id="intro" aria-label="車が左から現れて右へ走り抜け、工場の写真が現れるオープニングアニメーション">
-    <img class="car-art" src="images/sedan-design-sketch-v10.png" alt="細部まで描かれたセダンのデザインスケッチ">
+  <div class="intro" id="intro" aria-hidden="true" aria-label="部品が集まり、美しい車が完成するオープニングアニメーション">
+    <div class="assembly-host" id="opening-host" aria-hidden="true"></div>
     <button class="skip" type="button" id="skip">スキップ →</button>
   </div>
+  <script src="blueprint-side-assets.js"></script>
+  <script src="blueprint-side-scene.js"></script>
+  <script src="opening-engine.js"></script>
   <script>
     document.documentElement.classList.add('js');
     const intro = document.getElementById('intro');
@@ -544,28 +538,46 @@
       mapLink.hidden = false;
       document.getElementById('company-address').textContent = mapAddress;
     }
-    let startTimer, finishTimer;
+    let introFade, openingEngine;
+    const openingBackground = [...document.body.children].filter(el => ['HEADER','MAIN','FOOTER'].includes(el.tagName));
+    const openingParam = new URLSearchParams(location.search).get('opening');
+    const openingVariant = window.carOpeningVariants && Object.hasOwn(window.carOpeningVariants, openingParam) ? openingParam : 'atelier';
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    function revealSite() {
+      if (!intro.classList.contains('active')) return;
+      introFade = intro.animate([{ opacity:1 },{ opacity:0 }], { duration:650, easing:'ease-in-out', fill:'forwards' });
+      introFade.finished.then(finishIntro).catch(() => {});
+    }
     function finishIntro() {
-      clearTimeout(startTimer); clearTimeout(finishTimer);
+      if (openingEngine) openingEngine.stop();
+      if (introFade) { introFade.cancel(); introFade = null; }
       intro.classList.remove('active','opening');
       intro.setAttribute('aria-hidden','true');
+      intro.inert = true;
+      openingBackground.forEach(el => { el.inert = false; });
+      document.body.classList.remove('opening-playing');
       document.body.classList.add('hero-ready');
       replay.classList.add('show');
+      if (document.activeElement === skip) replay.focus({ preventScroll:true });
     }
     function playIntro() {
-      if (reducedMotion.matches) { finishIntro(); return; }
-      clearTimeout(startTimer); clearTimeout(finishTimer);
+      if (reducedMotion.matches || !window.CarOpening) { finishIntro(); return; }
+      if (introFade) { introFade.cancel(); introFade = null; }
+      if (!openingEngine) openingEngine = new window.CarOpening(document.getElementById('opening-host'), { variant:openingVariant, onFinish:revealSite });
       replay.classList.remove('show');
       document.body.classList.remove('hero-ready');
-      intro.classList.remove('opening');
-      intro.classList.add('active');
+      document.body.classList.add('opening-playing');
+      intro.classList.add('active','opening');
+      intro.dataset.variant = openingVariant;
+      intro.inert = false;
+      openingBackground.forEach(el => { el.inert = true; });
       intro.removeAttribute('aria-hidden');
-      void intro.offsetWidth;
-      startTimer = setTimeout(() => intro.classList.add('opening'), 170);
-      finishTimer = setTimeout(finishIntro, 3400);
+      skip.focus({ preventScroll:true });
+      openingEngine.play();
     }
     skip.addEventListener('click', finishIntro);
+    intro.addEventListener('keydown', event => { if (event.key === 'Escape') finishIntro(); });
+    reducedMotion.addEventListener('change', () => { if (reducedMotion.matches) finishIntro(); });
     replay.addEventListener('click', playIntro);
     menuToggle.addEventListener('click', () => {
       const open = nav.classList.toggle('open');
