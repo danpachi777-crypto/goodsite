@@ -19,8 +19,7 @@
     img { display:block; max-width:100%; }
     .container { width:min(1240px,calc(100% - 80px)); margin-inline:auto; }
     .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
-    .kicker { display:flex; align-items:center; gap:12px; color:var(--green); font:600 12px "Manrope",sans-serif; letter-spacing:.23em; }
-    .kicker::before { content:""; width:26px; height:1px; background:currentColor; }
+    .kicker { color:var(--green); font:600 12px "Manrope",sans-serif; letter-spacing:.23em; }
     .header { position:fixed; z-index:30; inset:0 0 auto; background:#ffffffed; border-bottom:1px solid #dce7e2a6; backdrop-filter:blur(16px); transition:box-shadow .3s; }
     .header.scrolled { box-shadow:0 10px 26px #284e4310; }
     .header-inner { display:flex; align-items:center; justify-content:space-between; min-height:78px; gap:25px; }
@@ -62,7 +61,7 @@
     .intro-grid { display:grid; grid-template-columns:1fr .9fr; gap:9%; align-items:end; }
     .intro-copy h2 { margin:34px 0 0; font-size:clamp(36px,4.7vw,67px); line-height:1.52; font-weight:500; letter-spacing:-.07em; }
     .intro-copy h2 em { color:var(--green); font-style:normal; }
-    .intro-text { margin-bottom:7px; padding:0 0 0 39px; border-left:1px solid #a8c9b8; }
+    .intro-text { margin-bottom:7px; }
     .intro-text p { margin:0; color:var(--soft); font-size:15px; line-height:2.25; }
     .text-link { display:inline-flex; align-items:center; gap:38px; margin-top:27px; padding:8px 0 12px; border-bottom:1px solid #94b3a5; color:var(--green-deep); font-size:13px; font-weight:600; text-decoration:none; transition:gap .3s,color .3s; }
     .text-link:hover { gap:49px; color:#173d35; }
@@ -329,6 +328,7 @@
   <link rel="stylesheet" href="opening.css">
   <link rel="stylesheet" href="blueprint.css">
   <link rel="stylesheet" href="blueprint-side.css">
+  <link rel="stylesheet" href="atelier.css">
 </head>
 <body data-map-address="">
   <header class="header" id="header">
@@ -353,7 +353,7 @@
     </section>
     <section class="quick-topics" aria-label="ご相談いただける内容">
       <div class="container quick-topics-layout">
-        <div class="quick-topics-heading reveal"><h2>何が気になるか、<br>言葉にならなくても。</h2><p>症状、点検の時期、費用のこと。分かるところからお聞かせください。</p></div>
+        <div class="quick-topics-heading reveal"><h2>何が気になるか、<br>言葉にならなくても。</h2></div>
         <div class="quick-topics-list">
           <a class="reveal" href="#services"><span class="topic-number" aria-hidden="true">01</span><span><strong>点検・整備</strong><small>車検の時期や、日常点検について</small></span><span class="quick-arrow" aria-hidden="true">→</span></a>
           <a class="reveal" href="#services"><span class="topic-number" aria-hidden="true">02</span><span><strong>車の不調の相談</strong><small>異音・振動・走りの変化について</small></span><span class="quick-arrow" aria-hidden="true">→</span></a>
@@ -469,7 +469,7 @@
           <div><dt>定休日</dt><dd>掲載準備中</dd></div>
         </dl>
       </div>
-      <div class="footer-bottom"><div><strong>AUTO SERVICE</strong><p>自動車整備工場ホームページ｜デザイン・動作確認用デモ</p></div><a href="#top">ページの先頭へ ↑</a></div>
+      <div class="footer-bottom"><div><strong>AUTO SERVICE</strong><p>自動車整備工場ホームページ｜デザイン・動作確認用デモ · <a href="credits.html">素材クレジット</a></p></div><a href="#top">ページの先頭へ ↑</a></div>
     </div>
   </footer>
   <dialog class="case-dialog" id="case-dialog" aria-labelledby="dialog-title"><button class="dialog-close" type="button" id="dialog-close" aria-label="閉じる">×</button><div class="dialog-content"><h3 id="dialog-title"></h3><p id="dialog-description"></p><p>※ デザイン確認用のイメージです。</p></div></dialog>
@@ -515,6 +515,9 @@
   </div>
   <script src="blueprint-side-assets.js"></script>
   <script src="blueprint-side-scene.js"></script>
+  <script src="atelier-assets.js"></script>
+  <script src="atelier-scene.js"></script>
+  <script src="atelier-3d.js"></script>
   <script src="opening-engine.js"></script>
   <script>
     document.documentElement.classList.add('js');
@@ -545,7 +548,7 @@
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     function revealSite() {
       if (!intro.classList.contains('active')) return;
-      introFade = intro.animate([{ opacity:1 },{ opacity:0 }], { duration:650, easing:'ease-in-out', fill:'forwards' });
+      introFade = intro.animate([{ opacity:1 },{ opacity:0 }], { duration:openingVariant === 'atelier' ? 250 : 650, easing:'ease-in-out', fill:'forwards' });
       introFade.finished.then(finishIntro).catch(() => {});
     }
     function finishIntro() {

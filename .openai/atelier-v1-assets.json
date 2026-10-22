@@ -1,0 +1,29 @@
+{
+  "direction": "01 / Atelier — photographic side-elevation car",
+  "generation_tool": "Built-in image_gen reference-image edit",
+  "assets": {
+    "manifest": "dist/atelier-assets.js",
+    "photo": "dist/images/atelier-sedan-v1.webp",
+    "outline": "dist/images/atelier-outline-v1.webp",
+    "components": [
+      "dist/images/atelier-chassis-v2.webp",
+      "dist/images/atelier-engine-v2.webp",
+      "dist/images/atelier-interior-v3.webp",
+      "dist/images/atelier-body-v2.webp",
+      "dist/images/atelier-roof-v1.webp",
+      "dist/images/atelier-glass-v1.webp",
+      "dist/images/atelier-door-v1.webp",
+      "dist/images/atelier-rearWheel-v1.webp",
+      "dist/images/atelier-frontWheel-v1.webp",
+      "dist/images/atelier-trim-v1.webp"
+    ]
+  },
+  "prompt": "Use case: precise-object-edit. Asset type: clean photorealistic automobile cutout for a bright ivory atelier web animation. Image 1 is the edit target and exact geometric reference. Keep this sedan's PERFECT RIGHT-FACING SIDE ELEVATION, shape, size, wheel geometry and screen position exactly unchanged on a 1536x1024 canvas. The visible wheels are equal-size circles centered about (325,628) and (1260,628), radius about 114. Change only paint and lighting: elegant pale desaturated sage-green metallic paint with a subtle silver finish, soft neutral daylight studio illumination, believable paint microtexture, beautifully controlled white strip-light reflections, realistic dark window reflections, precise polished alloy wheel details, natural rubber tire texture. Match a light ivory and pale sage design palette. The result must look like a real premium sedan product photograph, not vector art, not an illustration, not a cartoon. CRITICAL background extraction: remove ALL surrounding backdrop, gray glow, black halo, blue halo, fog, cast shadow, floor and reflections outside the vehicle. Only the vehicle itself remains against a genuinely completely transparent background, with tightly clean edges and zero backdrop haze. Do not add environment or a ground plane. Preserve image dimensions and vehicle coordinates exactly. No logos, no text, no watermark, no license lettering. Keep the entire vehicle visible with the same framing.",
+  "reused_source": "dist/images/blueprint-side-chassis-v3.webp (used to prepare chassis and engine layers; direction 02 is unchanged)",
+  "implementation": {
+    "scene": "dist/atelier-scene.js",
+    "styles": "dist/atelier.css",
+    "duration_ms": 3000,
+    "notes": "Three-second original arrival sequence and start times retained. Mechanically guided two-stage fitting: engine and complete cabin lower vertically, wheels approach axially without spinning, shell and roof seat vertically, front and rear doors close separately on hinges, trim fits horizontally. A retained mechanical base is occluded by the shell silhouette when seated; small assembly stands retract after both wheels settle. Parts remain solid after 120ms entrances. The finished photograph blends in after all components settle. Native synchronized playback and other two directions unchanged."
+  }
+}

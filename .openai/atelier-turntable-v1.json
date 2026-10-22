@@ -1,0 +1,19 @@
+{
+  "direction": "01 / Atelier / rotating 3D assembly",
+  "source_code": "src/atelier-3d.js",
+  "bundle": "dist/atelier-3d.js",
+  "model": {
+    "path": "dist/models/atelier-car-v1.glb",
+    "bytes": 719712,
+    "source": "https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/CarConcept",
+    "author": "Darmstadt Graphics Group GmbH / Eric Chadwick; based on Unity Fan's public-domain concept car",
+    "license": "CC-BY-4.0",
+    "changes": "Removed textures and logo artwork, compressed geometry with Draco (position 14 bits, normal 10 bits), retained part hierarchy and pivots, recolored materials for the Atelier palette. Added deterministic assembly, rotation, lighting and shadow animation.",
+    "credits": "dist/credits.html"
+  },
+  "duration_ms": 3000,
+  "rotation_degrees": 147.6,
+  "rotation_end_ms": 2880,
+  "last_fitting_end_ms": 2550,
+  "notes": "Engine, cabin and roof descend into place; wheels fit along their axles; doors and hood use the model's pivots. Original part start order is retained. The entire assembly turns continuously, ending in a side view. Camera initially leaves headroom for raised parts, then approaches the completed vehicle. Three.js is bundled locally and all model/decoder files are local. Shared engine time drives drawing on each animation frame, including deterministic seeking; rendering stops on pause/completion. Loading and shader compilation precede playback. Switching scenes disposes GPU resources. The existing photographic assembly remains the fallback when WebGL or model loading is unavailable. Directions 02 and 03 retain their original artwork and timing. No new AI images were generated for this revision."
+}

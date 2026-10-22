@@ -50,8 +50,7 @@ h1 { font-size:clamp(28px,3vw,44px); line-height:1.45; letter-spacing:-.045em; m
 .variant-english { display:block; color:#8a9280; font-size:7px; letter-spacing:.14em; margin-top:7px; }
 .variant-description { display:block; font-size:10px; line-height:1.9; color:#7b8272; margin-top:13px; }
 .variant-tags { display:flex; align-items:center; gap:7px; margin-top:12px; font-size:8px; color:#6e7e60; }
-.swatch { display:inline-block; width:16px; height:5px; border-radius:1px; }
-.atelier-swatch { background:#c5d2b8; }.blueprint-swatch { background:#527d91; }.orbit-swatch { background:#355c4d; }
+.swatch { display:none; }
 .variant-check { position:absolute; top:18px; right:16px; color:#9ba88d; font-size:16px; opacity:0; }.selected .variant-check { opacity:1; }
 .try-opening { min-height:53px; padding:0 19px; margin-top:20px; display:flex; justify-content:space-between; align-items:center; background:#354c37; border:1px solid #354c37; color:#f3f5eb; border-radius:3px; font-size:11px; transition:background .2s; }
 .try-opening:hover { background:#4a6449; }

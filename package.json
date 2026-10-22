@@ -1,0 +1,13 @@
+{
+  "name": "goodsite",
+  "private": true,
+  "scripts": {
+    "build": "esbuild src/atelier-3d.js --bundle --minify --format=iife --target=es2020 --outfile=dist/atelier-3d.js --legal-comments=linked"
+  },
+  "dependencies": {
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

@@ -1,0 +1,28 @@
+.assembly-scene[data-variant="atelier"] .assembly-art.at-art { top:55%; left:50%; width:90%; max-width:1180px; transform:translate(-50%,-50%); }
+.at-stage { position:relative; width:100%; aspect-ratio:3/2; color:#56796a; }
+.at-webgl { position:absolute; inset:0; display:block; width:100%; height:100%; pointer-events:none; }
+.at-stage:not(.at-3d-ready) .at-webgl { visibility:hidden; }
+.at-3d-ready>.at-shadow,.at-3d-ready>.at-fixtures,.at-3d-ready>.at-car { visibility:hidden; }
+.at-car,.at-parts,.at-mechanics,.at-full-layer { position:absolute; inset:0; width:100%; height:100%; }
+.at-stage img { display:block; pointer-events:none; user-select:none; }
+.at-part { position:absolute; transform-origin:center; backface-visibility:hidden; opacity:0; }
+.at-part>img { width:100%; height:100%; }
+.at-door-leaf,.at-door-leaf>img { position:absolute; inset:0; width:100%; height:100%; }
+.at-door-rear { clip-path:polygon(0 0,45.2% 0,49.5% 100%,0 100%); transform-origin:45.2% 4%; }
+.at-door-front { clip-path:polygon(45.2% 0,100% 0,100% 100%,49.5% 100%); transform-origin:99% 4%; }
+.at-fixtures { position:absolute; inset:0; width:100%; height:100%; opacity:0; }
+.at-finished { opacity:0; }
+.at-shadow { position:absolute; left:3%; top:71%; width:94%; height:6%; border-radius:50%; background:radial-gradient(ellipse,#25453633,transparent 70%); transform-origin:center; }
+.assembly-scene[data-variant="atelier"][data-playback="playing"] .at-part,
+.assembly-scene[data-variant="atelier"][data-playback="playing"] .at-full-layer,
+.assembly-scene[data-variant="atelier"][data-playback="playing"] .at-door-leaf,
+.assembly-scene[data-variant="atelier"][data-playback="loading"] .at-part,
+.assembly-scene[data-variant="atelier"][data-playback="loading"] .at-door-leaf,
+.assembly-scene[data-variant="atelier"][data-playback="loading"] .at-full-layer { will-change:transform,opacity; }
+.intro .assembly-scene[data-variant="atelier"] .assembly-art.at-art { top:55%; width:min(95%,1250px); }
+@media(max-width:600px) {
+  .assembly-scene[data-variant="atelier"] .assembly-art.at-art { top:57%; width:100%; }
+  .intro .assembly-scene[data-variant="atelier"] .assembly-art.at-art { top:54%; width:100%; }
+}
+@media(min-aspect-ratio:2/1) { .intro .assembly-scene[data-variant="atelier"] .assembly-art.at-art { top:54%; width:min(72%,1080px); } }
+@media(prefers-reduced-motion:reduce) { .at-stage,.at-stage * { will-change:auto!important; } }

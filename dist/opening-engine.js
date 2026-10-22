@@ -2,7 +2,7 @@
 (() => {
   'use strict';
   const variants = {
-    atelier: { number:'01', name:'アトリエ', english:'THE ATELIER', line:'ひとつひとつに、技術を。', steps:['部品を揃える','骨格を組む','ボディを仕上げる','走り出す準備ができました'], duration:6600 },
+    atelier: { number:'01', name:'アトリエ', english:'THE ATELIER', line:'ひとつひとつに、技術を。', steps:['部品を揃える','骨格を組む','ボディを仕上げる','走り出す準備ができました'], duration:3000 },
     blueprint: { number:'02', name:'ブループリント', english:'FROM THE BLUEPRINT', line:'精密さが、現実になる。', steps:['設計線が、空間に浮かぶ','構造が、動き出す','ひとつずつ、美しさに変わる','この一台を、次の走りへ。'], duration:8200 },
     orbit: { number:'03', name:'オービット', english:'EVERY PART, ONE PURPOSE', line:'すべての部品が、ひとつになる。', steps:['動き出すパーツ','引き寄せる技術','ひとつの美しさへ','走り出す準備ができました'], duration:6800 }
   };
@@ -76,27 +76,37 @@
       this.setVariant(this.variant);
     }
     get duration() { return variants[this.variant].duration; }
+    get sceneRenderer() {
+      if (this.variant === 'atelier') return window.AtelierScene;
+      if (this.variant === 'blueprint') return window.BlueprintScene;
+      return null;
+    }
     setVariant(variant) {
       this.stop();
+      this.sceneRenderer?.unmount?.(this);
       this.variant = Object.hasOwn(variants,variant) ? variant : 'atelier';
       const config = variants[this.variant];
       this.scene.dataset.variant = this.variant;
       this.scene.querySelector('.scene-edition').textContent = `${config.number} / ASSEMBLY STUDY`;
       this.scene.querySelector('.scene-eyebrow').textContent = config.english;
       this.scene.querySelector('.scene-title').textContent = config.line;
-      const photographic = this.variant === 'blueprint' && window.BlueprintScene;
+      const photographic = this.sceneRenderer;
       this.scene.querySelector('.bp-environment')?.remove();
-      this.artHost.classList.toggle('bp-art',!!photographic);
+      this.artHost.classList.toggle('bp-art',!!photographic && this.variant === 'blueprint');
+      this.artHost.classList.toggle('at-art',!!photographic && this.variant === 'atelier');
       if (photographic) {
-        const environment = document.createElement('div');
-        environment.className = 'bp-environment';
-        environment.setAttribute('aria-hidden','true');
-        environment.innerHTML = window.BlueprintScene.environment;
-        this.scene.prepend(environment);
-        this.artHost.innerHTML = window.BlueprintScene.artwork('bp' + ++instance);
+        if (photographic.environment) {
+          const environment = document.createElement('div');
+          environment.className = 'bp-environment';
+          environment.setAttribute('aria-hidden','true');
+          environment.innerHTML = photographic.environment;
+          this.scene.prepend(environment);
+        }
+        this.artHost.innerHTML = photographic.artwork('photo' + ++instance);
       } else {
         this.artHost.innerHTML = artwork('car' + ++instance);
       }
+      this.sceneRenderer?.mount?.(this);
       this.buildTimeline();
       this.seek(0);
     }
@@ -111,8 +121,8 @@
     buildTimeline() {
       this.animations.forEach(a => a.cancel());
       this.animations = [];
-      if (this.variant === 'blueprint' && window.BlueprintScene) {
-        window.BlueprintScene.timeline(this);
+      if (this.sceneRenderer) {
+        this.sceneRenderer.timeline(this);
         return;
       }
       const blueprint = this.variant === 'blueprint';
@@ -170,11 +180,13 @@
       }
     }
     render() {
-      // During 02 playback, the document timeline drives the image layers directly.
+      this.sceneRenderer?.update?.(this,this.time);
+      // During photographic playback, the document timeline drives image layers directly.
       // Only explicit seeking/pausing writes their time from JavaScript.
       if (!this.nativePlayback || this.state !== 'playing') this.animations.forEach(a => { a.currentTime = this.time; });
-      if (this.variant === 'blueprint') this.scene.dataset.playback = this.state;
-      else delete this.scene.dataset.playback;
+      if (this.sceneRenderer) {
+        if (this.scene.dataset.playback !== this.state) this.scene.dataset.playback = this.state;
+      } else if (this.scene.hasAttribute('data-playback')) delete this.scene.dataset.playback;
       const ratio = Math.min(1, this.time / this.duration);
       const step = ratio < .17 ? 0 : ratio < .47 ? 1 : ratio < .77 ? 2 : 3;
       const label = variants[this.variant].steps[step];
@@ -197,7 +209,7 @@
         if (!this.nativePlayback || now-this.lastUiUpdate >= 1000/30) {
           this.render();
           this.lastUiUpdate = now;
-        }
+        } else this.sceneRenderer?.update?.(this,this.time);
         this.frame = requestAnimationFrame(t => this.tick(t));
       }
     }
@@ -207,18 +219,19 @@
       this.nativePlayback = false;
       const request = ++this.playRequest;
       if (restart || this.time >= this.duration) this.time = 0;
-      if (this.reducedMotion.matches) {
-        this.state = 'finished'; this.time = this.duration; this.render(); this.onFinish(); return;
-      }
-      const photographic = this.variant === 'blueprint' && window.BlueprintScene;
+      const photographic = this.sceneRenderer;
       const timelineTime = document.timeline?.currentTime;
-      if (photographic && typeof timelineTime === 'number' && window.BlueprintScene.prepare && !window.BlueprintScene.isReady) {
+      const prepared=photographic?.isPrepared ? photographic.isPrepared(this) : photographic?.isReady;
+      if (photographic && typeof timelineTime === 'number' && photographic.prepare && !prepared) {
         this.state = 'loading';
         this.render();
-        window.BlueprintScene.prepare().then(() => {
+        photographic.prepare(this).then(() => {
           if (this.playRequest === request && this.state === 'loading') this.play(false);
         });
         return;
+      }
+      if (this.reducedMotion.matches) {
+        this.state = 'finished'; this.time = this.duration; this.render(); this.onFinish(); return;
       }
       this.nativePlayback = !!photographic && typeof timelineTime === 'number';
       this.animations.forEach(a => {
@@ -258,9 +271,9 @@
       this.animations.forEach(a => a.pause());
       this.nativePlayback = false;
       this.state = 'idle';
-      if (this.variant === 'blueprint' && this.scene) this.scene.dataset.playback = 'idle';
+      if (this.sceneRenderer && this.scene) this.scene.dataset.playback = 'idle';
     }
-    destroy() { this.stop(); this.animations.forEach(a => a.cancel()); this.reducedMotion.removeEventListener('change',this.motionChange); this.host.replaceChildren(); }
+    destroy() { this.stop(); this.sceneRenderer?.unmount?.(this); this.animations.forEach(a => a.cancel()); this.reducedMotion.removeEventListener('change',this.motionChange); this.host.replaceChildren(); }
   }
   window.CarOpening = CarOpening;
   window.carOpeningVariants = variants;

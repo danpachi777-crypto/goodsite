@@ -3,6 +3,7 @@
   const stage = document.getElementById('preview-stage');
   const timeline = document.getElementById('timeline');
   const toggle = document.getElementById('play-toggle');
+  const timecode = document.getElementById('timecode');
   const cards = [...document.querySelectorAll('.variant-card')];
   const params = new URLSearchParams(location.search);
   const variant = Object.hasOwn(carOpeningVariants,params.get('opening')) ? params.get('opening') : 'atelier';
@@ -13,10 +14,14 @@
     onUpdate({time,duration,progress,state}) {
       if (!scrubbing) timeline.value = String(time);
       timeline.style.setProperty('--played',`${progress*100}%`);
-      timeline.setAttribute('aria-valuetext',`${(time/1000).toFixed(1)}秒 / ${(duration/1000).toFixed(1)}秒`);
-      document.getElementById('timecode').textContent = `${(time/1000).toFixed(1)} / ${(duration/1000).toFixed(1)}`;
-      toggle.textContent = state === 'playing' ? 'Ⅱ' : '▷';
-      toggle.setAttribute('aria-label',state === 'playing' ? '一時停止' : '再生');
+      const readableTime=`${(time/1000).toFixed(1)}秒 / ${(duration/1000).toFixed(1)}秒`;
+      if (timeline.getAttribute('aria-valuetext') !== readableTime) timeline.setAttribute('aria-valuetext',readableTime);
+      const displayedTime=`${(time/1000).toFixed(1)} / ${(duration/1000).toFixed(1)}`;
+      if (timecode.textContent !== displayedTime) timecode.textContent=displayedTime;
+      const symbol=state === 'playing' ? 'Ⅱ' : '▷';
+      if (toggle.textContent !== symbol) toggle.textContent=symbol;
+      const label=state === 'playing' ? '一時停止' : '再生';
+      if (toggle.getAttribute('aria-label') !== label) toggle.setAttribute('aria-label',label);
     }
   });
   function selectVariant(key, updateUrl = true) {

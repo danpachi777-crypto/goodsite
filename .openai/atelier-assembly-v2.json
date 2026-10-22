@@ -1,0 +1,8 @@
+{
+  "tool": "Built-in image_gen",
+  "use_case": "precise-object-edit",
+  "source": "dist/images/atelier-sedan-v1.webp",
+  "asset": "dist/images/atelier-interior-v3.webp",
+  "preparation": "Cropped to left=345, top=290, width=1010, height=385; resized to 670x285, positioned x=400,y=343. Alpha preserved. WebP quality 93.",
+  "prompt": "Use case: precise-object-edit. Asset type: transparent photorealistic cabin assembly insert for a side-view car animation. Image 1 is the alignment reference. Create ONLY the exposed interior assembly from this sedan, removing all exterior body panels, roof, pillars, windows, wheels, chassis and engine. Show two rows of realistic dark charcoal leather seats with complete seat cushions, backs and headrests, a low dark center console, compact dashboard and steering wheel on the RIGHT/front. Keep the exact perfectly side-on right-facing elevation, same 1536x1024 canvas and original alignment. Interior should occupy approximately x=410..1060,y=344..630: rear seating at x=480..640, front seat back and headrest at x=740..820, front seat cushion extending to x=915, dashboard and steering wheel at x=960..1050. The seat tops stay under y=344 and bases above y=630; no front-facing or three-quarter camera. Solid opaque realistic seats with material detail, not ghost outlines, not an X-ray image. Soft daylight studio lighting matching the reference. Everything except these seats and dashboard is genuinely transparent, including the empty space around and between components. No surrounding gray haze, no floor, no reflection, no shadow, no logos, no text, no watermark. Preserve the reference canvas and placement: do not zoom in or center the seats in the canvas."
+}
