@@ -1,0 +1,2 @@
+# The generated bundle contains upstream GLSL template strings with trailing spaces.
+dist/atelier-3d.js whitespace=-blank-at-eol linguist-generated=true
